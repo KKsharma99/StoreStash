@@ -5,6 +5,7 @@ Important Commands:
 curl -OL https://downloads.mongodb.org/osx/mongodb-shell-macos-x86_64-4.2.3.tgz
 tar -xvf mongodb-shell-macos-x86_64-4.2.3.tgz
 cd mongodb-macos-x86_64-4.2.3/bin
+./mongo "mongodb+srv://cluster0-pcgl1.mongodb.net/test"  --username <username>
 ```
 
 Create a MongoDB database, perhaps on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas). Remember to whitelist your connection IP address. Copy `.env.example` into a new `.env` file and replace the MongoDB <password> in `MONGODB_URI` with your actual one.
