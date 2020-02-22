@@ -2,6 +2,9 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 import mongoose from "mongoose";
 import { createSchema, Type, typedModel, ExtractDoc } from "ts-mongoose";
+import { ListingSchema } from "./Listing";
+import { TransactionSchema } from "./Transaction";
+
 type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
 
 export interface AuthToken {
@@ -9,7 +12,7 @@ export interface AuthToken {
     kind: string;
 }
 
-const UserSchema = createSchema({
+export const UserSchema = createSchema({
     email: Type.string({ unique: true }),
     password: Type.string(),
     passwordResetToken: Type.string(),
@@ -25,7 +28,7 @@ const UserSchema = createSchema({
         gender: Type.string(),
         location: Type.string(),
         website: Type.string(),
-        picture: Type.string()
+        picture: Type.string(),
     },
 
     ...({} as {
@@ -33,6 +36,12 @@ const UserSchema = createSchema({
         gravatar: (size: number) => string;
     })
 }, { timestamps: true });
+
+// Workaround for https://github.com/BetterCallSky/ts-mongoose/issues/35
+UserSchema.add(createSchema({
+    listings: Type.array().of(Type.ref(Type.objectId()).to("Listing", ListingSchema)),
+    transactions: Type.array().of(Type.ref(Type.objectId()).to("Transaction", TransactionSchema))
+}));
 
 export type UserDocument = ExtractDoc<typeof UserSchema>
 
