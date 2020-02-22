@@ -1,29 +1,7 @@
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import mongoose from "mongoose";
-import { createSchema, Type, typedModel } from "ts-mongoose";
-
-export type UserDocument = mongoose.Document & {
-    email: string;
-    password: string;
-    passwordResetToken: string;
-    passwordResetExpires: Date;
-
-    facebook: string;
-    tokens: AuthToken[];
-
-    profile: {
-        name: string;
-        gender: string;
-        location: string;
-        website: string;
-        picture: string;
-    };
-
-    comparePassword: comparePasswordFunction;
-    gravatar: (size: number) => string;
-};
-
+import { createSchema, Type, typedModel, ExtractDoc } from "ts-mongoose";
 type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
 
 export interface AuthToken {
@@ -31,30 +9,37 @@ export interface AuthToken {
     kind: string;
 }
 
-const userSchema = new mongoose.Schema({
-    email: { type: String, unique: true },
-    password: String,
-    passwordResetToken: String,
-    passwordResetExpires: Date,
+const UserSchema = createSchema({
+    email: Type.string({ unique: true }),
+    password: Type.string(),
+    passwordResetToken: Type.string(),
+    passwordResetExpires: Type.date(),
 
-    facebook: String,
-    twitter: String,
-    google: String,
-    tokens: Array,
+    facebook: Type.string(),
+    twitter: Type.string(),
+    google: Type.string(),
+    tokens: Type.array(), // array of AuthToken
 
     profile: {
-        name: String,
-        gender: String,
-        location: String,
-        website: String,
-        picture: String
-    }
+        name: Type.string(),
+        gender: Type.string(),
+        location: Type.string(),
+        website: Type.string(),
+        picture: Type.string()
+    },
+
+    ...({} as {
+        comparePassword: comparePasswordFunction;
+        gravatar: (size: number) => string;
+    })
 }, { timestamps: true });
+
+export type UserDocument = ExtractDoc<typeof UserSchema>
 
 /**
  * Password hash middleware.
  */
-userSchema.pre("save", function save(next) {
+UserSchema.pre("save", function save(next) {
     const user = this as UserDocument;
     if (!user.isModified("password")) { return next(); }
     bcrypt.genSalt(10, (err, salt) => {
@@ -73,12 +58,12 @@ const comparePassword: comparePasswordFunction = function (candidatePassword, cb
     });
 };
 
-userSchema.methods.comparePassword = comparePassword;
+UserSchema.methods.comparePassword = comparePassword;
 
 /**
  * Helper method for getting user's gravatar.
  */
-userSchema.methods.gravatar = function (size: number = 200) {
+UserSchema.methods.gravatar = function (size: number = 200) {
     if (!this.email) {
         return `https://gravatar.com/avatar/?s=${size}&d=retro`;
     }
@@ -86,4 +71,4 @@ userSchema.methods.gravatar = function (size: number = 200) {
     return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
 };
 
-export const User = mongoose.model<UserDocument>("User", userSchema);
+export const User = typedModel("User", UserSchema);
