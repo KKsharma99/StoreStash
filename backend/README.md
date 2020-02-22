@@ -1,5 +1,19 @@
 # StoreStash backend
 
+Create a MongoDB database, perhaps on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas). Remember to whitelist your connection IP address. Copy `.env.example` into a new `.env` file and replace the MongoDB <password> in `MONGODB_URI` with your actual one.
+
+Then, to start the server locally, run
+
+```
+npm install
+npm run build
+npm start
+```
+
+In production, if you end up using cookies, you should change the `SESSION_SECRET` environment variable.
+
+## MongoDB info
+
 Important Commands:
 *Connect with Mongo Shell*
 ```
@@ -20,18 +34,6 @@ client.connect(err => {
   client.close();
 });
 ```
-
-Create a MongoDB database, perhaps on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas). Remember to whitelist your connection IP address. Copy `.env.example` into a new `.env` file and replace the MongoDB <password> in `MONGODB_URI` with your actual one.
-
-Then, to start the server locally, run
-
-```
-npm install
-npm run build
-npm start
-```
-
-In production, if you end up using cookies, you should change the `SESSION_SECRET` environment variable.
 
 # Table of contents:
 
