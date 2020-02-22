@@ -588,5 +588,9 @@ To install or update these dependencies you can use `npm install` or `npm update
 A majority of this quick start's content was inspired or adapted from Sahat's excellent [Hackathon Starter project](https://github.com/sahat/hackathon-starter).
 
 ## License
+The TypeScript Node Starter falls under the following copyright:
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the [MIT](LICENSE.txt) License.
+
+Otherwise,  
+Copyright (c) Gabriel Wilson, Kunal Sharma, and Michael Chen. All rights reserved.

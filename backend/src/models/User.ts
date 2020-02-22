@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import mongoose from "mongoose";
+import { createSchema, Type, typedModel } from "ts-mongoose";
 
 export type UserDocument = mongoose.Document & {
     email: string;
