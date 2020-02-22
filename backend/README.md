@@ -1,5 +1,19 @@
 # StoreStash backend
 
+Create a MongoDB database, perhaps on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas). Remember to whitelist your connection IP address. Copy `.env.example` into a new `.env` file and replace the MongoDB <password> in `MONGODB_URI` with your actual one.
+
+Then, to start the server locally, run
+
+```
+npm install
+npm run build
+npm start
+```
+
+In production, if you end up using cookies, you should change the `SESSION_SECRET` environment variable.
+
+## MongoDB info
+
 Important Commands:
 *Connect with Mongo Shell*
 ```
@@ -20,18 +34,6 @@ client.connect(err => {
   client.close();
 });
 ```
-
-Create a MongoDB database, perhaps on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas). Remember to whitelist your connection IP address. Copy `.env.example` into a new `.env` file and replace the MongoDB <password> in `MONGODB_URI` with your actual one.
-
-Then, to start the server locally, run
-
-```
-npm install
-npm run build
-npm start
-```
-
-In production, if you end up using cookies, you should change the `SESSION_SECRET` environment variable.
 
 # Table of contents:
 
@@ -373,7 +375,7 @@ First the compiler will look for a `d.ts` file in `node_modules/@types` and then
 #### Using `dts-gen`
 Unless you are familiar with `.d.ts` files, I strongly recommend trying to use the tool [dts-gen](https://github.com/Microsoft/dts-gen) first.
 The [README](https://github.com/Microsoft/dts-gen#dts-gen-a-typescript-definition-file-generator) does a great job explaining how to use the tool, and for most cases, you'll get an excellent scaffold of a `.d.ts` file to start with.
-In this project, `bcrypt-nodejs.d.ts`, `fbgraph.d.ts`, and `lusca.d.ts` were all generated using `dts-gen`.
+In this project, `fbgraph.d.ts` and `lusca.d.ts` were both generated using `dts-gen`.
 
 #### Writing a `.d.ts` file
 If generating a `.d.ts` using `dts-gen` isn't working, [you should tell me about it first](https://www.surveymonkey.com/r/LN2CV82), but then you can create your own `.d.ts` file.
@@ -539,16 +541,16 @@ In that file you'll find two sections:
 
 | Package                         | Description                                                           |
 | ------------------------------- | --------------------------------------------------------------------- |
-| async                           | Utility library that provides asynchronous control flow.               |
-| bcrypt-nodejs                   | Library for hashing and salting user passwords.                       |
+| async                           | Utility library that provides asynchronous control flow.              |
+| bcrypt                          | Library for hashing and salting user passwords.                       |
 | bluebird                        | Promise library                                                       |
 | body-parser                     | Express 4 middleware.                                                 |
 | compression                     | Express 4 middleware.                                                 |
 | connect-mongo                   | MongoDB session store for Express.                                    |
-| dotenv                          | Loads environment variables from .env file.                            |
+| dotenv                          | Loads environment variables from .env file.                           |
 | errorhandler                    | Express 4 middleware.                                                 |
 | express                         | Node.js web framework.                                                |
-| express-flash                    | Provides flash messages for Express.                                   |
+| express-flash                    | Provides flash messages for Express.                                 |
 | express-session                 | Express 4 middleware.                                                 |
 | express-validator               | Easy form validation for Express.                                     |
 | fbgraph                         | Facebook Graph API library.                                           |
@@ -560,8 +562,8 @@ In that file you'll find two sections:
 | passport-facebook               | Sign-in with Facebook plugin.                                         |
 | passport-local                  | Sign-in with Username and Password plugin.                            |
 | pug (jade)                      | Template engine for Express.                                          |
-| request                         | Simplified HTTP request library.                                       |
-| request-promise                 | Promisified HTTP request library. Let's us use async/await             |
+| request                         | Simplified HTTP request library.                                      |
+| request-promise                 | Promisified HTTP request library. Lets  us use async/await            |
 | winston                         | Logging library                                                       |
 
 ## `devDependencies`
