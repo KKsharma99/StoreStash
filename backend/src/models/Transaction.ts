@@ -12,4 +12,6 @@ export const TransactionSchema = createSchema({
     price: Type.number({ required: true })
 });
 
+// TODO: dynamically update listing's remaining capacity
+
 export const Transaction = typedModel("Transaction", TransactionSchema);
