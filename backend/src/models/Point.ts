@@ -1,4 +1,6 @@
-import { createSchema, Type, typedModel, ExtractDoc } from "ts-mongoose";
+import { createSchema, Type } from "ts-mongoose";
+
+// https://mongoosejs.com/docs/geojson.html
 
 const point = ["Point"] as const;
 
@@ -7,5 +9,6 @@ export const PointSchema = createSchema({
         enum: point,
         required: true
     }),
-    coordinates: Type.object().of(Type.array().of(Type.number({ required: true})))
-}),;
+    // Array of [longitude, latitude]
+    coordinates: Type.array({ required: true }).of(Type.number({ required: true}))
+});
