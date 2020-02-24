@@ -7,7 +7,8 @@ import {
 	IonImg,
 	IonButton,
 	IonInput,
-	IonGrid
+	IonGrid,
+	IonText
 
 } from '@ionic/react'
 
@@ -29,15 +30,20 @@ export default class Tab3 extends React.Component {
 						<IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
 								<br></br>
 								<IonItem>
-									<IonInput type="text" placeholder="Username"></IonInput>
+									<IonInput type="email" placeholder="Gatech Email"></IonInput>
 								</IonItem>
 
 								<IonItem>
 									<IonInput type="password" placeholder="Password"></IonInput>
 								</IonItem>
+
+								<IonItem>
+									<IonInput type="password" placeholder="Repeat Password"></IonInput>
+								</IonItem>
 							<br></br>
-								<IonButton color="warning" size="default" href="/touchid" expand="block">Login</IonButton>
+								<IonButton color="warning" size="default" href="/touchid" expand="block">Register</IonButton>
 							<br></br>
+							<p>Already have an account? <IonText color="primary"><u>Login</u></IonText></p>
 
 
 						</IonCol>

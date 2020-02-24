@@ -17,15 +17,16 @@ import {
 	IonItem,
 	IonInput,
 	IonButton,
-	IonCard,
-	IonCardContent,
-	IonImg
+	IonImg,
+	IonText
 } from '@ionic/react'
 import { Route } from 'react-router-dom'
 import { IonPage } from '@ionic/react'
 import Tab1 from '../Tab1'
 import Tab2 from '../Tab2'
 import Tab3 from '../Tab3'
+import Tab4 from '../Tab4'
+import Tab5 from '../Tab5'
 
 class Home extends Component {
 	render() {
@@ -34,8 +35,6 @@ class Home extends Component {
 				<IonPage>
 
 					<IonContent class="ion-padding">
-
-
 						<IonGrid>
 							<IonRow>
 								<IonCol col-12 >
@@ -47,31 +46,31 @@ class Home extends Component {
 							</IonRow>
 							<IonRow justify-content-center>
 								<IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
-										<br></br>
-										<IonItem>
-											<IonInput type="text" placeholder="Username"></IonInput>
-										</IonItem>
-
-										<IonItem>
-											<IonInput type="password" placeholder="Password"></IonInput>
-										</IonItem>
 									<br></br>
-										<IonButton color="warning" size="default" href="/touchid" expand="block">Login</IonButton>
+									<IonItem>
+										<IonInput type="text" placeholder="Username"></IonInput>
+									</IonItem>
+
+									<IonItem>
+										<IonInput type="password" placeholder="Password"></IonInput>
+									</IonItem>
 									<br></br>
-
-
+									<IonButton color="warning" size="default" href="/touchid" expand="block">Login</IonButton>
+									<br></br>
+									
+									<p>Don't have an account? <IonText color="primary"><u>Register</u></IonText></p>
 								</IonCol>
 							</IonRow>
 						</IonGrid>
 					</IonContent>
-
-
 
 					<IonTabs>
 						<IonRouterOutlet>
 							<Route path="/:tab(tab1)" component={Tab1} exact />
 							<Route path="/:tab(tab2)" component={Tab2} exact />
 							<Route path="/:tab(tab3)" component={Tab3} exact />
+							<Route path="/:tab(tab4)" component={Tab4} exact />
+							<Route path="/:tab(tab5)" component={Tab5} exact />
 						</IonRouterOutlet>
 
 						<IonTabBar slot="bottom">
@@ -86,6 +85,16 @@ class Home extends Component {
 							<IonTabButton tab="register" href="/tab3">
 								<IonIcon name="information-circle" />
 								<IonLabel>Register</IonLabel>
+							</IonTabButton>
+
+							<IonTabButton tab="single-item" href="/tab4">
+								<IonIcon name="information-circle" />
+								<IonLabel>Item</IonLabel>
+							</IonTabButton>
+
+							<IonTabButton tab="confirmation" href="/tab5">
+								<IonIcon name="information-circle" />
+								<IonLabel>Confirmation</IonLabel>
 							</IonTabButton>
 						</IonTabBar>
 					</IonTabs>

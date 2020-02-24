@@ -21,7 +21,8 @@ import {
 	IonCardTitle,
 	IonRow,
 	IonCol,
-	IonImg
+	IonImg,
+	IonGrid
 
 } from '@ionic/react'
 
@@ -40,6 +41,11 @@ export default class Tab1 extends React.Component {
 
 			<IonContent>
 					<IonList lines="none">
+						<IonRow>
+							<IonCol col-12 text-center>
+								<h1>Filter</h1>
+							</IonCol>
+						</IonRow>
 						<IonRow>
 							<IonCol col-12 >
 								<IonItem>
@@ -61,7 +67,7 @@ export default class Tab1 extends React.Component {
 							<IonCol col-12 >
 								<IonItem>
 									<IonIcon name="cube" slot="start"></IonIcon>
-									<IonLabel>Box Capacity</IonLabel>
+									<IonLabel>Boxes</IonLabel>
 									<IonSelect>
 										<IonSelectOption value="1" selected>1</IonSelectOption>
 										<IonSelectOption value="2">2</IonSelectOption>
@@ -78,7 +84,7 @@ export default class Tab1 extends React.Component {
 							<IonCol col-12 >
 								<IonItem>
 									<IonIcon name="cash" slot="start"></IonIcon>
-									<IonLabel>Max Price</IonLabel>
+									<IonLabel>Max Price per Box</IonLabel>
 									<IonSelect>
 										<IonSelectOption value="20" selected>$20</IonSelectOption>
 										<IonSelectOption value="40">$40</IonSelectOption>
@@ -91,9 +97,12 @@ export default class Tab1 extends React.Component {
 
 					</IonList>
 
-					<IonItem>
-							<IonLabel><b>7</b> available listings.</IonLabel>
-					</IonItem>
+					<IonRow>
+						<IonCol col-12 text-center>
+							<h1><b>7</b> Listings</h1>
+							<p>Listed prices are monthly per box.</p>
+						</IonCol>
+					</IonRow>
 
 					<IonCard>
 						<IonItem>
@@ -102,6 +111,7 @@ export default class Tab1 extends React.Component {
 									<IonCardTitle color="success">$23/mo</IonCardTitle>
 									<IonCardSubtitle><IonIcon name="pin"></IonIcon>1.3 Miles </IonCardSubtitle>
 									<IonCardSubtitle><IonIcon name="cube"></IonIcon> 3 Boxes</IonCardSubtitle>
+									<IonCardSubtitle><IonIcon name="person"></IonIcon> Savanah Smith</IonCardSubtitle>
 								</IonCol>
 							</IonRow>
 						</IonItem>
@@ -110,6 +120,7 @@ export default class Tab1 extends React.Component {
 							<IonRow>
 								<IonCol col-12 >
 									<IonImg src="https://i.pinimg.com/originals/45/b1/8a/45b18a308803550d9ebba984b96c8892.jpg"/>
+									<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
 									
 									<IonButton expand="full" color="warning" size="small"><IonIcon name="calendar" slot="start"></IonIcon>BOOK</IonButton>
 								</IonCol>
@@ -119,20 +130,23 @@ export default class Tab1 extends React.Component {
 
 					<IonCard>
 						<IonItem>
-							<IonRow>
-								<IonCol col-12>
-									<IonCardTitle color="success">$43/mo</IonCardTitle>
-									<IonCardSubtitle><IonIcon name="pin"></IonIcon>5.3 Miles </IonCardSubtitle>
-									<IonCardSubtitle><IonIcon name="cube"></IonIcon> 4 Boxes</IonCardSubtitle>
-								</IonCol>
-							</IonRow>
+							<IonGrid>
+								<IonRow>
+									<IonCol col-6>
+										<IonCardTitle color="success">$43/mo</IonCardTitle>
+										<IonCardSubtitle><IonIcon name="pin"></IonIcon>5.3 Miles </IonCardSubtitle>
+										<IonCardSubtitle><IonIcon name="cube"></IonIcon> 4 Boxes</IonCardSubtitle>
+										<IonCardSubtitle><IonIcon name="person"></IonIcon> Charles Smith</IonCardSubtitle>
+									</IonCol>
+								</IonRow>
+							</IonGrid>
 						</IonItem>
 
 						<IonCardContent class="ion-no-padding">
 							<IonRow>
 								<IonCol col-12 >
 									<IonImg src="https://i.pinimg.com/originals/45/b1/8a/45b18a308803550d9ebba984b96c8892.jpg"/>
-									
+									<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
 									<IonButton expand="full" color="warning" size="small"><IonIcon name="calendar" slot="start"></IonIcon>BOOK</IonButton>
 								</IonCol>
 							</IonRow>
@@ -146,6 +160,7 @@ export default class Tab1 extends React.Component {
 									<IonCardTitle color="success">$33/mo</IonCardTitle>
 									<IonCardSubtitle><IonIcon name="pin"></IonIcon>5.3 Miles </IonCardSubtitle>
 									<IonCardSubtitle><IonIcon name="cube"></IonIcon> 2 Boxes</IonCardSubtitle>
+									<IonCardSubtitle><IonIcon name="person"></IonIcon> James Smith</IonCardSubtitle>
 								</IonCol>
 							</IonRow>
 						</IonItem>
@@ -154,6 +169,7 @@ export default class Tab1 extends React.Component {
 							<IonRow>
 								<IonCol col-12 >
 									<IonImg src="https://i.pinimg.com/originals/45/b1/8a/45b18a308803550d9ebba984b96c8892.jpg"/>
+									<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
 									
 									<IonButton expand="full" color="warning" size="small"><IonIcon name="calendar" slot="start"></IonIcon>BOOK</IonButton>
 								</IonCol>
@@ -168,6 +184,7 @@ export default class Tab1 extends React.Component {
 									<IonCardTitle color="success">$19/mo</IonCardTitle>
 									<IonCardSubtitle><IonIcon name="pin"></IonIcon>7.4 Miles </IonCardSubtitle>
 									<IonCardSubtitle><IonIcon name="cube"></IonIcon> 1 Boxes</IonCardSubtitle>
+									<IonCardSubtitle><IonIcon name="person"></IonIcon> Indie Smith</IonCardSubtitle>
 								</IonCol>
 							</IonRow>
 						</IonItem>
@@ -176,7 +193,7 @@ export default class Tab1 extends React.Component {
 							<IonRow>
 								<IonCol col-12 >
 									<IonImg src="https://image.advance.net/home/adv-media/width380/img/home_ideas/photo/2016/07/19/empty-interior-with-single-column-in-the-center-8b3f359e84b27f53.jpg"/>
-									
+									<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
 									<IonButton expand="full" color="warning" size="small"><IonIcon name="calendar" slot="start"></IonIcon>BOOK</IonButton>
 								</IonCol>
 							</IonRow>
@@ -190,6 +207,7 @@ export default class Tab1 extends React.Component {
 									<IonCardTitle color="success">$55/mo</IonCardTitle>
 									<IonCardSubtitle><IonIcon name="pin"></IonIcon>4 Miles </IonCardSubtitle>
 									<IonCardSubtitle><IonIcon name="cube"></IonIcon> 3 Boxes</IonCardSubtitle>
+									<IonCardSubtitle><IonIcon name="person"></IonIcon> Sarah Smith</IonCardSubtitle>
 								</IonCol>
 							</IonRow>
 						</IonItem>
@@ -198,7 +216,7 @@ export default class Tab1 extends React.Component {
 							<IonRow>
 								<IonCol col-12 >
 									<IonImg src="https://image.advance.net/home/adv-media/width380/img/home_ideas/photo/2016/07/19/empty-interior-with-single-column-in-the-center-8b3f359e84b27f53.jpg"/>
-									
+									<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
 									<IonButton expand="full" color="warning" size="small"><IonIcon name="calendar" slot="start"></IonIcon>BOOK</IonButton>
 								</IonCol>
 							</IonRow>

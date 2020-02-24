@@ -51,7 +51,6 @@ export default class Tab2 extends React.Component {
 								<hr></hr>
 								
 								<IonButton expand="full" color="warning" size="default"><IonIcon name="add-circle" slot="start"></IonIcon>Lend Space</IonButton>
-								<IonButton expand="full" color="warning" size="default"><IonIcon name="card" slot="start"></IonIcon>Setup Payment</IonButton>
 							</IonCol>
 						</IonRow>
 					</IonCardContent>
