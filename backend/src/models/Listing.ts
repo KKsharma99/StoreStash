@@ -35,7 +35,7 @@ export const ListingSchema = createSchema({
     endDate: Type.date({ default: new Date(2200, 1, 1) }),
     images: Type.array().of(Type.schema().of(ImageSchema)),
     toObject: { virtuals: true },
-    toJSON: { vrituals: true }
+    toJSON: { virtuals: true }
 });
 
 export type ListingDocument = ExtractDoc<typeof ListingSchema>;
