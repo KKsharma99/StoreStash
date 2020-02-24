@@ -92,12 +92,16 @@ listingSchema.statics.construct = async function (hostId: any, lat: number, lon:
 };
 
 listingSchema.statics.findNearby = async function (lat: number, lon: number, minCapacity: number = 1, maxPrice: number = Infinity, startDate: Date = new Date(2300, 1, 1), endDate: Date = new Date()) {
-    return await this.find({ 
-        remCapacity: { $gte: minCapacity },
-        price: { $lte: maxPrice },
-        startDate: { $lte: startDate },
-        endDate: { $gte: endDate },
-    }).map((listing: any) => { return {...listing, distance: distance(lat, lon, listing.lat, listing.lon)}; });
+    try {
+        return await this.find({ 
+            remCapacity: { $gte: minCapacity },
+            price: { $lte: maxPrice },
+            startDate: { $lte: startDate },
+            endDate: { $gte: endDate },
+        }).map((listing: any) => { return {...listing, distance: distance(lat, lon, listing.lat, listing.lon)}; });
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 export const Listing = mongoose.model<ListingDocument>("Listing", listingSchema);

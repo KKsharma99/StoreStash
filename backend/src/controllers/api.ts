@@ -18,13 +18,21 @@ export const getApi = (req: Request, res: Response) => {
 };
 
 export const newListing = async (req: Request, res: Response) => {
-    const listing = await ((Listing as any) as ListingDocument).construct(mongoose.Types.ObjectId("5e504f591c9d440000ae8586"), 11, -11, 5, new Date(2020, 2, 1), new Date(2022, 5, 1), 14).then(listing => listing);
-    res.json(listing.toObject());
+    try {
+        const listing = await ((Listing as any) as ListingDocument).construct(mongoose.Types.ObjectId("5e504f591c9d440000ae8586"), 11, -11, 5, new Date(2020, 2, 1), new Date(2022, 5, 1), 14).then(listing => listing);
+        res.json(listing.toObject());
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 export const newUser = async (req: Request, res: Response) => {
-    const user = await new User({ email: "michaelchen@gatech.edu", password: "sdjfiosojidffsdoji" }).save(err => console.log(err));
-    res.json(user.toObject());
+    try {
+        const user = await new User({ email: "michaelchen@gatech.edu", password: "sdjfiosojidffsdoji" }).save(err => console.log(err));
+        res.json(user.toObject());
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 /**
