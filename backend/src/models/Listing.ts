@@ -88,7 +88,7 @@ listingSchema.statics.construct = async function (hostId: any, lat: number, lon:
     const newListing = new Listing({
         host: hostId, lat, lon, capacity, remSpace: capacity, startDate, endDate, price
     });
-    return await newListing.save();
+    return await newListing.save(err => console.log(err));
 };
 
 listingSchema.statics.findNearby = async function (lat: number, lon: number, minCapacity: number = 1, maxPrice: number = Infinity, startDate: Date = new Date(2300, 1, 1), endDate: Date = new Date()) {

@@ -3,7 +3,7 @@
 import graph from "fbgraph";
 import { Response, Request, NextFunction } from "express";
 import mongoose, { Schema } from "mongoose";
-import { UserDocument } from "../models/User";
+import { UserDocument, User } from "../models/User";
 import { Listing, ListingDocument } from "../models/Listing";
 
 
@@ -20,6 +20,11 @@ export const getApi = (req: Request, res: Response) => {
 export const newListing = async (req: Request, res: Response) => {
     const listing = await ((Listing as any) as ListingDocument).construct(mongoose.Types.ObjectId("5e504f591c9d440000ae8586"), 11, -11, 5, new Date(2020, 2, 1), new Date(2022, 5, 1), 14).then(listing => listing);
     res.json(listing.toObject());
+};
+
+export const newUser = async (req: Request, res: Response) => {
+    const user = await new User({ email: "michaelchen@gatech.edu", password: "sdjfiosojidffsdoji" }).save(err => console.log(err));
+    res.json(user.toObject());
 };
 
 /**
