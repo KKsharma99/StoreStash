@@ -12,7 +12,18 @@ import {
 	IonSelect,
 	IonItem,
 	IonLabel,
-	IonDatetime
+	IonDatetime,
+	IonCard,
+	IonCardContent,
+	IonCardHeader,
+	IonCardSubtitle,
+	IonCardTitle,
+	IonRow,
+	IonCol,
+	IonImg,
+	IonButton,
+	IonText
+
 } from '@ionic/react'
 
 export default class Tab2 extends React.Component {
@@ -28,32 +39,98 @@ export default class Tab2 extends React.Component {
 			</IonHeader>
 
 			<IonContent>
-				<div className="ion-padding about-info">
-					<h4>Just a regular title Tab 2</h4>
+				<IonCard text-center>
+					<IonItem>
+						<IonTitle><h1>Sarah</h1></IonTitle>
+					</IonItem>
 
-					<IonList lines="none">
-						<IonItem>
-							<IonIcon name="calendar" slot="start"></IonIcon>
-							<IonLabel>Date Picker</IonLabel>
-							<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={null}></IonDatetime>
-						</IonItem>
+					<IonCardContent class="ion-no-padding">
+						<IonRow>
+							<IonCol col-12 >
+								<IonImg src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg"/>
+								<hr></hr>
+								
+								<IonButton expand="full" color="warning" size="default"><IonIcon name="add-circle" slot="start"></IonIcon>Lend Space</IonButton>
+								<IonButton expand="full" color="warning" size="default"><IonIcon name="card" slot="start"></IonIcon>Setup Payment</IonButton>
+							</IonCol>
+						</IonRow>
+					</IonCardContent>
+				</IonCard>
 
-						<IonItem>
-							<IonIcon name="pin" slot="start"></IonIcon>
-							s<IonLabel>Selector</IonLabel>
-							<IonSelect>
-								<IonSelectOption value="madison">Madison, WI</IonSelectOption>
-								<IonSelectOption value="austin">Austin, TX</IonSelectOption>
-								<IonSelectOption value="chicago">Chicago, IL</IonSelectOption>
-								<IonSelectOption value="seattle">Seattle, WA</IonSelectOption>
-							</IonSelect>
-						</IonItem>
-					</IonList>
 
-					<p>
-						Just a regular paragrah passing by
-           		 	</p>
-				</div>
+				<IonItem>
+					<IonTitle>Rent History</IonTitle>
+				</IonItem>
+
+
+
+				<IonCard>
+					<IonCardContent>
+						<IonCardSubtitle>Donald Trump</IonCardSubtitle>
+						<hr></hr>
+						<IonRow>
+							<IonCol col-12 >
+								<p>
+									Total Cost: <IonText color="success"><b>$99</b></IonText> <br></br>
+									Boxes: 3 <br></br>
+									May 8, 2019 - Jun 23, 2019 <br></br>
+									Status: <IonText color="success"><b>Current</b></IonText>
+								</p> 
+							</IonCol>
+						</IonRow>
+					</IonCardContent>
+				</IonCard>
+
+				<IonCard color="light">
+					<IonCardContent>
+						<IonCardSubtitle>Rick Ross</IonCardSubtitle>
+						<hr></hr>
+						<IonRow>
+							<IonCol col-12 >
+								<p>
+									Total Cost: <IonText color="success"><b>$59</b></IonText> <br></br>
+									Boxes: 3 <br></br>
+									May 8, 2019 - Jun 23, 2019 <br></br>
+									Status: Past
+								</p> 
+							</IonCol>
+						</IonRow>
+					</IonCardContent>
+				</IonCard>
+
+				<IonCard color="light">
+					<IonCardContent>
+						<IonCardSubtitle>Arnold S</IonCardSubtitle>
+						<hr></hr>
+						<IonRow>
+							<IonCol col-12 >
+								<p>
+									Total Cost: <IonText color="success"><b>$59</b></IonText> <br></br>
+									Boxes: 3 <br></br>
+									May 8, 2019 - Jun 23, 2019 <br></br>
+									Status: Past
+								</p> 
+							</IonCol>
+						</IonRow>
+					</IonCardContent>
+				</IonCard>
+
+				<IonCard color="light">
+					<IonCardContent>
+						<IonCardSubtitle>Megan Fox</IonCardSubtitle>
+						<hr></hr>
+						<IonRow>
+							<IonCol col-12 >
+								<p>
+									Total Cost: <IonText color="success"><b>$59</b></IonText> <br></br>
+									Boxes: 3 <br></br>
+									May 8, 2019 - Jun 23, 2019 <br></br>
+									Status: Past
+								</p> 
+							</IonCol>
+						</IonRow>
+					</IonCardContent>
+				</IonCard>
 			</IonContent>
 		</>)
 	}

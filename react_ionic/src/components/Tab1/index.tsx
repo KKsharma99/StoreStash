@@ -39,8 +39,6 @@ export default class Tab1 extends React.Component {
 			</IonHeader>
 
 			<IonContent>
-				<div className="ion-padding about-info">
-
 					<IonList lines="none">
 						<IonRow>
 							<IonCol col-12 >
@@ -206,7 +204,6 @@ export default class Tab1 extends React.Component {
 							</IonRow>
 						</IonCardContent>
 					</IonCard>
-				</div>
 			</IonContent>
 		</>)
 	}
