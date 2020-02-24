@@ -106,7 +106,6 @@ app.get("/account/unlink/:provider", passportConfig.isAuthenticated, userControl
  * API examples routes.
  */
 app.get("/api", apiController.getApi);
-app.get("/api/facebook", passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
 
 /**
  * OAuth authentication routes. (Sign in)

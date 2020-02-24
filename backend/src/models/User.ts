@@ -2,8 +2,6 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 import mongoose from "mongoose";
 import { createSchema, Type, typedModel, ExtractDoc } from "ts-mongoose";
-import { ListingSchema } from "./Listing";
-import { TransactionSchema } from "./Transaction";
 
 type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
 
@@ -37,13 +35,16 @@ export const UserSchema = createSchema({
     })
 }, { timestamps: true });
 
+import { ListingSchema } from "./Listing";
+import { TransactionSchema } from "./Transaction";
+
 // Workaround for https://github.com/BetterCallSky/ts-mongoose/issues/35
 UserSchema.add(createSchema({
     listings: Type.array().of(Type.ref(Type.objectId()).to("Listing", ListingSchema)),
     transactions: Type.array().of(Type.ref(Type.objectId()).to("Transaction", TransactionSchema))
 }));
 
-export type UserDocument = ExtractDoc<typeof UserSchema>
+export type UserDocument = ExtractDoc<typeof UserSchema>;
 
 /**
  * Password hash middleware.

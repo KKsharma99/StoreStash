@@ -1,7 +1,6 @@
-import { createSchema, Type, typedModel } from "ts-mongoose";
+import { createSchema, Type, typedModel, ExtractDoc } from "ts-mongoose";
 import { PointSchema } from "./Point";
 import { ImageSchema } from "./Image";
-import { assign } from "nodemailer/lib/shared";
 
 /**
  * Find the distance between two latitude–longitude points, using the Haversine formula.
@@ -26,18 +25,51 @@ function distance(lat1: number, lon1: number, lat2: number, lon2: number, km: bo
 }
 
 export const ListingSchema = createSchema({
-    location: Type.schema({ required: true }).of(PointSchema),
+    // location: Type.schema({ required: true }).of(PointSchema),
+    lat: Type.number({ required: true }),
+    lon: Type.number({ required: true }),
     totalCapacity: Type.number({ required: true }),
     // TODO: dynamically calculate remCapacity
-    remCapacity: Type.number(),
+    price: Type.number({ required: true }),
     startDate: Type.date({ default: new Date() }),
     endDate: Type.date({ default: new Date(2200, 1, 1) }),
-    price: Type.number({ required: true }),
-    images: Type.array().of(Type.schema().of(ImageSchema))
+    images: Type.array().of(Type.schema().of(ImageSchema)),
+    toObject: { virtuals: true },
+    toJSON: { vrituals: true }
+});
+
+export type ListingDocument = ExtractDoc<typeof ListingSchema>;
+
+import { UserSchema } from "./User";
+import { TransactionSchema, Transaction, TransactionDocument } from "./Transaction";
+
+ListingSchema.add(createSchema({
+    host: Type.ref(Type.objectId()).to("User", UserSchema),
+    transactions: Type.array().of(Type.ref(Type.object()).to("Transaction", TransactionSchema))
+}));
+ListingSchema.virtual("remCapacity").get(async function () {
+    const activeTransactions = await this.transactions.find({
+        listing: this._id,
+        status: { $in: ["dropped off"] },
+    }).exec();
+    const usedSpace = activeTransactions.map((transaction: TransactionDocument) => transaction.boxes).reduce((a: number, b: number) => a + b);
+    return this.remCapacity = this.totalCapacity - usedSpace;
 });
 
 export const Listing = typedModel("Listing", ListingSchema, undefined, undefined, {
     // Static methods
+    create: async function (host: string, lat: number, lon: number, totalCapacity: number, price: number, startDate?: Date, endDate?: Date) {
+        const newListing = new Listing({
+            host,
+            lat,
+            lon,
+            totalCapacity,
+            price,
+            startDate,
+            endDate
+        });
+        return await newListing.save();
+    },
     find: async function (lat?: number, lon?: number, minCapacity: number = 1, maxPrice: number = Infinity, startDate: Date = new Date(2300, 1, 1), endDate: Date = new Date()) {
         const listings = await this.find({ 
             remCapacity: { $gte: minCapacity },
@@ -45,8 +77,11 @@ export const Listing = typedModel("Listing", ListingSchema, undefined, undefined
             startDate: { $lte: startDate },
             endDate: { $gte: endDate },
         });
-        return {
-            // [{ price: decimal, distance: float, max boxes: int, image: url }]
-        };
-    }
+        return listings.map((listing: any) => {
+            return {
+                ...listing.toObject(),
+                distance: distance(listing.lat, listing.lon, lat, lon)
+            };
+        });
+    },
 });
