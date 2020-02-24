@@ -26,8 +26,14 @@ import {
 
 } from '@ionic/react'
 
+// Import Images
+import room_1 from '../../assets/img/room_1.png';
+import room_2 from '../../assets/img/room_2.png';
+import room_3 from '../../assets/img/room_3.png';
 
-export default class Tab1 extends React.Component {
+
+
+export default class Discover extends React.Component {
 	render() {
 		return (<>
 			<IonHeader>
@@ -119,10 +125,12 @@ export default class Tab1 extends React.Component {
 						<IonCardContent class="ion-no-padding">
 							<IonRow>
 								<IonCol col-12 >
-									<IonImg src="https://i.pinimg.com/originals/45/b1/8a/45b18a308803550d9ebba984b96c8892.jpg"/>
+									<IonImg src={room_1} alt="logo"/>
 									<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
 									
-									<IonButton expand="full" color="warning" size="small"><IonIcon name="calendar" slot="start"></IonIcon>BOOK</IonButton>
+									<IonButton expand="full" color="warning" size="default" href="/listing">
+										<IonIcon name="calendar" slot="start"></IonIcon>BOOK
+									</IonButton>
 								</IonCol>
 							</IonRow>
 						</IonCardContent>
@@ -145,9 +153,11 @@ export default class Tab1 extends React.Component {
 						<IonCardContent class="ion-no-padding">
 							<IonRow>
 								<IonCol col-12 >
-									<IonImg src="https://i.pinimg.com/originals/45/b1/8a/45b18a308803550d9ebba984b96c8892.jpg"/>
+									<IonImg src={room_2}/>
 									<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
-									<IonButton expand="full" color="warning" size="small"><IonIcon name="calendar" slot="start"></IonIcon>BOOK</IonButton>
+									<IonButton expand="full" color="warning" size="default" href="/listing">
+										<IonIcon name="calendar" slot="start"></IonIcon>BOOK
+									</IonButton>
 								</IonCol>
 							</IonRow>
 						</IonCardContent>
@@ -168,10 +178,12 @@ export default class Tab1 extends React.Component {
 						<IonCardContent class="ion-no-padding">
 							<IonRow>
 								<IonCol col-12 >
-									<IonImg src="https://i.pinimg.com/originals/45/b1/8a/45b18a308803550d9ebba984b96c8892.jpg"/>
+									<IonImg src={room_1}/>
 									<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
 									
-									<IonButton expand="full" color="warning" size="small"><IonIcon name="calendar" slot="start"></IonIcon>BOOK</IonButton>
+									<IonButton expand="full" color="warning" size="default" href="/listing">
+										<IonIcon name="calendar" slot="start"></IonIcon>BOOK
+									</IonButton>
 								</IonCol>
 							</IonRow>
 						</IonCardContent>
@@ -192,9 +204,11 @@ export default class Tab1 extends React.Component {
 						<IonCardContent class="ion-no-padding">
 							<IonRow>
 								<IonCol col-12 >
-									<IonImg src="https://image.advance.net/home/adv-media/width380/img/home_ideas/photo/2016/07/19/empty-interior-with-single-column-in-the-center-8b3f359e84b27f53.jpg"/>
+									<IonImg src={room_2}/>
 									<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
-									<IonButton expand="full" color="warning" size="small"><IonIcon name="calendar" slot="start"></IonIcon>BOOK</IonButton>
+									<IonButton expand="full" color="warning" size="default" href="/listing">
+										<IonIcon name="calendar" slot="start"></IonIcon>BOOK
+									</IonButton>
 								</IonCol>
 							</IonRow>
 						</IonCardContent>
@@ -215,9 +229,11 @@ export default class Tab1 extends React.Component {
 						<IonCardContent class="ion-no-padding">
 							<IonRow>
 								<IonCol col-12 >
-									<IonImg src="https://image.advance.net/home/adv-media/width380/img/home_ideas/photo/2016/07/19/empty-interior-with-single-column-in-the-center-8b3f359e84b27f53.jpg"/>
+									<IonImg src={room_3}/>
 									<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
-									<IonButton expand="full" color="warning" size="small"><IonIcon name="calendar" slot="start"></IonIcon>BOOK</IonButton>
+									<IonButton expand="full" color="warning" size="default" href="/listing">
+										<IonIcon name="calendar" slot="start"></IonIcon>BOOK
+									</IonButton>
 								</IonCol>
 							</IonRow>
 						</IonCardContent>

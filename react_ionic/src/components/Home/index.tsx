@@ -22,11 +22,11 @@ import {
 } from '@ionic/react'
 import { Route } from 'react-router-dom'
 import { IonPage } from '@ionic/react'
-import Tab1 from '../Tab1'
-import Tab2 from '../Tab2'
-import Tab3 from '../Tab3'
-import Tab4 from '../Tab4'
-import Tab5 from '../Tab5'
+import Discover from '../Discover'
+import Profile from '../Profile'
+import Register from '../Register'
+import Listing from '../Listing'
+import Confirmation from '../Confirmation'
 
 class Home extends Component {
 	render() {
@@ -66,36 +66,23 @@ class Home extends Component {
 
 					<IonTabs>
 						<IonRouterOutlet>
-							<Route path="/:tab(tab1)" component={Tab1} exact />
-							<Route path="/:tab(tab2)" component={Tab2} exact />
-							<Route path="/:tab(tab3)" component={Tab3} exact />
-							<Route path="/:tab(tab4)" component={Tab4} exact />
-							<Route path="/:tab(tab5)" component={Tab5} exact />
+							<Route path="/:tab(discover)" component={Discover} exact />
+							<Route path="/:tab(profile)" component={Profile} exact />
+							<Route path="/:tab(register)" component={Register} exact />
+							<Route path="/:tab(listing)" component={Listing} exact />
+							<Route path="/:tab(confirmation)" component={Confirmation} exact />
 						</IonRouterOutlet>
 
 						<IonTabBar slot="bottom">
-							<IonTabButton tab="home" href="/tab1">
+							<IonTabButton tab="home" href="/discover">
 								<IonIcon name="search" />
 								<IonLabel>Discover</IonLabel>
 							</IonTabButton>
-							<IonTabButton tab="settings" href="/tab2">
+							<IonTabButton tab="settings" href="/profile">
 								<IonIcon name="person" />
 								<IonLabel>Profile</IonLabel>
 							</IonTabButton>
-							<IonTabButton tab="register" href="/tab3">
-								<IonIcon name="information-circle" />
-								<IonLabel>Register</IonLabel>
-							</IonTabButton>
 
-							<IonTabButton tab="single-item" href="/tab4">
-								<IonIcon name="information-circle" />
-								<IonLabel>Item</IonLabel>
-							</IonTabButton>
-
-							<IonTabButton tab="confirmation" href="/tab5">
-								<IonIcon name="information-circle" />
-								<IonLabel>Confirmation</IonLabel>
-							</IonTabButton>
 						</IonTabBar>
 					</IonTabs>
 				</IonPage>
@@ -105,7 +92,3 @@ class Home extends Component {
 }
 
 export default Home
-
-// uers = node.js.getMongodb("QUERY")
-// for i in Users: 
-// 	print(<h1> %Users[Name]%</h1>)

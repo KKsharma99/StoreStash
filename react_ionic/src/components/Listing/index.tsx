@@ -28,7 +28,7 @@ import {
 
 } from '@ionic/react'
 
-export default class Tab4 extends React.Component {
+export default class Listing extends React.Component {
 	render() {
 		return (<>
 
@@ -130,7 +130,7 @@ export default class Tab4 extends React.Component {
 						<IonRow>
 							<IonCol col-12 >
 								
-									<IonButton color="warning" size="default" expand="full" href="/touchid">
+									<IonButton color="warning" size="default" expand="full" href="/confirmation">
 										<IonIcon name="card" slot="start"></IonIcon>Pay and Confirm
 									</IonButton>
 								
@@ -144,10 +144,3 @@ export default class Tab4 extends React.Component {
 		</>)
 	}
 }
-
-
-// <IonRow>
-// <IonCol col-12 text-center>
-// 	<IonButton expand="full" color="warning" size="default"><IonIcon name="card" slot="start"></IonIcon>Pay and Confirm</IonButton>
-// </IonCol>
-// </IonRow>

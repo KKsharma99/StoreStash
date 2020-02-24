@@ -12,7 +12,7 @@ import {
 
 } from '@ionic/react'
 
-export default class Tab3 extends React.Component {
+export default class Register extends React.Component {
 	render() {
 		return (<>
 

@@ -16,7 +16,7 @@ import {
 
 } from '@ionic/react'
 
-export default class Tab5 extends React.Component {
+export default class Confrimation extends React.Component {
 	render() {
 		return (<>
 

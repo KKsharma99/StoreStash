@@ -26,7 +26,7 @@ import {
 
 } from '@ionic/react'
 
-export default class Tab2 extends React.Component {
+export default class Profile extends React.Component {
 	render() {
 		return (<>
 			<IonHeader>
