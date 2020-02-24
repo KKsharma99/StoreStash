@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { ResolveHostnameOptions } from "nodemailer/lib/shared";
 
 /**
  * Find the distance between two latitude–longitude points, using the Haversine formula.
@@ -23,13 +24,36 @@ function distance(lat1: number, lon1: number, lat2: number, lon2: number, km: bo
 }
 
 export type ListingDocument = mongoose.Document & {
+    host: any;
     lat: number;
     lon: number;
     capacity: number;
+    remSpace: number;
+    startDate: Date;
+    endDate: Date;
     price: number;
+    construct: (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number) => Promise<ListingDocument>;
+    findNearby: (lat?: number, lon?: number, minCapacity?: number, maxPrice?: number, startDate?: Date, endDate?: Date) => Promise<ListingDocument>;
 };
 
+// export interface ListingDocument extends mongoose.Document {
+//     host: any;
+//     lat: number;
+//     lon: number;
+//     capacity: number;
+//     remSpace: number;
+//     startDate: Date;
+//     endDate: Date;
+//     price: number;
+//     construct(): (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number) => Promise<ListingDocument>;
+//     findNearby(): (lat?: number, lon?: number, minCapacity?: number, maxPrice?: number, startDate?: Date, endDate?: Date) => Promise<ListingDocument>;
+// };
+
 const listingSchema = new mongoose.Schema({
+    host: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
     lat: {
         type: Number,
         required: true
@@ -60,13 +84,20 @@ const listingSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-listingSchema.statics.findNearby = async function (lat?: number, lon?: number, minCapacity: number = 1, maxPrice: number = Infinity, startDate: Date = new Date(2300, 1, 1), endDate: Date = new Date()) {
+listingSchema.statics.construct = async function (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number) {
+    const newListing = new Listing({
+        host: hostId, lat, lon, capacity, remSpace: capacity, startDate, endDate, price
+    });
+    return await newListing.save();
+};
+
+listingSchema.statics.findNearby = async function (lat: number, lon: number, minCapacity: number = 1, maxPrice: number = Infinity, startDate: Date = new Date(2300, 1, 1), endDate: Date = new Date()) {
     return await this.find({ 
         remCapacity: { $gte: minCapacity },
         price: { $lte: maxPrice },
         startDate: { $lte: startDate },
         endDate: { $gte: endDate },
-    });
+    }).map((listing: any) => { return {...listing, distance: distance(lat, lon, listing.lat, listing.lon)}; });
 };
 
 export const Listing = mongoose.model<ListingDocument>("Listing", listingSchema);
