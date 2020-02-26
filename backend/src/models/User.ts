@@ -86,11 +86,12 @@ userSchema.methods.gravatar = function (size: number = 200) {
     return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
 };
 
-userSchema.statics.construct = async function (email: string, password: string) {
-    const newUser = new User({ email, password });
-    await newUser.save(err => console.log(err));
-    // TODO: don't return newUser if didn't save successfully
-    return newUser;
+userSchema.statics.construct = function (email: string, password: string): Promise<UserDocument> {
+    return new Promise((resolve, reject) => {
+        new User({ email, password }).save()
+            .then(newUser => resolve(newUser))
+            .catch(err => { console.log(err); reject(err); });
+    });
 };
 
 export const User = mongoose.model<UserDocument>("User", userSchema);
