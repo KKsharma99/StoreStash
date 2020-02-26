@@ -20,7 +20,7 @@ import {
 	IonImg,
 	IonText
 } from '@ionic/react'
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import { IonPage } from '@ionic/react'
 import Discover from './Discover'
 import Profile from './Profile'
@@ -58,7 +58,7 @@ class Home extends Component {
 									<IonButton color="warning" size="default" href="/touchid" expand="block">Login</IonButton>
 									<br></br>
 									
-									<p>Don't have an account? <IonText color="primary"><u>Register</u></IonText></p>
+									<p>Don't have an account? <Link color="primary" to="/register"><u>Register</u></Link></p>
 								</IonCol>
 							</IonRow>
 						</IonGrid>
