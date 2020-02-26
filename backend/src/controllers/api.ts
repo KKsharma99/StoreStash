@@ -25,20 +25,6 @@ export const getApi = (req: Request, res: Response) => {
     });
 };
 
-export const newListing = async (req: Request, res: Response) => {
-    try {
-        // const listing = await ((Listing as any) as ListingDocument).construct(mongoose.Types.ObjectId("5e504f591c9d440000ae8586"), 11, -11, 5, new Date(2020, 2, 1), new Date(2022, 5, 1), 14).then(listing => listing);
-        // console.log(req.body);
-        // console.log(req.query);
-        const listing = await (Listing as unknown as ListingDocument).construct(req.body.hostId, req.body.lat, req.body.lon, req.body.capacity, new Date(req.body.startDate), new Date(req.body.endDate), req.body.price);
-        // const listing = await ((Listing as any) as ListingDocument).construct(req.query.hostId, req.query.lat, req.query.lon, req.query.capacity, new Date(req.query.startDate), new Date(req.query.endDate), req.query.price);
-        await res.json(listing.toObject());
-    } catch (err) {
-        console.log(err);
-        res.sendStatus(400);
-    }
-};
-
 export const newUser = async (req: Request, res: Response) => {
     try {
         let user;
@@ -53,11 +39,33 @@ export const newUser = async (req: Request, res: Response) => {
     }
 };
 
+export const newListing = async (req: Request, res: Response) => {
+    try {
+        // const listing = await ((Listing as any) as ListingDocument).construct(mongoose.Types.ObjectId("5e504f591c9d440000ae8586"), 11, -11, 5, new Date(2020, 2, 1), new Date(2022, 5, 1), 14).then(listing => listing);
+        // console.log(req.body);
+        // console.log(req.query);
+        const listing = await (Listing as unknown as ListingDocument).construct(req.body.hostId, req.body.lat, req.body.lon, req.body.capacity, new Date(req.body.startDate), new Date(req.body.endDate), req.body.price);
+        // const listing = await ((Listing as any) as ListingDocument).construct(req.query.hostId, req.query.lat, req.query.lon, req.query.capacity, new Date(req.query.startDate), new Date(req.query.endDate), req.query.price);
+        await res.json(listing.toObject());
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(400);
+    }
+};
+
+export const getListing = async (req: Request, res: Response) => {
+    try {
+        const listing = await (await Listing.findById(req.params.id)).execPopulate();
+        res.json(listing.toObject());
+    } catch (err) {
+        res.status(400).send(err);
+    }
+}
+
 export const getNearby = async (req: Request, res: Response) => {
     try {
         const listings = await (Listing as unknown as ListingDocument).getNearby(req.query.lat, req.query.lon, req.query.minCapacity, req.query.maxPrice, req.query.startDate, req.query.endDate);
         res.json(listings);
-        console.log(listings);
     } catch (err) {
         res.status(400).send(err);
     }
