@@ -11,6 +11,9 @@ import {
 	IonText
 
 } from '@ionic/react'
+import { Link } from 'react-router-dom'
+import axios from "axios"
+import qs from "qs"
 
 export default class Register extends React.Component {
 	render() {
@@ -41,9 +44,13 @@ export default class Register extends React.Component {
 									<IonInput type="password" placeholder="Repeat Password"></IonInput>
 								</IonItem>
 							<br></br>
-								<IonButton color="warning" size="default" href="/touchid" expand="block">Register</IonButton>
+								<IonButton color="warning" size="default" href="/discover" expand="block" onClick={() =>
+									axios.post("https://storestash.herokuapp.com/api/users/new", 
+										qs.stringify({ email: 'michaelchen@gatech.edu', password: '3iqiruituhfd' })
+									)
+								}>Register</IonButton>
 							<br></br>
-							<p>Already have an account? <IonText color="primary"><u>Login</u></IonText></p>
+							<p>Already have an account? <Link color="primary" to="/"><u>Login</u></Link></p>
 
 
 						</IonCol>

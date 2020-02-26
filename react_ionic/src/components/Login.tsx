@@ -52,7 +52,7 @@ export default class Login extends Component {
                                 <IonInput type="password" placeholder="Password"></IonInput>
                             </IonItem>
                             <br></br>
-                            <IonButton color="warning" size="default" href="/touchid" expand="block">Login</IonButton>
+                            <IonButton color="warning" size="default" href="/discover" expand="block">Login</IonButton>
                             <br></br>
                             
                             <p>Don't have an account? <Link color="primary" to="/register"><u>Register</u></Link></p>
