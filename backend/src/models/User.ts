@@ -90,7 +90,7 @@ userSchema.statics.construct = function (email: string, password: string): Promi
     return new Promise((resolve, reject) => {
         new User({ email, password }).save()
             .then(newUser => resolve(newUser))
-            .catch(err => { console.log(err); reject(err); });
+            .catch(err => reject(err));
     });
 };
 

@@ -52,7 +52,7 @@ listingSchema.statics.construct = async function (hostId: any, lat: number, lon:
     return new Promise((resolve, reject) => {
         new Listing({ host: hostId, lat, lon, capacity, remSpace: capacity, startDate, endDate, price }).save()
             .then(newListing => resolve(newListing))
-            .catch(err => { console.log(err); reject(err); });
+            .catch(err => reject(err));
     });
 };
 
@@ -67,7 +67,7 @@ listingSchema.statics.getNearby = async function (lat: number, lon: number, minC
         return listings.map((listing: ListingDocument) => { return {...listing.toObject(), distance: distance(lat, lon, listing.lat, listing.lon)}; });
     } catch (err) {
         console.log(err);
-        return err;
+        return Promise.reject(err);
     }
 };
 

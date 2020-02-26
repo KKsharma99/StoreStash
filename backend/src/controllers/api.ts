@@ -2,9 +2,11 @@
 
 import graph from "fbgraph";
 import crypto from "crypto";
+import mongoose from "mongoose";
 import { Response, Request, NextFunction } from "express";
 import { UserDocument, User } from "../models/User";
 import { Listing, ListingDocument } from "../models/Listing";
+import { Rental, RentalDocument } from "../models/Rental";
 
 /**
  * Returns a random string of characters 0-9, a-f.
@@ -57,6 +59,15 @@ export const getListing = async (req: Request, res: Response) => {
     try {
         const listing = await (await Listing.findById(req.params.id)).execPopulate();
         res.json(listing.toObject());
+    } catch (err) {
+        res.status(400).send(err);
+    }
+}
+
+export const rentListing = async (req: Request, res: Response) => {
+    try {
+        const rental = await (Rental as unknown as RentalDocument).construct(mongoose.Types.ObjectId(req.params.id), req.body.renter, req.body.boxes, req.body.dropoff, req.body.pickup);
+        res.json(rental.toObject());
     } catch (err) {
         res.status(400).send(err);
     }
