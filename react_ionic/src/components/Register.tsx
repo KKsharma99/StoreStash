@@ -44,10 +44,23 @@ export default class Register extends React.Component {
 									<IonInput type="password" placeholder="Repeat Password"></IonInput>
 								</IonItem>
 							<br></br>
-								<IonButton color="warning" size="default" href="/discover" expand="block" onClick={() =>
-									axios.post("https://storestash.herokuapp.com/api/users/new", 
-										qs.stringify({ email: 'michaelchen@gatech.edu', password: '3iqiruituhfd' })
-									)
+								<IonButton color="warning" size="default" href="/discover" expand="block" onClick={async () =>
+									// {axios.post(
+									// 	"https://storestash.herokuapp.com/api/users/new", 
+									// 	qs.stringify({ email: 'sarahshadid@gatech.edu', password: '3iqiruituhfd' }),
+									// 	{ headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+									// ); console.log("clicked!")}
+									await axios({
+										method: 'POST',
+										url: 'https://storestash.herokuapp.com/api/users/new',
+										// data: qs.stringify({
+										// 	email: 'sarahshadid@gatech.edu',
+										// 	password: 'Yes we talked to users'
+										// }),
+										headers: {
+											'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+										}
+									})
 								}>Register</IonButton>
 							<br></br>
 							<p>Already have an account? <Link color="primary" to="/"><u>Login</u></Link></p>

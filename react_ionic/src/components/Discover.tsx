@@ -230,7 +230,7 @@ export default class Discover extends React.Component {
 							<IonRow>
 								<IonCol col-12 >
 									<IonImg src={room_3}/>
-									<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
+									<p>Space Available: Mar 3, 2019 - Aug 8, 2026</p>
 									<IonButton expand="full" color="warning" size="default" href="/listing">
 										<IonIcon name="calendar" slot="start"></IonIcon>BOOK
 									</IonButton>
