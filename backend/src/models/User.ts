@@ -21,6 +21,7 @@ export type UserDocument = mongoose.Document & {
 
     comparePassword: comparePasswordFunction;
     gravatar: (size: number) => string;
+    construct: (email: string, password: string) => Promise<UserDocument>;
 };
 
 type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
@@ -83,6 +84,14 @@ userSchema.methods.gravatar = function (size: number = 200) {
     }
     const md5 = crypto.createHash("md5").update(this.email).digest("hex");
     return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
+};
+
+userSchema.statics.construct = function (email: string, password: string): Promise<UserDocument> {
+    return new Promise((resolve, reject) => {
+        new User({ email, password }).save()
+            .then(newUser => resolve(newUser))
+            .catch(err => reject(err));
+    });
 };
 
 export const User = mongoose.model<UserDocument>("User", userSchema);
