@@ -53,6 +53,16 @@ export const newUser = async (req: Request, res: Response) => {
     }
 };
 
+export const getNearby = async (req: Request, res: Response) => {
+    try {
+        const listings = await (Listing as unknown as ListingDocument).getNearby(req.query.lat, req.query.lon, req.query.minCapacity, req.query.maxPrice, req.query.startDate, req.query.endDate);
+        res.json(listings);
+        console.log(listings);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};
+
 /**
  * GET /api/facebook
  * Facebook API example.

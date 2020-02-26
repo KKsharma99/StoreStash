@@ -22,7 +22,7 @@ function distance(lat1: number, lon1: number, lat2: number, lon2: number, km: bo
     return twoR * Math.asin(Math.sqrt(a));
 }
 
-export type ListingDocument = mongoose.Document & {
+type _ListingDocument = {
     host: any;
     lat: number;
     lon: number;
@@ -32,42 +32,20 @@ export type ListingDocument = mongoose.Document & {
     endDate: Date;
     price: number;
     construct: (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number) => Promise<ListingDocument>;
-    findNearby: (lat?: number, lon?: number, minCapacity?: number, maxPrice?: number, startDate?: Date, endDate?: Date) => Promise<ListingDocument>;
-};
+    getNearby: (lat?: number, lon?: number, minCapacity?: number, maxPrice?: number, startDate?: Date, endDate?: Date) => Promise<Array<ListingDocument & { distance: number }>>;
+}
+
+export type ListingDocument = mongoose.Document & _ListingDocument;
 
 const listingSchema = new mongoose.Schema({
-    host: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    },
-    lat: {
-        type: Number,
-        required: true
-    },
-    lon: {
-        type: Number,
-        required: true
-    },
-    capacity: {
-        type: Number,
-        required: true
-    },
-    remSpace: {
-        type: Number,
-        required: true
-    },
-    startDate: {
-        type: Date,
-        default: new Date()
-    },
-    endDate: {
-        type: Date,
-        default: new Date(2200, 1, 1)
-    },
-    price: {
-        type: Number,
-        required: true
-    }
+    host: { type: Schema.Types.ObjectId, ref: "User" },
+    lat: { type: Number, required: true },
+    lon: { type: Number, required: true },
+    capacity: { type: Number, required: true },
+    remSpace: { type: Number, required: true },
+    startDate: { type: Date, default: new Date() },
+    endDate: { type: Date, default: new Date(2200, 1, 1) },
+    price: { type: Number, required: true }
 }, { timestamps: true });
 
 listingSchema.statics.construct = async function (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number): Promise<ListingDocument> {
@@ -78,16 +56,18 @@ listingSchema.statics.construct = async function (hostId: any, lat: number, lon:
     });
 };
 
-listingSchema.statics.findNearby = async function (lat: number, lon: number, minCapacity: number = 1, maxPrice: number = Infinity, startDate: Date = new Date(2300, 1, 1), endDate: Date = new Date()) {
+listingSchema.statics.getNearby = async function (lat: number, lon: number, minCapacity: number = 1, maxPrice: number = Infinity, startDate: Date = new Date(2300, 1, 1), endDate: Date = new Date()): Promise<Array<_ListingDocument & { distance: number }>> {
     try {
-        return await this.find({ 
-            remCapacity: { $gte: minCapacity },
+        let listings = await this.find({ 
+            remSpace: { $gte: minCapacity },
             price: { $lte: maxPrice },
             startDate: { $lte: startDate },
             endDate: { $gte: endDate },
-        }).map((listing: any) => { return {...listing, distance: distance(lat, lon, listing.lat, listing.lon)}; });
+        }).exec();
+        return listings.map((listing: ListingDocument) => { return {...listing.toObject(), distance: distance(lat, lon, listing.lat, listing.lon)}; });
     } catch (err) {
         console.log(err);
+        return err;
     }
 };
 

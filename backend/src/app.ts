@@ -108,6 +108,7 @@ app.get("/account/unlink/:provider", passportConfig.isAuthenticated, userControl
 app.get("/api", apiController.getApi);
 app.post("/api/listings/new", apiController.newListing);
 app.post("/api/users/new", apiController.newUser);
+app.get("/api/listings/nearby", apiController.getNearby);
 app.get("/api/facebook", passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
 
 /**
