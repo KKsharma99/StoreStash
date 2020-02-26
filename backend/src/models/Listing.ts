@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 /**
  * Find the distance between two latitude–longitude points, using the Haversine formula.
- * This does not account for 
+ * This does not account for the fact that the Earth is not a perfect sphere.
  * Derived from https://stackoverflow.com/a/21623206/ by Salvador Dali, licensed under CC BY-SA 4.0.
  * 
  * @param lat1 latitude of point 1
