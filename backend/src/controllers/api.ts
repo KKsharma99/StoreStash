@@ -41,6 +41,15 @@ export const newUser = async (req: Request, res: Response) => {
     }
 };
 
+export const getRentalHistory = async (req: Request, res: Response) => {
+    try {
+        const history = await (Rental as unknown as RentalDocument).listRenterHistory(req.params.id);
+        res.json(history.map(rental => rental.toObject()));
+    } catch (err) {
+        res.status(400).send(err);
+    }
+}
+
 export const newListing = async (req: Request, res: Response) => {
     try {
         // const listing = await ((Listing as any) as ListingDocument).construct(mongoose.Types.ObjectId("5e504f591c9d440000ae8586"), 11, -11, 5, new Date(2020, 2, 1), new Date(2022, 5, 1), 14).then(listing => listing);
