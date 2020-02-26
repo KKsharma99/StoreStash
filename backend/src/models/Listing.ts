@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import { ResolveHostnameOptions } from "nodemailer/lib/shared";
 
 /**
  * Find the distance between two latitude–longitude points, using the Haversine formula.
@@ -35,19 +34,6 @@ export type ListingDocument = mongoose.Document & {
     construct: (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number) => Promise<ListingDocument>;
     findNearby: (lat?: number, lon?: number, minCapacity?: number, maxPrice?: number, startDate?: Date, endDate?: Date) => Promise<ListingDocument>;
 };
-
-// export interface ListingDocument extends mongoose.Document {
-//     host: any;
-//     lat: number;
-//     lon: number;
-//     capacity: number;
-//     remSpace: number;
-//     startDate: Date;
-//     endDate: Date;
-//     price: number;
-//     construct(): (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number) => Promise<ListingDocument>;
-//     findNearby(): (lat?: number, lon?: number, minCapacity?: number, maxPrice?: number, startDate?: Date, endDate?: Date) => Promise<ListingDocument>;
-// };
 
 const listingSchema = new mongoose.Schema({
     host: {

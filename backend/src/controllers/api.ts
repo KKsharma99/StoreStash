@@ -1,12 +1,19 @@
 "use strict";
 
 import graph from "fbgraph";
-import moment from "moment";
+import crypto from "crypto";
 import { Response, Request, NextFunction } from "express";
-import mongoose, { Schema } from "mongoose";
 import { UserDocument, User } from "../models/User";
 import { Listing, ListingDocument } from "../models/Listing";
 
+/**
+ * Returns a random string of characters 0-9, a-f.
+ * 
+ * @param bytes number of bytes used for the string; each byte is two hex digits
+ */
+function randomString(bytes: number) {
+    return crypto.randomBytes(bytes).toString("hex");
+}
 
 /**
  * GET /api
@@ -21,23 +28,29 @@ export const getApi = (req: Request, res: Response) => {
 export const newListing = async (req: Request, res: Response) => {
     try {
         // const listing = await ((Listing as any) as ListingDocument).construct(mongoose.Types.ObjectId("5e504f591c9d440000ae8586"), 11, -11, 5, new Date(2020, 2, 1), new Date(2022, 5, 1), 14).then(listing => listing);
-        console.log(req.body);
-        console.log(req.query);
-        // const listing = await ((Listing as any) as ListingDocument).construct(req.body.hostId, req.body.lat, req.body.lon, req.body.capacity, new Date(req.body.startDate), new Date(req.body.endDate), req.body.price);
-        const listing = await ((Listing as any) as ListingDocument).construct(req.query.hostId, req.query.lat, req.query.lon, req.query.capacity, new Date(req.query.startDate), new Date(req.query.endDate), req.query.price);
+        // console.log(req.body);
+        // console.log(req.query);
+        const listing = await (Listing as unknown as ListingDocument).construct(req.body.hostId, req.body.lat, req.body.lon, req.body.capacity, new Date(req.body.startDate), new Date(req.body.endDate), req.body.price);
+        // const listing = await ((Listing as any) as ListingDocument).construct(req.query.hostId, req.query.lat, req.query.lon, req.query.capacity, new Date(req.query.startDate), new Date(req.query.endDate), req.query.price);
         await res.json(listing.toObject());
     } catch (err) {
         console.log(err);
-        res.status(500).send("Something wrong happened with creating a new listing.");
+        res.sendStatus(400);
     }
 };
 
 export const newUser = async (req: Request, res: Response) => {
     try {
-        const user = await new User({ email: "michaelchen@gatech.edu", password: "sdjfiosojidffsdoji" }).save(err => console.log(err));
+        let user;
+        if (req.query.random == "true" || req.body.random == "true") {
+            user = await (User as unknown as UserDocument).construct(`${randomString(5)}@gatech.edu`, randomString(8));
+        } else {
+            user = await (User as unknown as UserDocument).construct(req.body.email, req.body.password);
+        }
         res.json(user.toObject());
     } catch (err) {
         console.log(err);
+        res.sendStatus(400);
     }
 };
 
