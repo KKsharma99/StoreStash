@@ -70,12 +70,12 @@ const listingSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-listingSchema.statics.construct = async function (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number) {
-    const newListing = new Listing({
-        host: hostId, lat, lon, capacity, remSpace: capacity, startDate, endDate, price
+listingSchema.statics.construct = async function (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number): Promise<ListingDocument> {
+    return new Promise((resolve, reject) => {
+        new Listing({ host: hostId, lat, lon, capacity, remSpace: capacity, startDate, endDate, price }).save()
+            .then(newListing => resolve(newListing))
+            .catch(err => { console.log(err); reject(err); });
     });
-    await newListing.save(err => console.log(err));
-    return newListing;
 };
 
 listingSchema.statics.findNearby = async function (lat: number, lon: number, minCapacity: number = 1, maxPrice: number = Infinity, startDate: Date = new Date(2300, 1, 1), endDate: Date = new Date()) {
