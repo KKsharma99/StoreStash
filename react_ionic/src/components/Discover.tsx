@@ -27,9 +27,9 @@ import {
 } from '@ionic/react'
 
 // Import Images
-import room_1 from '../../assets/img/room_1.png';
-import room_2 from '../../assets/img/room_2.png';
-import room_3 from '../../assets/img/room_3.png';
+import room_1 from '../assets/img/room_1.png';
+import room_2 from '../assets/img/room_2.png';
+import room_3 from '../assets/img/room_3.png';
 
 
 

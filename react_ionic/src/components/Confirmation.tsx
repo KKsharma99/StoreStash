@@ -16,7 +16,7 @@ import {
 
 } from '@ionic/react'
 
-export default class Confrimation extends React.Component {
+export default class Confirmation extends React.Component {
 	render() {
 		return (<>
 

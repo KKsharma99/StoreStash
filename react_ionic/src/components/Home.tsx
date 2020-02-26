@@ -22,11 +22,11 @@ import {
 } from '@ionic/react'
 import { Route } from 'react-router-dom'
 import { IonPage } from '@ionic/react'
-import Discover from '../Discover'
-import Profile from '../Profile'
-import Register from '../Register'
-import Listing from '../Listing'
-import Confirmation from '../Confirmation'
+import Discover from './Discover'
+import Profile from './Profile'
+import Register from './Register'
+import Listing from './Listing'
+import Confirmation from './Confirmation'
 
 class Home extends Component {
 	render() {
