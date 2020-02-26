@@ -1,7 +1,8 @@
 {
   "name": "React Ionic Project",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "custom"
 }
