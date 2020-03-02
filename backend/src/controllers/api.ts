@@ -48,7 +48,7 @@ export const getRentalHistory = async (req: Request, res: Response) => {
     } catch (err) {
         res.status(400).send(err);
     }
-}
+};
 
 export const newListing = async (req: Request, res: Response) => {
     try {
@@ -67,7 +67,7 @@ export const getListing = async (req: Request, res: Response) => {
     } catch (err) {
         res.status(400).send(err);
     }
-}
+};
 
 export const rentListing = async (req: Request, res: Response) => {
     try {
@@ -76,11 +76,11 @@ export const rentListing = async (req: Request, res: Response) => {
     } catch (err) {
         res.status(400).send(err);
     }
-}
+};
 
 export const getNearby = async (req: Request, res: Response) => {
     try {
-        const listings = await (Listing as unknown as ListingDocument).getNearby(req.query.lat, req.query.lon, req.query.minCapacity, req.query.maxPrice, req.query.startDate, req.query.endDate);
+        const listings = await (Listing as unknown as ListingDocument).getNearby(req.query.lat, req.query.lon, req.query.minCapacity, req.query.maxPrice, new Date(req.query.startDate), new Date(req.query.endDate));
         res.json(listings);
     } catch (err) {
         res.status(400).send(err);
