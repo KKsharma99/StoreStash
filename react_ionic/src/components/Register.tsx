@@ -15,6 +15,8 @@ import { Link } from 'react-router-dom'
 import axios from "axios"
 import qs from "qs"
 
+import logo from '../assets/img/logo.png';
+
 export default class Register extends React.Component {
 	render() {
 		return (<>
@@ -26,7 +28,7 @@ export default class Register extends React.Component {
 							<br></br>
 							<br></br>
 							<br></br>
-							<IonImg src="https://scontent-ort2-1.xx.fbcdn.net/v/t1.15752-0/p280x280/87410422_218144796034626_6427845418083680256_n.png?_nc_cat=108&_nc_ohc=a-TqTLyCU6QAX9r2qH9&_nc_ht=scontent-ort2-1.xx&oh=8cfd31078edaf06e989de12132ebd9ca&oe=5F004821"/>
+							<IonImg src={logo} alt="logo"/>
 						</IonCol>
 					</IonRow>
 					<IonRow justify-content-center>
@@ -62,10 +64,7 @@ export default class Register extends React.Component {
 										}
 									})
 								}>Register</IonButton>
-							<br></br>
-							<p>Already have an account? <Link color="primary" to="/"><u>Login</u></Link></p>
-
-
+							<IonButton color="light" size="small"  expand="block" href="/">or Login</IonButton>
 						</IonCol>
 					</IonRow>
 				</IonGrid>

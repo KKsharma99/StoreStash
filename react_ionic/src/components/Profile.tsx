@@ -27,7 +27,7 @@ import {
 } from '@ionic/react'
 
 // Images
-import user from '../../assets/img/user.png';
+import user from '../assets/img/user.png';
 
 export default class Profile extends React.Component {
 	render() {

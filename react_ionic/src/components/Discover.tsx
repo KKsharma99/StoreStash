@@ -31,7 +31,6 @@ import room_1 from '../assets/img/room_1.png';
 import room_2 from '../assets/img/room_2.png';
 import room_3 from '../assets/img/room_3.png';
 
-
 export default class Discover extends React.Component {
 	render() {
 		return (<>
@@ -152,7 +151,7 @@ export default class Discover extends React.Component {
 						<IonCardContent class="ion-no-padding">
 							<IonRow>
 								<IonCol col-12 >
-									<IonImg src={room_2}/>
+									<IonImg src={room_2} alt="Room"/>
 									<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
 									<IonButton expand="full" color="warning" size="default" href="/listing">
 										<IonIcon name="calendar" slot="start"></IonIcon>BOOK
