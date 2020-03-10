@@ -58,15 +58,15 @@ listingSchema.statics.construct = async function (hostId: any, lat: number, lon:
 
 listingSchema.statics.getNearby = async function (lat: number, lon: number, minCapacity: number = 1, maxPrice: number = Infinity, startDate: Date = new Date(2300, 1, 1), endDate: Date = new Date()): Promise<Array<_ListingDocument & { distance: number }>> {
     try {
-        let listings = await this.find({ 
+        const listings = await this.find({ 
             remSpace: { $gte: minCapacity },
             price: { $lte: maxPrice },
             startDate: { $lte: startDate },
             endDate: { $gte: endDate },
         }).exec();
-        return listings
-            .map((listing: ListingDocument) => { return {...listing.toObject(), distance: distance(lat, lon, listing.lat, listing.lon)}; })
-            .sort((listing: _ListingDocument & { distance: number }) => listing.distance);
+        return await listings
+            .map((listing: ListingDocument) => { return {...listing, distance: distance(lat, lon, listing.lat, listing.lon)}; });
+            // .sort((listing: _ListingDocument & { distance: number }) => listing.distance);
     } catch (err) {
         console.log(err);
         return Promise.reject(err);

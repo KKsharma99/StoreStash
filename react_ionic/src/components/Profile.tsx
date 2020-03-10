@@ -27,7 +27,7 @@ import {
 } from '@ionic/react'
 
 // Images
-import user from '../../assets/img/user.png';
+import user from '../assets/img/user.png';
 
 export default class Profile extends React.Component {
 	render() {
@@ -44,7 +44,7 @@ export default class Profile extends React.Component {
 			<IonContent>
 				<IonCard text-center>
 					<IonItem>
-						<IonTitle><h1>Sarah</h1></IonTitle>
+						<IonTitle><h1>sarahshadid</h1></IonTitle>
 					</IonItem>
 
 					<IonCardContent class="ion-no-padding">
@@ -64,7 +64,22 @@ export default class Profile extends React.Component {
 					<IonTitle>Rent History</IonTitle>
 				</IonItem>
 
-
+				<IonCard>
+					<IonCardContent>
+						<IonCardSubtitle>Sarah Smith</IonCardSubtitle>
+						<hr></hr>
+						<IonRow>
+							<IonCol col-12 >
+								<p>
+									Total Cost: <IonText color="success"><b>$110</b></IonText> <br></br>
+									Boxes: 1 <br></br>
+									Feb 26, 2020 - Apr 20, 2020 <br></br>
+									Status: <IonText color="success"><b>Current</b></IonText>
+								</p> 
+							</IonCol>
+						</IonRow>
+					</IonCardContent>
+				</IonCard>
 
 				<IonCard>
 					<IonCardContent>
@@ -75,7 +90,7 @@ export default class Profile extends React.Component {
 								<p>
 									Total Cost: <IonText color="success"><b>$99</b></IonText> <br></br>
 									Boxes: 3 <br></br>
-									May 8, 2019 - Jun 23, 2019 <br></br>
+									Jun 4, 2019 - Jun 19, 2020 <br></br>
 									Status: <IonText color="success"><b>Current</b></IonText>
 								</p> 
 							</IonCol>
@@ -102,7 +117,7 @@ export default class Profile extends React.Component {
 
 				<IonCard color="light">
 					<IonCardContent>
-						<IonCardSubtitle>Arnold S</IonCardSubtitle>
+						<IonCardSubtitle>Arnold Schönberg</IonCardSubtitle>
 						<hr></hr>
 						<IonRow>
 							<IonCol col-12 >

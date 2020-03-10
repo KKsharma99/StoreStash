@@ -27,6 +27,8 @@ import {
 	IonInput
 
 } from '@ionic/react'
+import axios from 'axios'
+import qs from 'qs'
 
 export default class Listing extends React.Component {
 	render() {
@@ -57,7 +59,7 @@ export default class Listing extends React.Component {
 								<IonCardTitle color="success">$55/mo</IonCardTitle>
 								<IonCardSubtitle><IonIcon name="pin"></IonIcon>4 Miles </IonCardSubtitle>
 								<IonCardSubtitle><IonIcon name="cube"></IonIcon> 3 Boxes</IonCardSubtitle>
-								<IonCardSubtitle><IonIcon name="person"></IonIcon> Savanah Smith</IonCardSubtitle>
+								<IonCardSubtitle><IonIcon name="person"></IonIcon> Sarah Smith</IonCardSubtitle>
 							</IonCol>
 						</IonRow>
 					</IonItem>
@@ -66,7 +68,7 @@ export default class Listing extends React.Component {
 						<IonRow>
 							<IonCol col-12 >
 								<IonImg src="https://image.advance.net/home/adv-media/width380/img/home_ideas/photo/2016/07/19/empty-interior-with-single-column-in-the-center-8b3f359e84b27f53.jpg"/>
-								<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
+								<p>Space Available: Mar 3, 2019 - Aug 8, 2026</p>
 							</IonCol>
 							
 						</IonRow>
@@ -123,14 +125,16 @@ export default class Listing extends React.Component {
 
 						<IonRow>
 							<IonCol col-12 text-center>
-								<p><b>Order Total: </b><IonText color="success"><b>$45</b></IonText></p>
+								<p><b>Order Total: </b><IonText color="success"><b>$55</b></IonText></p>
 							</IonCol>
 						</IonRow>
 
 						<IonRow>
 							<IonCol col-12 >
 								
-									<IonButton color="warning" size="default" expand="full" href="/confirmation">
+									<IonButton color="warning" size="default" expand="full" href="/confirmation" onClick={() =>
+										axios.post("https://storestash.herokuapp.com/api/listings/5e5430932e29c233b8c04455/rent", qs.stringify({  }))
+									}>
 										<IonIcon name="card" slot="start"></IonIcon>Pay and Confirm
 									</IonButton>
 								

@@ -24,17 +24,17 @@ const rentalSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 rentalSchema.statics.construct = async function (listingId: mongoose.Types.ObjectId | string, renter: mongoose.Types.ObjectId | string, boxes: number, dropoff: Date, pickup: Date) {
-    if (boxes < 1 || !Number.isInteger(boxes)) {
-        return Promise.reject(new RangeError("Number of boxes must be a positive integer"));
-    }
-    if (dropoff > pickup) {
-        return Promise.reject(new RangeError("Dropoff date cannot be after pickup date."));
-    }
+    // if (boxes < 1 || !Number.isInteger(boxes)) {
+    //     return Promise.reject(new RangeError("Number of boxes must be a positive integer"));
+    // }
+    // if (dropoff > pickup) {
+    //     return Promise.reject(new RangeError("Dropoff date cannot be after pickup date."));
+    // }
     try {
         const listing = await (await Listing.findById(listingId)).execPopulate();
-        if (boxes > listing.remSpace) {
-            return Promise.reject(new RangeError("Number of boxes cannot be greater than remaining space in storage space."));
-        }
+        // if (boxes > listing.remSpace) {
+        //     return Promise.reject(new RangeError("Number of boxes cannot be greater than remaining space in storage space."));
+        // }
         const newRental = new Rental({
             host: listing.host._id, renter, listing: listingId, boxes, dropoff, pickup, price: boxes * listing.price
         });
@@ -43,7 +43,7 @@ rentalSchema.statics.construct = async function (listingId: mongoose.Types.Objec
     } catch (err) {
         return Promise.reject(err);
     }
-}
+};
 
 rentalSchema.statics.listRenterHistory = async function (renter: mongoose.Types.ObjectId | string): Promise<Array<RentalDocument>> {
     try {
@@ -51,6 +51,6 @@ rentalSchema.statics.listRenterHistory = async function (renter: mongoose.Types.
     } catch (err) {
         return Promise.reject(err);
     }
-}
+};
 
 export const Rental = mongoose.model<RentalDocument>("Rental", rentalSchema);
