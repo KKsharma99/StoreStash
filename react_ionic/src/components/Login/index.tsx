@@ -33,9 +33,6 @@ import Confirmation from '../Confirmation'
 import logo from '../../assets/img/logo.png';
 
 class Home extends Component {
-	hide() {
-		this.hide;
-	}
 	render() {
 		return (
 			<IonApp>
