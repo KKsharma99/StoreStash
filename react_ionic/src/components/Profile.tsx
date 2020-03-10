@@ -26,6 +26,9 @@ import {
 
 } from '@ionic/react'
 
+// Images
+import user from '../../assets/img/user.png';
+
 export default class Profile extends React.Component {
 	render() {
 		return (<>
@@ -47,7 +50,7 @@ export default class Profile extends React.Component {
 					<IonCardContent class="ion-no-padding">
 						<IonRow>
 							<IonCol col-12 >
-								<IonImg src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg"/>
+								<IonImg src={user} alt="User Profile Picture"/>
 								<hr></hr>
 								
 								<IonButton expand="full" color="warning" size="default"><IonIcon name="add-circle" slot="start"></IonIcon>Lend Space</IonButton>
