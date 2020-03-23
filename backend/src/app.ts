@@ -28,7 +28,7 @@ import * as passportConfig from "./config/passport";
 const app = express();
 
 // Enable all CORS requests
-app.use(cors())
+app.use(cors());
 
 // Connect to MongoDB
 const mongoUrl = MONGODB_URI;
