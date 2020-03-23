@@ -12,6 +12,8 @@ npm start
 
 In production, if you end up using cookies, you should change the `SESSION_SECRET` environment variable.
 
+You can basically ignore the rest of this README.
+
 ## MongoDB info
 
 Important Commands:

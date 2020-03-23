@@ -64,7 +64,7 @@ class Login extends Component {
 										<IonInput type="password" placeholder="Password"></IonInput>
 									</IonItem>
 									<br></br>
-									<IonButton color="warning" size="default" expand="block" href="/discover">Login</IonButton>
+									<IonButton color="warning" size="default" expand="block" href="/discover" onClick={() => alert("hey")}>Login</IonButton>
 									<IonButton color="light" size="small"  expand="block" href="/register">Create an Account</IonButton>
 								</IonCol>
 							</IonRow>

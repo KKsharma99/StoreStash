@@ -10,6 +10,8 @@ import mongoose from "mongoose";
 import passport from "passport";
 import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
+import cors from "cors";
+import morgan from "morgan";
 
 const MongoStore = mongo(session);
 
@@ -26,6 +28,12 @@ import * as passportConfig from "./config/passport";
 // Create Express server
 const app = express();
 
+// Enable all CORS requests
+app.use(cors());
+
+// Log requests
+app.use(morgan('combined'));
+
 // Connect to MongoDB
 const mongoUrl = MONGODB_URI;
 mongoose.Promise = bluebird;
@@ -38,7 +46,7 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useCreateIndex: true, useUni
 });
 
 // Express configuration
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 3001);
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "pug");
 app.use(compression());
