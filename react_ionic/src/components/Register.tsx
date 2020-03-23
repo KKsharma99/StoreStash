@@ -12,8 +12,7 @@ import {
 
 } from '@ionic/react'
 import { Link } from 'react-router-dom'
-import axios from "axios"
-import qs from "qs"
+import wretch from "wretch"
 
 import logo from '../assets/img/logo.png';
 
@@ -47,22 +46,11 @@ export default class Register extends React.Component {
 								</IonItem>
 							<br></br>
 								<IonButton color="warning" size="default" href="/discover" expand="block" onClick={async () =>
-									// {axios.post(
-									// 	"https://storestash.herokuapp.com/api/users/new", 
-									// 	qs.stringify({ email: 'sarahshadid@gatech.edu', password: '3iqiruituhfd' }),
-									// 	{ headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-									// ); console.log("clicked!")}
-									await axios({
-										method: 'POST',
-										url: 'http://localhost:3000/api/users/new',
-										data: qs.stringify({
+									wretch('http://localhost:3001/api/users/new')
+										.post({
 											email: 'sarahshadid@gatech.edu',
 											password: 'Yes we talked to users'
-										}),
-										headers: {
-											'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-										}
-									})
+										})
 								}>Register</IonButton>
 							<IonButton color="light" size="small"  expand="block" href="/">or Login</IonButton>
 						</IonCol>
