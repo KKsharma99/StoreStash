@@ -11,6 +11,7 @@ import passport from "passport";
 import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 import cors from "cors";
+import morgan from "morgan";
 
 const MongoStore = mongo(session);
 
@@ -29,6 +30,9 @@ const app = express();
 
 // Enable all CORS requests
 app.use(cors());
+
+// Log requests
+app.use(morgan('combined'));
 
 // Connect to MongoDB
 const mongoUrl = MONGODB_URI;

@@ -54,11 +54,11 @@ export default class Register extends React.Component {
 									// ); console.log("clicked!")}
 									await axios({
 										method: 'POST',
-										url: 'https://storestash.herokuapp.com/api/users/new',
-										// data: qs.stringify({
-										// 	email: 'sarahshadid@gatech.edu',
-										// 	password: 'Yes we talked to users'
-										// }),
+										url: 'http://localhost:3000/api/users/new',
+										data: qs.stringify({
+											email: 'sarahshadid@gatech.edu',
+											password: 'Yes we talked to users'
+										}),
 										headers: {
 											'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
 										}
