@@ -8,7 +8,7 @@ import {
 	IonButton,
 	IonInput,
 	IonGrid,
-	IonText
+	IonCheckbox
 
 } from '@ionic/react'
 import { Link } from 'react-router-dom'
@@ -25,9 +25,6 @@ export default class Register extends React.Component {
 				<IonGrid>
 					<IonRow>
 						<IonCol col-12 >
-							<br></br>
-							<br></br>
-							<br></br>
 							<IonImg src={logo} alt="logo"/>
 						</IonCol>
 					</IonRow>
@@ -37,7 +34,12 @@ export default class Register extends React.Component {
 								<IonItem>
 									<IonInput type="email" placeholder="Gatech Email"></IonInput>
 								</IonItem>
-
+								<IonItem>
+									<IonInput type="text" placeholder="First Name"></IonInput>
+								</IonItem>
+								<IonItem>
+									<IonInput type="text" placeholder="Last Name"></IonInput>
+								</IonItem>
 								<IonItem>
 									<IonInput type="password" placeholder="Password"></IonInput>
 								</IonItem>
@@ -45,6 +47,13 @@ export default class Register extends React.Component {
 								<IonItem>
 									<IonInput type="password" placeholder="Repeat Password"></IonInput>
 								</IonItem>
+							<br></br>
+								<IonItem>
+									<IonCheckbox slot="start" value="agree"></IonCheckbox>
+									Agree to Terms and Conditions
+								</IonItem>
+								<IonButton color="light" size="small"  expand="full" href="/agreement">Read Terms and Conditions</IonButton>
+							<br></br>
 							<br></br>
 								<IonButton color="warning" size="default" href="/discover" expand="block" onClick={async () =>
 									// {axios.post(
