@@ -12,7 +12,7 @@ Attempted import error: 'ICON_PATHS' is not exported from 'ionicons/icons'.
 
 Serve the app: `npm start`
 
-You can use your browser dev tools to use a mobile view for the app.
+You can use your browser dev tools to use a mobile view for the app. Ionic has some issues in Firefox (dialogs not opening, requests getting a NetworkError) so it's best to use Chromium.
 
 # Create React App
 
