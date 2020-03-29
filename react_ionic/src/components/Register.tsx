@@ -17,13 +17,16 @@ import { RouteComponentProps } from 'react-router';
 
 const Register: React.SFC<RouteComponentProps> = (props) => {
 	const { state, dispatch } = useContext(AppContext);
-	const { email, password1, password2, agreed } = state;
+	const { email, agreed } = state;
+	console.log(email);
+	const [password1, setPassword1] = useState('');
+	const [password2, setPassword2] = useState('');
 
 	async function handleSubmit(e: MouseEvent) {
 		let validationErr = false;
 		if (!email.endsWith("@gatech.edu")) {
 			validationErr = true;
-			alert("Email be a @gatech.edu address");
+			alert("Email must be a @gatech.edu address");
 		}
 		if (password1 !== password2) {
 			validationErr = true;
@@ -52,20 +55,6 @@ const Register: React.SFC<RouteComponentProps> = (props) => {
 		dispatch({
 			type: ActionTypes.setEmail,
 			email
-		})
-	}
-	
-	function setPassword1(password: string) {
-		dispatch({
-			type: ActionTypes.setPassword1,
-			password
-		})
-	}
-	
-	function setPassword2(password: string) {
-		dispatch({
-			type: ActionTypes.setPassword1,
-			password
 		})
 	}
 	

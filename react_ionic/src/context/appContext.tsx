@@ -5,8 +5,6 @@ import React, { createContext, useReducer } from 'react';
 type State = {
     auth: string,
     email: string,
-    password1: string,
-    password2: string,
     agreed: boolean,
 }
 
@@ -25,9 +23,7 @@ function getInitialState(initialState) {
 export let initialState: State = {
     auth: '',
     email: '',
-    password1: '',
-    password2: '',
-    agreed: true,
+    agreed: false,
 }
 
 getInitialState(initialState);
@@ -37,8 +33,6 @@ console.log(initialState);
 export enum ActionTypes {
     setAuth = 'setAuth',
     setEmail = 'setEmail',
-    setPassword1 = 'setPassword1',
-    setPassword2 = 'setPassword2',
     setAgreed = 'setAgreed',
 }
 
@@ -48,12 +42,6 @@ type Action = {
 } | {
     type: ActionTypes.setEmail,
     email: string
-} | {
-    type: ActionTypes.setPassword1,
-    password: string
-} | {
-    type: ActionTypes.setPassword2,
-    password: string
 } | {
     type: ActionTypes.setAgreed,
     agreed: boolean
@@ -70,14 +58,6 @@ export const reducer: React.Reducer<State, Action> = (state, action) => {
         case ActionTypes.setEmail: {
             localStorage.setItem('email', action.email);
             return { ...state, email: action.email };
-        }
-        case ActionTypes.setPassword1: {
-            localStorage.setItem('password1', action.password);
-            return { ...state, password: action.password };
-        }
-        case ActionTypes.setPassword2: {
-            localStorage.setItem('password2', action.password);
-            return { ...state, password: action.password };
         }
         case ActionTypes.setAgreed: {
             localStorage.setItem('agreed', action.agreed.toString());
