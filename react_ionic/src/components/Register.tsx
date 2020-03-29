@@ -16,7 +16,7 @@ import { AppContext, ActionTypes } from '../context/appContext';
 import { RouteComponentProps } from 'react-router';
 
 const Register: React.SFC<RouteComponentProps> = (props) => {
-	const { state, dispatch } = useReducer(AppContext);
+	const { state, dispatch } = useContext(AppContext);
 	const { email, password1, password2, agreed } = state;
 
 	async function handleSubmit(e: MouseEvent) {

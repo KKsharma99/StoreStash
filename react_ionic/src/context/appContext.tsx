@@ -1,7 +1,6 @@
 // @ts-nocheck
 
 import React, { createContext, useReducer } from 'react';
-import { prependOnceListener } from 'cluster';
 
 type State = {
     email: string,
@@ -10,7 +9,7 @@ type State = {
     agreed: boolean,
 }
 
-const initialState: State = {
+export const initialState: State = {
     email: '',
     password1: '',
     password2: '',
@@ -42,23 +41,28 @@ type Action = {
     agreed: boolean
 }
 
-export let AppContext = createContext<{state: State, dispatch: (action: Action) => void}>({ state: initialState, dispatch: null as any });
+export const AppContext = createContext<{state: State, dispatch: (action: Action) => void}>({ state: initialState, dispatch: null as any });
 
-let reducer: React.Reducer<State, Action> = (state, action) => {
+export const reducer: React.Reducer<State, Action> = (state, action) => {
     switch (action.type) {
         case ActionTypes.setAuth: {
+            localStorage.setItem(ActionTypes.setAuth, action.auth);
             return { ...state, auth: action.auth };
         }
         case ActionTypes.setEmail: {
+            localStorage.setItem(ActionTypes.setEmail, action.email);
             return { ...state, email: action.email };
         }
         case ActionTypes.setPassword1: {
+            localStorage.setItem(ActionTypes.setPassword1, action.password);
             return { ...state, password: action.password };
         }
         case ActionTypes.setPassword2: {
+            localStorage.setItem(ActionTypes.setPassword2, action.password);
             return { ...state, password: action.password };
         }
         case ActionTypes.setAgreed: {
+            localStorage.setItem(ActionTypes.setAgreed, action.agreed);
             return { ...state, agreed: action.agreed };
         }
     }
