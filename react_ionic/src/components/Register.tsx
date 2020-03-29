@@ -1,6 +1,4 @@
-// @ts-nocheck
-
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect, useReducer } from 'react'
 import {
 	IonContent,
 	IonItem,
@@ -14,20 +12,11 @@ import {
 } from '@ionic/react'
 import wretch from "wretch"
 import logo from '../assets/img/logo.png';
-import { AppContext } from '../context/appContext';
+import { AppContext, ActionTypes } from '../context/appContext';
 import { RouteComponentProps } from 'react-router';
 
-function setEmail(_) {}
-
-function setPassword1(_) {}
-
-function setPassword2(_) {}
-
-function setAgreed(_) {}
-
 const Register: React.SFC<RouteComponentProps> = (props) => {
-	const { state, dispatch } = useContext(AppContext);
-	
+	const { state, dispatch } = useReducer(AppContext);
 	const { email, password1, password2, agreed } = state;
 
 	async function handleSubmit(e: MouseEvent) {
@@ -57,6 +46,34 @@ const Register: React.SFC<RouteComponentProps> = (props) => {
 					}
 				});
 		}
+	}
+
+	function setEmail(email: string) {
+		dispatch({
+			type: ActionTypes.setEmail,
+			email
+		})
+	}
+	
+	function setPassword1(password: string) {
+		dispatch({
+			type: ActionTypes.setPassword1,
+			password
+		})
+	}
+	
+	function setPassword2(password: string) {
+		dispatch({
+			type: ActionTypes.setPassword1,
+			password
+		})
+	}
+	
+	function setAgreed(agreed: boolean) {
+		dispatch({
+			type: ActionTypes.setAgreed,
+			agreed
+		})
 	}
 
 	return (<>
