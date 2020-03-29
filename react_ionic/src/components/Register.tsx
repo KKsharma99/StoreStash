@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState, useContext } from 'react'
 import {
 	IonContent,
@@ -15,17 +17,20 @@ import logo from '../assets/img/logo.png';
 import { AppContext } from '../context/appContext';
 import { RouteComponentProps } from 'react-router';
 
-// @ts-nocheck
+function setEmail(_) {}
+
+function setPassword1(_) {}
+
+function setPassword2(_) {}
+
+function setAgreed(_) {}
 
 const Register: React.SFC<RouteComponentProps> = (props) => {
-	const { appState: state, dispatch } = useContext(AppContext);
+	const { state, dispatch } = useContext(AppContext);
 	
-	const [email, setEmail] = useState('');
-	const [password1, setPassword1] = useState('');
-	const [password2, setPassword2] = useState('');
-	const [agreed, setAgreed] = useState(false);
+	const { email, password1, password2, agreed } = state;
 
-	const handleSubmit = async (e: MouseEvent) => {
+	async function handleSubmit(e: MouseEvent) {
 		let validationErr = false;
 		if (!email.endsWith("@gatech.edu")) {
 			validationErr = true;
@@ -103,7 +108,8 @@ const Register: React.SFC<RouteComponentProps> = (props) => {
 							<IonItem>
 								<IonCheckbox
 									slot="start"
-									value={agreed}
+									value="agree"
+									checked={agreed}
 									onIonChange={e => setAgreed(!agreed)}
 								></IonCheckbox>
 								Agree to Terms and Conditions

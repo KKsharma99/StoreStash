@@ -1,7 +1,16 @@
+// @ts-nocheck
+
 import React, { createContext, useReducer } from 'react';
 import { prependOnceListener } from 'cluster';
 
-export let AppContext = createContext<{state: any, dispatch: (action: any) => void} | null>(null);
+const initialState = {
+    email: '',
+    password1: '',
+    password2: '',
+    agreed: true,
+}
+// @ts-ignore
+export let AppContext = createContext<{state: any, dispatch: (action: any) => void}>({ state: initialState});
 
 enum ActionTypes {
     setAuth = 'setAuth',
@@ -17,8 +26,7 @@ let reducer = (state, action) => {
 }
 
 export const AppContextProvider = ({ children }) => {
-    const fullInitialState = {}
-    let [state, dispatch] = useReducer(reducer, fullInitialState);
+    let [state, dispatch] = useReducer(reducer, initialState);
     
     return (
         <AppContext.Provider value={{ state, dispatch }}>
