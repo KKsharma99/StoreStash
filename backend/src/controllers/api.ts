@@ -17,16 +17,6 @@ function randomString(bytes: number) {
     return crypto.randomBytes(bytes).toString("hex");
 }
 
-/**
- * GET /api
- * List of API examples.
- */
-export const getApi = (req: Request, res: Response) => {
-    res.render("api/index", {
-        title: "API Examples"
-    });
-};
-
 export const newUser = async (req: Request, res: Response) => {
     try {
         let user;

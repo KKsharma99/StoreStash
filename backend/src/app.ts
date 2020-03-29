@@ -12,6 +12,7 @@ import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 import cors from "cors";
 import morgan from "morgan";
+import jwt from 'jsonwebtoken';
 
 const MongoStore = mongo(session);
 
@@ -111,9 +112,35 @@ app.post("/account/delete", passportConfig.isAuthenticated, userController.postD
 app.get("/account/unlink/:provider", passportConfig.isAuthenticated, userController.getOauthUnlink);
 
 /**
- * API examples routes.
+ * API routes.
  */
-app.get("/api", apiController.getApi);
+// From https://www.digitalocean.com/community/tutorials/api-authentication-with-json-web-tokensjwt-and-passport
+app.post('/api/signup', passport.authenticate('signup', { session : false }) , async (req, res, next) => {
+    res.json({
+        message: 'Signup successful',
+        user: req.user
+    });
+});
+app.post('/api/login', async (req, res, next) => {
+    passport.authenticate('login', async (err, user, info) => {     try {
+        if(err || !user){
+            const error = new Error('An Error occurred')
+            return next(error);
+        }
+        req.login(user, { session : false }, async (error) => {
+            if( error ) return next(error)
+            //We don't want to store the sensitive information such as the
+            //user password in the token so we pick only the email and id
+            const body = { _id : user._id, email : user.email };
+            //Sign the JWT token and populate the payload with the user email and id
+            const token = jwt.sign({ user : body },'5r37C%NvJzATzGC5');
+            //Send back the token to the user
+            return res.json({ token });
+        });     } catch (error) {
+        return next(error);
+      }
+    })(req, res, next);
+  });
 app.post("/api/listings/new", apiController.newListing);
 app.post("/api/users/new", apiController.newUser);
 app.get("/api/users/:id/rentals", apiController.getRentalHistory);
