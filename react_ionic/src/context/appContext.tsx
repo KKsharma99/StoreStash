@@ -2,11 +2,13 @@
 
 import React, { createContext, useReducer } from 'react';
 
-type State = {
-    auth: string,
-    email: string,
-    agreed: boolean,
+export let initialState = {
+    auth: '',
+    email: '',
+    agreed: false,
 }
+
+type State = Readonly<typeof initialState>
 
 function getInitialState(initialState) {
     for (const key of Object.keys(initialState)) {
@@ -18,12 +20,6 @@ function getInitialState(initialState) {
             }
         }
     }
-}
-
-export let initialState: State = {
-    auth: '',
-    email: '',
-    agreed: false,
 }
 
 getInitialState(initialState);

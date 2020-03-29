@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import {
 	IonContent,
 	IonHeader,
@@ -26,45 +26,48 @@ import {
 	IonGrid
 
 } from '@ionic/react'
+import moment from "moment";
 
 // Import Images
 import room_1 from '../assets/img/room_1.png';
 import room_2 from '../assets/img/room_2.png';
 import room_3 from '../assets/img/room_3.png';
 
-const DiscoverCard: React.FC<{ price: number, distance: number, boxes: number, host: string, startDate: Date, endDate: Date, listingId: string }> = ({ price, distance, boxes, host, startDate, endDate, listingId }) => {
-	<IonCard>
-		<IonItem>
-			<IonRow>
-				<IonCol col-12>
-					<IonCardTitle color="success">${price}/mo</IonCardTitle>
-					<IonCardSubtitle><IonIcon name="pin"></IonIcon>{distance} Miles </IonCardSubtitle>
-					<IonCardSubtitle><IonIcon name="cube"></IonIcon> {boxes} Boxes</IonCardSubtitle>
-					<IonCardSubtitle><IonIcon name="person"></IonIcon> {host}</IonCardSubtitle>
-				</IonCol>
-			</IonRow>
-		</IonItem>
+const DiscoverCard: React.FC<{ price: number, distance: number, boxes: number, host: string, startDate: Date, endDate: Date, listingId?: string, image?: string }> = ({ price, distance, boxes, host, startDate, endDate, listingId, image }) => {
+	return (<>
+		<IonCard>
+			<IonItem>
+				<IonRow>
+					<IonCol col-12>
+						<IonCardTitle color="success">${price}/mo</IonCardTitle>
+						<IonCardSubtitle><IonIcon name="pin"></IonIcon>{distance} Miles </IonCardSubtitle>
+						<IonCardSubtitle><IonIcon name="cube"></IonIcon> {boxes} Boxes</IonCardSubtitle>
+						<IonCardSubtitle><IonIcon name="person"></IonIcon> {host}</IonCardSubtitle>
+					</IonCol>
+				</IonRow>
+			</IonItem>
 
-		<IonCardContent class="ion-no-padding">
-			<IonRow>
-				<IonCol col-12 >
-					<IonImg src={room_1} alt="Room"/>
-					<p>Space Available: {startDate.toString()} - {endDate.toString()}</p>
-					
-					<Link to={{
-						pathname: '/listing',
-						state: {
-							id: listingId
-						}
-					}}>
-						<IonButton expand="full" color="warning" size="default" href="/listing">
-							<IonIcon name="calendar" slot="start"></IonIcon>BOOK
-						</IonButton>
-					</Link>
-				</IonCol>
-			</IonRow>
-		</IonCardContent>
-	</IonCard>
+			<IonCardContent class="ion-no-padding">
+				<IonRow>
+					<IonCol col-12 >
+						<IonImg src={image} alt="Room"/>
+						<p>Space Available: {moment(startDate).format('ll')} - {moment(endDate).format('ll')}</p>
+						
+						<Link to={{
+							pathname: '/listing',
+							state: {
+								id: listingId
+							}
+						}}>
+							<IonButton expand="full" color="warning" size="default" href="/listing">
+								<IonIcon name="calendar" slot="start"></IonIcon>BOOK
+							</IonButton>
+						</Link>
+					</IonCol>
+				</IonRow>
+			</IonCardContent>
+		</IonCard>
+	</>)
 }
 
 export default class Discover extends React.Component {
@@ -144,134 +147,11 @@ export default class Discover extends React.Component {
 					</IonCol>
 				</IonRow>
 
-				<IonCard>
-					<IonItem>
-						<IonRow>
-							<IonCol col-12>
-								<IonCardTitle color="success">$23/mo</IonCardTitle>
-								<IonCardSubtitle><IonIcon name="pin"></IonIcon>1.3 Miles </IonCardSubtitle>
-								<IonCardSubtitle><IonIcon name="cube"></IonIcon> 3 Boxes</IonCardSubtitle>
-								<IonCardSubtitle><IonIcon name="person"></IonIcon> Savanah Smith</IonCardSubtitle>
-							</IonCol>
-						</IonRow>
-					</IonItem>
-
-					<IonCardContent class="ion-no-padding">
-						<IonRow>
-							<IonCol col-12 >
-								<IonImg src={room_1} alt="Room"/>
-								<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
-								
-								<IonButton expand="full" color="warning" size="default" href="/listing">
-									<IonIcon name="calendar" slot="start"></IonIcon>BOOK
-								</IonButton>
-							</IonCol>
-						</IonRow>
-					</IonCardContent>
-				</IonCard>
-
-				<IonCard>
-					<IonItem>
-						<IonGrid>
-							<IonRow>
-								<IonCol col-6>
-									<IonCardTitle color="success">$43/mo</IonCardTitle>
-									<IonCardSubtitle><IonIcon name="pin"></IonIcon>5.3 Miles </IonCardSubtitle>
-									<IonCardSubtitle><IonIcon name="cube"></IonIcon> 4 Boxes</IonCardSubtitle>
-									<IonCardSubtitle><IonIcon name="person"></IonIcon> Charles Smith</IonCardSubtitle>
-								</IonCol>
-							</IonRow>
-						</IonGrid>
-					</IonItem>
-
-					<IonCardContent class="ion-no-padding">
-						<IonRow>
-							<IonCol col-12 >
-								<IonImg src={room_2} alt="Room"/>
-								<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
-								<IonButton expand="full" color="warning" size="default" href="/listing">
-									<IonIcon name="calendar" slot="start"></IonIcon>BOOK
-								</IonButton>
-							</IonCol>
-						</IonRow>
-					</IonCardContent>
-				</IonCard>
-
-				<IonCard>
-					<IonItem>
-						<IonRow>
-							<IonCol col-12>
-								<IonCardTitle color="success">$33/mo</IonCardTitle>
-								<IonCardSubtitle><IonIcon name="pin"></IonIcon>5.3 Miles </IonCardSubtitle>
-								<IonCardSubtitle><IonIcon name="cube"></IonIcon> 2 Boxes</IonCardSubtitle>
-								<IonCardSubtitle><IonIcon name="person"></IonIcon> James Smith</IonCardSubtitle>
-							</IonCol>
-						</IonRow>
-					</IonItem>
-
-					<IonCardContent class="ion-no-padding">
-						<IonRow>
-							<IonCol col-12 >
-								<IonImg src={room_1}/>
-								<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
-								
-								<IonButton expand="full" color="warning" size="default" href="/listing">
-									<IonIcon name="calendar" slot="start"></IonIcon>BOOK
-								</IonButton>
-							</IonCol>
-						</IonRow>
-					</IonCardContent>
-				</IonCard>
-
-				<IonCard>
-					<IonItem>
-						<IonRow>
-							<IonCol col-12>
-								<IonCardTitle color="success">$19/mo</IonCardTitle>
-								<IonCardSubtitle><IonIcon name="pin"></IonIcon>7.4 Miles </IonCardSubtitle>
-								<IonCardSubtitle><IonIcon name="cube"></IonIcon> 1 Boxes</IonCardSubtitle>
-								<IonCardSubtitle><IonIcon name="person"></IonIcon> Indie Smith</IonCardSubtitle>
-							</IonCol>
-						</IonRow>
-					</IonItem>
-
-					<IonCardContent class="ion-no-padding">
-						<IonRow>
-							<IonCol col-12 >
-								<IonImg src={room_2}/>
-								<p>Space Available: Mar 3, 2019 - Aug 8, 2019</p>
-								<IonButton expand="full" color="warning" size="default" href="/listing">
-									<IonIcon name="calendar" slot="start"></IonIcon>BOOK
-								</IonButton>
-							</IonCol>
-						</IonRow>
-					</IonCardContent>
-				</IonCard>
-
-				<IonCard>
-					<IonItem>
-						<IonRow>
-							<IonCol col-12>
-								<IonCardTitle color="success">$55/mo</IonCardTitle>
-								<IonCardSubtitle><IonIcon name="pin"></IonIcon>4 Miles </IonCardSubtitle>
-								<IonCardSubtitle><IonIcon name="cube"></IonIcon> 3 Boxes</IonCardSubtitle>
-								<IonCardSubtitle><IonIcon name="person"></IonIcon> Sarah Smith</IonCardSubtitle>
-							</IonCol>
-						</IonRow>
-					</IonItem>
-
-					<IonCardContent class="ion-no-padding">
-						<IonRow>
-							<IonCol col-12 >
-								<IonImg src={room_3}/>
-								<p>Space Available: Mar 3, 2019 - Aug 8, 2026</p>
-								<IonButton expand="full" color="warning" size="default" href="/listing">
-									<IonIcon name="calendar" slot="start"></IonIcon>BOOK
-								</IonButton>
-							</IonCol>
-						</IonRow>
-					</IonCardContent>
-				</IonCard>
+				<DiscoverCard price={23} distance={1.3} boxes={3} host="Savannah Smith" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2019')} image={room_1} />
+				<DiscoverCard price={43} distance={1.3} boxes={4} host="Charles Smith" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2019')} image={room_2} />
+				<DiscoverCard price={33} distance={5.3} boxes={2} host="James Smith" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2019')} image={room_3} />
+				<DiscoverCard price={19} distance={7.4} boxes={1} host="Indie Smith" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2019')} image={room_1} />
+				<DiscoverCard price={55} distance={4} boxes={3} host="Sarah Smith" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2026')} image={room_2} />
 			</IonContent>
 		</>)
 	}
