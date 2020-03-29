@@ -32,6 +32,11 @@
   }
 }
 
+/* https://stackoverflow.com/a/38321726/5139284 */
+.disabledCursor {
+  cursor: default;
+}
+
 /* LOGIN STYLING */
 
 
