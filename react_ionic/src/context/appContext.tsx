@@ -3,18 +3,36 @@
 import React, { createContext, useReducer } from 'react';
 
 type State = {
+    auth: string,
     email: string,
     password1: string,
     password2: string,
     agreed: boolean,
 }
 
-export const initialState: State = {
+function getInitialState(initialState) {
+    for (const key of Object.keys(initialState)) {
+        if (localStorage.hasOwnProperty(key)) {
+            if (typeof(initialState[key]) === 'boolean' && (localStorage[key] === 'false' || localStorage[key] === 'true')) {
+                initialState[key] = localStorage[key] == 'true';
+            } else {
+                initialState[key] = localStorage[key];
+            }
+        }
+    }
+}
+
+export let initialState: State = {
+    auth: '',
     email: '',
     password1: '',
     password2: '',
     agreed: true,
 }
+
+getInitialState(initialState);
+
+console.log(initialState);
 
 export enum ActionTypes {
     setAuth = 'setAuth',
@@ -46,23 +64,23 @@ export const AppContext = createContext<{state: State, dispatch: (action: Action
 export const reducer: React.Reducer<State, Action> = (state, action) => {
     switch (action.type) {
         case ActionTypes.setAuth: {
-            localStorage.setItem(ActionTypes.setAuth, action.auth);
+            localStorage.setItem('auth', action.auth);
             return { ...state, auth: action.auth };
         }
         case ActionTypes.setEmail: {
-            localStorage.setItem(ActionTypes.setEmail, action.email);
+            localStorage.setItem('email', action.email);
             return { ...state, email: action.email };
         }
         case ActionTypes.setPassword1: {
-            localStorage.setItem(ActionTypes.setPassword1, action.password);
+            localStorage.setItem('password1', action.password);
             return { ...state, password: action.password };
         }
         case ActionTypes.setPassword2: {
-            localStorage.setItem(ActionTypes.setPassword2, action.password);
+            localStorage.setItem('password2', action.password);
             return { ...state, password: action.password };
         }
         case ActionTypes.setAgreed: {
-            localStorage.setItem(ActionTypes.setAgreed, action.agreed);
+            localStorage.setItem('agreed', action.agreed.toString());
             return { ...state, agreed: action.agreed };
         }
     }
@@ -77,5 +95,3 @@ export const AppContextProvider = ({ children }) => {
         </AppContext.Provider>
     )
 }
-
-export default AppContextProvider;
