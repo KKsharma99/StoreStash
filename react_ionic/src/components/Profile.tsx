@@ -73,9 +73,9 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 					<IonRow>
 						<IonCol col-12 >
 							<p>
-								Total Cost: <IonText color="success"><b>$110</b></IonText> <br></br>
-								Boxes: 1 <br></br>
-								Feb 26, 2020 - Apr 20, 2020 <br></br>
+								Total Cost: <IonText color="success"><b>$110</b></IonText> <br />
+								Boxes: 1 <br />
+								Feb 26, 2020 - Apr 20, 2020 <br />
 								Status: <IonText color="success"><b>Current</b></IonText>
 							</p> 
 						</IonCol>
@@ -90,9 +90,9 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 					<IonRow>
 						<IonCol col-12 >
 							<p>
-								Total Cost: <IonText color="success"><b>$99</b></IonText> <br></br>
-								Boxes: 3 <br></br>
-								Jun 4, 2019 - Jun 19, 2020 <br></br>
+								Total Cost: <IonText color="success"><b>$99</b></IonText> <br />
+								Boxes: 3 <br />
+								Jun 4, 2019 - Jun 19, 2020 <br />
 								Status: <IonText color="success"><b>Current</b></IonText>
 							</p> 
 						</IonCol>
@@ -107,9 +107,9 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 					<IonRow>
 						<IonCol col-12 >
 							<p>
-								Total Cost: <IonText color="success"><b>$59</b></IonText> <br></br>
-								Boxes: 3 <br></br>
-								May 8, 2019 - Jun 23, 2019 <br></br>
+								Total Cost: <IonText color="success"><b>$59</b></IonText> <br />
+								Boxes: 3 <br />
+								May 8, 2019 - Jun 23, 2019 <br />
 								Status: Past
 							</p> 
 						</IonCol>
@@ -129,9 +129,9 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 					<IonRow>
 						<IonCol col-12 >
 							<p>
-								Total Cost: <IonText color="success"><b>$110</b></IonText> <br></br>
-								Boxes: 1 <br></br>
-								Feb 26, 2020 - Apr 20, 2020 <br></br>
+								Total Cost: <IonText color="success"><b>$110</b></IonText> <br />
+								Boxes: 1 <br />
+								Feb 26, 2020 - Apr 20, 2020 <br />
 								Status: <IonText color="success"><b>Current</b></IonText>
 							</p> 
 						</IonCol>
@@ -146,9 +146,9 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 					<IonRow>
 						<IonCol col-12 >
 							<p>
-								Total Cost: <IonText color="success"><b>$99</b></IonText> <br></br>
-								Boxes: 3 <br></br>
-								Jun 4, 2019 - Jun 19, 2020 <br></br>
+								Total Cost: <IonText color="success"><b>$99</b></IonText> <br />
+								Boxes: 3 <br />
+								Jun 4, 2019 - Jun 19, 2020 <br />
 								Status: <IonText color="success"><b>Current</b></IonText>
 							</p> 
 						</IonCol>
@@ -163,9 +163,9 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 					<IonRow>
 						<IonCol col-12 >
 							<p>
-								Total Cost: <IonText color="success"><b>$59</b></IonText> <br></br>
-								Boxes: 3 <br></br>
-								May 8, 2019 - Jun 23, 2019 <br></br>
+								Total Cost: <IonText color="success"><b>$59</b></IonText> <br />
+								Boxes: 3 <br />
+								May 8, 2019 - Jun 23, 2019 <br />
 								Status: Past
 							</p> 
 						</IonCol>
@@ -180,9 +180,9 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 					<IonRow>
 						<IonCol col-12 >
 							<p>
-								Total Cost: <IonText color="success"><b>$59</b></IonText> <br></br>
-								Boxes: 3 <br></br>
-								May 8, 2019 - Jun 23, 2019 <br></br>
+								Total Cost: <IonText color="success"><b>$59</b></IonText> <br />
+								Boxes: 3 <br />
+								May 8, 2019 - Jun 23, 2019 <br />
 								Status: Past
 							</p> 
 						</IonCol>
@@ -197,9 +197,9 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 					<IonRow>
 						<IonCol col-12 >
 							<p>
-								Total Cost: <IonText color="success"><b>$59</b></IonText> <br></br>
-								Boxes: 3 <br></br>
-								May 8, 2019 - Jun 23, 2019 <br></br>
+								Total Cost: <IonText color="success"><b>$59</b></IonText> <br />
+								Boxes: 3 <br />
+								May 8, 2019 - Jun 23, 2019 <br />
 								Status: Past
 							</p> 
 						</IonCol>

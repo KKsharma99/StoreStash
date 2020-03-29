@@ -55,15 +55,15 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 			<IonGrid>
 				<IonRow>
 					<IonCol align-self-center size-md="6" size-lg="5" size-xs="12" >
-						<br></br>
-						<br></br>
-						<br></br>
+						<br />
+						<br />
+						<br />
 						<IonImg src={logo} alt="logo"/>
 					</IonCol>
 				</IonRow>
 				<IonRow justify-content-center>
 					<IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
-						<br></br>
+						<br />
 						<IonItem>
 							<IonInput
 								type="text"
@@ -83,7 +83,7 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 								required
 							></IonInput>
 						</IonItem>
-						<br></br>
+						<br />
 						<IonButton
 							color="warning"
 							size="default"

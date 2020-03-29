@@ -76,7 +76,6 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 				</IonRow>
 				<IonRow justify-content-center>
 					<IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
-							<br></br>
 							<IonItem>
 								<IonInput
 									type="email"
@@ -111,7 +110,9 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 									required
 								></IonInput>
 							</IonItem>
-						<br></br>
+							<Link to={{ pathname: '/agreement' }} style={{ textDecoration: 'none' }}>
+								<IonButton color="light" size="small"  expand="full" href="/agreement">Show Terms and Conditions</IonButton>
+							</Link>
 							<IonItem>
 								<IonCheckbox
 									slot="start"
@@ -119,11 +120,9 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 									checked={agreed}
 									onIonChange={e => setAgreed(!agreed)}
 								></IonCheckbox>
-								Agree to Terms and Conditions
+								I agree to the terms and conditions
 							</IonItem>
-							<IonButton color="light" size="small"  expand="full" href="/agreement">Read Terms and Conditions</IonButton>
-						<br></br>
-						<br></br>
+							<br />
 
 							<IonButton
 								color="warning"
@@ -134,9 +133,7 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 								disabled={!email.endsWith("@gatech.edu") || password1 !== password2 || password1 === '' || agreed === false}
 							>Register</IonButton>
 
-						<Link to={{
-							pathname: '/login'
-						}} style={{ textDecoration: 'none' }}>
+						<Link to={{ pathname: '/login' }} style={{ textDecoration: 'none' }}>
 							<IonButton color="light" size="small"  expand="block" href="/">or Login</IonButton>
 						</Link>
 					</IonCol>

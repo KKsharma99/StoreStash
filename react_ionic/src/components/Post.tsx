@@ -83,8 +83,8 @@ const Post: React.FC<RouteComponentProps> = (props) => {
 						<IonItem>
 							<IonInput type="text" placeholder="Zip"></IonInput>
 						</IonItem>
-						<br></br>
-						<IonLabel>Image of your storage space</IonLabel> <br></br>
+						<br />
+						<IonLabel>Image of your storage space</IonLabel> <br />
 						<IonItem>
 							<input type="file" placeholder="Storage Space"></input>
 						</IonItem>
