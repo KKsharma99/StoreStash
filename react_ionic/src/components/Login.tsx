@@ -1,15 +1,5 @@
 import React, { Component, useState, useContext } from 'react'
 import {
-	IonApp,
-	IonTabs,
-	IonTabBar,
-	IonTabButton,
-	IonLabel,
-	IonRouterOutlet,
-	IonIcon,
-	IonHeader,
-	IonToolbar,
-	IonTitle,
 	IonContent,
 	IonGrid,
 	IonRow,
@@ -20,13 +10,10 @@ import {
 	IonImg,
 	IonText,
 } from '@ionic/react'
-
-import { Route, RouteComponentProps } from 'react-router-dom'
-import { IonPage } from '@ionic/react'
-import Discover from './Discover'
-import Register from './Register'
-import wretch from 'wretch'
+import { Link, RouteComponentProps } from 'react-router-dom'
 import { AppContext, ActionTypes } from '../context/appContext'
+import wretch from 'wretch';
+import { InputChangeEventDetail } from "@ionic/core";
 
 // Images
 import logo from '../assets/img/logo.png';
@@ -58,6 +45,12 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 
 	function setEmail(email: string) { dispatch({ type: ActionTypes.setEmail, email })
 	}
+	function handleEmail(e: CustomEvent<InputChangeEventDetail>) {
+		setEmail((e.target as HTMLInputElement).value);
+	}
+	function handlePassword(e: CustomEvent<InputChangeEventDetail>) {
+		setPassword((e.target as HTMLInputElement).value);
+	}
 
 	return (<>
 		<IonContent class="ion-padding">
@@ -77,7 +70,8 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 							<IonInput
 								type="text"
 								placeholder="Email"
-								onIonChange={e => setEmail((e.target as HTMLInputElement).value)}
+								value={email}
+								onIonChange={handleEmail}
 								required
 							></IonInput>
 						</IonItem>
@@ -87,7 +81,7 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 								type="password"
 								placeholder="Password"
 								value={password}
-								onIonChange={e => setPassword((e.target as HTMLInputElement).value)}
+								onIonChange={handlePassword}
 								required
 							></IonInput>
 						</IonItem>
@@ -100,7 +94,11 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 							onClick={handleSubmit}
 							disabled={!email.endsWith('@gatech.edu')}
 						>Login</IonButton>
-						<IonButton color="light" size="small"  expand="block" href="/register">Create an Account</IonButton>
+						<Link to={{
+							pathname: '/register',
+						}} style={{ textDecoration: 'none' }}>
+							<IonButton color="light" size="small"  expand="block" href="/register">Create an Account</IonButton>
+						</Link>
 					</IonCol>
 				</IonRow>
 			</IonGrid>

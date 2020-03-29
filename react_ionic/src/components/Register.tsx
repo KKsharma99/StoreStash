@@ -14,6 +14,7 @@ import wretch from "wretch"
 import logo from '../assets/img/logo.png';
 import { AppContext, ActionTypes } from '../context/appContext';
 import { RouteComponentProps } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Register: React.SFC<RouteComponentProps> = (props) => {
 	const { state, dispatch } = useContext(AppContext);
@@ -133,7 +134,11 @@ const Register: React.SFC<RouteComponentProps> = (props) => {
 								disabled={!email.endsWith("@gatech.edu") || password1 !== password2 || password1 === ''}
 							>Register</IonButton>
 
-						<IonButton color="light" size="small"  expand="block" href="/">or Login</IonButton>
+						<Link to={{
+							pathname: '/login'
+						}} style={{ textDecoration: 'none' }}>
+							<IonButton color="light" size="small"  expand="block" href="/">or Login</IonButton>
+						</Link>
 					</IonCol>
 				</IonRow>
 			</IonGrid>

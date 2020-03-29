@@ -15,7 +15,7 @@ const App: React.FC = () => {
 	useEffect(() => {
 		for (const key of Object.keys(initialState)) {
 			if (localStorage.hasOwnProperty(key)) {
-				if (typeof(initialState[key] === 'boolean' && localStorage[key] === 'false' || localStorage[key] === 'true')) {
+				if (typeof(initialState[key]) === 'boolean' && localStorage[key] === 'false' || localStorage[key] === 'true') {
 					initialState[key] = localStorage[key] == 'true';
 				} else {
 					initialState[key] = localStorage[key];
