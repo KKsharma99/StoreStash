@@ -42,9 +42,7 @@ class Home extends Component {
 							<Route path="/:tab(discover)" component={Discover} exact />
 							<Route path="/:tab(profile)" component={Profile} exact />
 							<Route path="/:tab(listing)" component={Listing} exact />
-							<Route path="/:tab(confirmation)" component={Confirmation} exact />
 							<Route path="/:tab(post)" component={Post} exact />
-							<Route path="/:tab(agreement)" component={Agreement} exact />
 						</IonRouterOutlet>
 
 						<IonTabBar slot="bottom">

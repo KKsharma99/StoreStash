@@ -6,6 +6,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Home from './components/Home'
 import Login from './components/Login'
 import Register from './components/Register'
+import Confirmation from './components/Confirmation'
+import Agreement from './components/Agreement'
+import Listing from './components/Listing'
 import { AppContext, initialState, reducer, ActionTypes } from './context/appContext'
 
 const App: React.FC = () => {
@@ -31,6 +34,9 @@ const App: React.FC = () => {
 						<Route exact path="/" component={Login} />
 						<Route path="/login" component={Login} />
 						<Route path="/register" component={Register} />
+						<Route path="/listing" component={Listing} />
+						<Route path="/confirmation" component={Confirmation} />
+						<Route path="/agreement" component={Agreement} />
 						<Route path="/" component={Home} />
 					</Switch>
 				</Router>
