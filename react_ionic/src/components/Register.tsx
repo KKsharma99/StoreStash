@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useReducer } from 'react'
+import React, { useState, useContext } from 'react'
 import {
 	IonContent,
 	IonItem,
