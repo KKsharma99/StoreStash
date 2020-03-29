@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, SyntheticEvent } from 'react'
 import {
 	IonContent,
 	IonItem,
@@ -14,14 +14,16 @@ import wretch from "wretch"
 import logo from '../assets/img/logo.png';
 import { AppContext, ActionTypes } from '../context/appContext';
 import { RouteComponentProps } from 'react-router';
+import { Link } from 'react-router-dom';
 
-const Register: React.SFC<RouteComponentProps> = (props) => {
+const Register: React.FC<RouteComponentProps> = (props) => {
 	const { state, dispatch } = useContext(AppContext);
 	const { email, agreed } = state;
 	const [password1, setPassword1] = useState('');
 	const [password2, setPassword2] = useState('');
 
-	async function handleSubmit(e: MouseEvent) {
+	const handleSubmit = async (e: MouseEvent) => {
+		e.preventDefault();
 		let validationErr = false;
 		if (!email.endsWith("@gatech.edu")) {
 			validationErr = true;
@@ -31,23 +33,22 @@ const Register: React.SFC<RouteComponentProps> = (props) => {
 			validationErr = true;
 			alert("Passwords don't match");
 		}
-		if (validationErr) {
-			e.preventDefault();
-		} else {
-			// TODO: get authorization token
-			await wretch('http://localhost:3001/api/users/new')
-				.post({
-					email: email,
-					password: password1
-				})
-				.json(data => console.log(data))
-				.catch(err => {
-					console.log(err);
-					e.preventDefault();
-					if (err.code === 11000) {
-						alert("Another user with that email already exists")
-					}
-				});
+		// TODO: get authorization token
+		if (!validationErr) {
+			try {
+				await wretch('http://localhost:3001/api/users/new')
+					.post({
+						email: email,
+						password: password1
+					})
+					.json(data => console.log(data));
+				props.history.push('/discover')
+			} catch (err) {
+				console.log(err);
+				if (err.code === 11000) {
+					alert("Another user with that email already exists");
+				}
+			}
 		}
 	}
 
@@ -75,7 +76,6 @@ const Register: React.SFC<RouteComponentProps> = (props) => {
 				</IonRow>
 				<IonRow justify-content-center>
 					<IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
-							<br></br>
 							<IonItem>
 								<IonInput
 									type="email"
@@ -110,7 +110,9 @@ const Register: React.SFC<RouteComponentProps> = (props) => {
 									required
 								></IonInput>
 							</IonItem>
-						<br></br>
+							<Link to={{ pathname: '/agreement' }} style={{ textDecoration: 'none' }}>
+								<IonButton color="light" size="small"  expand="full" href="/agreement">Show Terms and Conditions</IonButton>
+							</Link>
 							<IonItem>
 								<IonCheckbox
 									slot="start"
@@ -118,11 +120,9 @@ const Register: React.SFC<RouteComponentProps> = (props) => {
 									checked={agreed}
 									onIonChange={e => setAgreed(!agreed)}
 								></IonCheckbox>
-								Agree to Terms and Conditions
+								I agree to the terms and conditions
 							</IonItem>
-							<IonButton color="light" size="small"  expand="full" href="/agreement">Read Terms and Conditions</IonButton>
-						<br></br>
-						<br></br>
+							<br />
 
 							<IonButton
 								color="warning"
@@ -130,10 +130,12 @@ const Register: React.SFC<RouteComponentProps> = (props) => {
 								href="/discover"
 								expand="block"
 								onClick={handleSubmit}
-								disabled={!email.endsWith("@gatech.edu") || password1 !== password2 || password1 === ''}
+								disabled={!email.endsWith("@gatech.edu") || password1 !== password2 || password1 === '' || agreed === false}
 							>Register</IonButton>
 
-						<IonButton color="light" size="small"  expand="block" href="/">or Login</IonButton>
+						<Link to={{ pathname: '/login' }} style={{ textDecoration: 'none' }}>
+							<IonButton color="light" size="small"  expand="block" href="/">or Login</IonButton>
+						</Link>
 					</IonCol>
 				</IonRow>
 			</IonGrid>

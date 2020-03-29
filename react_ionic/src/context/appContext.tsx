@@ -3,7 +3,8 @@
 import React, { createContext, useReducer } from 'react';
 
 export let initialState = {
-    auth: '',
+    userId: '',
+    token: '',
     email: '',
     agreed: false,
 }

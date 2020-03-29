@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import {
 	IonContent,
 	IonHeader,
@@ -25,126 +25,165 @@ import {
 	IonText,
 	IonGrid,
 	IonInput
-
 } from '@ionic/react'
-import axios from 'axios'
-import qs from 'qs'
+import { AppContext, ActionTypes } from '../context/appContext';
+import wretch from 'wretch';
+import { RouteComponentProps } from 'react-router';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
 
-export default class Listing extends React.Component {
-	render() {
-		return (<>
+const ListingCard: React.FC<{ price: number, distance: number, boxes: number, host: string, startDate: Date, endDate: Date, listingId?: string, image?: string }> = ({ price, distance, boxes, host, startDate, endDate, listingId, image }) => {
+	return (<>
+		<IonCard>
+			<IonItem>
+				<IonRow>
+					<IonCol col-12>
+						<IonCardTitle color="success">${price}/mo</IonCardTitle>
+						<IonCardSubtitle><IonIcon name="pin"></IonIcon>{distance} Miles </IonCardSubtitle>
+						<IonCardSubtitle><IonIcon name="cube"></IonIcon> {boxes} Boxes</IonCardSubtitle>
+						<IonCardSubtitle><IonIcon name="person"></IonIcon> {host}</IonCardSubtitle>
+					</IonCol>
+				</IonRow>
+			</IonItem>
 
-			<IonHeader>
-				<IonToolbar color="warning">
-					<IonButtons slot="start">
-						<IonMenuButton></IonMenuButton>
-					</IonButtons>
-					<IonTitle>Complete Your Order</IonTitle>
-				</IonToolbar>
-			</IonHeader>
-
-			<IonContent>
-				<IonGrid>
-					<IonRow>
-						<IonCol col-12 text-center>
-							<h2>Listing Details</h2>
-						</IonCol>
-					</IonRow>
-				</IonGrid>
-
-				<IonCard>
-					<IonItem>
-						<IonRow>
-							<IonCol col-12>
-								<IonCardTitle color="success">$55/mo</IonCardTitle>
-								<IonCardSubtitle><IonIcon name="pin"></IonIcon>4 Miles </IonCardSubtitle>
-								<IonCardSubtitle><IonIcon name="cube"></IonIcon> 3 Boxes</IonCardSubtitle>
-								<IonCardSubtitle><IonIcon name="person"></IonIcon> Sarah Smith</IonCardSubtitle>
-							</IonCol>
-						</IonRow>
-					</IonItem>
-
-					<IonCardContent class="ion-no-padding">
-						<IonRow>
-							<IonCol col-12 >
-								<IonImg src="https://image.advance.net/home/adv-media/width380/img/home_ideas/photo/2016/07/19/empty-interior-with-single-column-in-the-center-8b3f359e84b27f53.jpg"/>
-								<p>Space Available: Mar 3, 2019 - Aug 8, 2026</p>
-							</IonCol>
-							
-						</IonRow>
-					</IonCardContent>
-				</IonCard>
-
-				<IonGrid>
-					<IonRow>
-						<IonCol col-12 text-center>
-							<h2>Order Details</h2>
-						</IonCol>
-					</IonRow>
-				
-					<IonList lines="none">
-						<IonRow>
-							<IonCol col-12 >
-								<IonItem>
-									<IonIcon name="calendar" slot="start"></IonIcon>
-									<IonLabel>Drop off</IonLabel>
-									<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={null}></IonDatetime>
-								</IonItem>
-							</IonCol>
-							<IonCol col-12 >
-								<IonItem>
-									<IonIcon name="calendar" slot="start"></IonIcon>
-									<IonLabel>Pick up</IonLabel>
-									<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={null}></IonDatetime>
-								</IonItem>
-							</IonCol>
-						</IonRow>
-
-						<IonRow>
-							<IonCol col-12 >
-								<IonItem>
-									<IonIcon name="cube" slot="start"></IonIcon>
-									<IonLabel>Box Count</IonLabel>
-									<IonSelect>
-										<IonSelectOption value="1" selected>1</IonSelectOption>
-										<IonSelectOption value="2">2</IonSelectOption>
-										<IonSelectOption value="3">3</IonSelectOption>
-									</IonSelect>
-								</IonItem>
-							</IonCol>
-						</IonRow>
-
-
-						<IonRow>
-							<IonCol col-12 >
-								<IonItem>
-									<IonInput type="text" placeholder="Enter Phone Number"></IonInput>
-								</IonItem>
-							</IonCol>
-						</IonRow>
-
-						<IonRow>
-							<IonCol col-12 text-center>
-								<p><b>Order Total: </b><IonText color="success"><b>$55</b></IonText></p>
-							</IonCol>
-						</IonRow>
-
-						<IonRow>
-							<IonCol col-12 >
-								
-									<IonButton color="warning" size="default" expand="full" href="/confirmation" onClick={() =>
-										axios.post("https://storestash.herokuapp.com/api/listings/5e5430932e29c233b8c04455/rent", qs.stringify({  }))
-									}>
-										<IonIcon name="card" slot="start"></IonIcon>Pay and Confirm
-									</IonButton>
-								
-							</IonCol>
-						</IonRow>
-					</IonList>
-
-				</IonGrid>
-			</IonContent>
-
-		</>)
-	}
+			<IonCardContent class="ion-no-padding">
+				<IonRow>
+					<IonCol col-12 >
+						<IonImg src={image} alt="Room"/>
+						<p>Space Available: {moment(startDate).format('ll')} - {moment(endDate).format('ll')}</p>
+					</IonCol>
+				</IonRow>
+			</IonCardContent>
+		</IonCard>
+	</>)
 }
+
+const Listing: React.FC<RouteComponentProps> = (props) => {
+	const { state, dispatch } = useContext(AppContext);
+	const { userId, token } = state;
+	const [boxes, setBoxes] = useState<number>(1);
+	const [dropoff, setDropoff] = useState('');
+	const [pickup, setPickup] = useState('');
+	const [phoneNum, setPhoneNum] = useState('');
+
+	function validate() {
+		return dropoff != '' && pickup != '' && phoneNum != '';
+	}
+
+	const handleSubmit = async (e: MouseEvent) => {
+		e.preventDefault();
+		if (validate()) {
+			try {
+				await wretch('http://localhost:3001/api/listings/5e5430932e29c233b8c04455/rent')
+					.post({
+						renter: '5e5642bec7dd3d438c196572',
+						boxes,
+						dropoff: dropoff,
+						pickup: pickup
+					})
+					.json(data => console.log(data));
+				props.history.push('/confirmation')
+			} catch (err) {
+				console.log(err);
+			}
+		}
+	}
+
+	return (<>
+		<IonHeader>
+			<IonToolbar color="warning">
+				<IonButtons slot="start">
+					<IonMenuButton></IonMenuButton>
+				</IonButtons>
+				<IonTitle>Complete Your Order</IonTitle>
+			</IonToolbar>
+		</IonHeader>
+
+		<IonContent>
+			<IonGrid>
+				<IonRow>
+					<IonCol col-12 text-center>
+						<h2>Listing Details</h2>
+					</IonCol>
+				</IonRow>
+			</IonGrid>
+
+			<ListingCard price={55} distance={4} boxes={3} host="Sarah Smith" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2026')} image="https://image.advance.net/home/adv-media/width380/img/home_ideas/photo/2016/07/19/empty-interior-with-single-column-in-the-center-8b3f359e84b27f53.jpg" />
+
+			<IonGrid>
+				<IonRow>
+					<IonCol col-12 text-center>
+						<h2>Order Details</h2>
+					</IonCol>
+				</IonRow>
+			
+				<IonList lines="none">
+					<IonRow>
+						<IonCol col-12 >
+							<IonItem>
+								<IonIcon name="calendar" slot="start"></IonIcon>
+								<IonLabel>Drop off</IonLabel>
+								<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={dropoff} onIonChange={e => setDropoff((e.target as HTMLInputElement).value)} ></IonDatetime>
+							</IonItem>
+						</IonCol>
+						<IonCol col-12 >
+							<IonItem>
+								<IonIcon name="calendar" slot="start"></IonIcon>
+								<IonLabel>Pick up</IonLabel>
+								<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={pickup} onIonChange={e => setPickup((e.target as HTMLInputElement).value)} ></IonDatetime>
+							</IonItem>
+						</IonCol>
+					</IonRow>
+
+					<IonRow>
+						<IonCol col-12 >
+							<IonItem>
+								<IonIcon name="cube" slot="start"></IonIcon>
+								<IonLabel>Box Count</IonLabel>
+								<IonSelect>
+									<IonSelectOption value="1" selected>1</IonSelectOption>
+									<IonSelectOption value="2">2</IonSelectOption>
+									<IonSelectOption value="3">3</IonSelectOption>
+								</IonSelect>
+							</IonItem>
+						</IonCol>
+					</IonRow>
+
+
+					<IonRow>
+						<IonCol col-12 >
+							<IonItem>
+								<IonInput
+									type="text"
+									placeholder="Enter Phone Number"
+									value={phoneNum}
+									onIonChange={e => setPhoneNum((e.target as HTMLInputElement).value)}
+								></IonInput>
+							</IonItem>
+						</IonCol>
+					</IonRow>
+
+					<IonRow>
+						<IonCol col-12 text-center>
+							<p><b>Order Total: </b><IonText color="success"><b>$55</b></IonText></p>
+						</IonCol>
+					</IonRow>
+
+					<IonRow>
+						<IonCol col-12 >
+							{/* Disable link: https://stackoverflow.com/a/38321726/5139284 */}
+							<Link to={{pathname: '/confirmation'}} style={{ textDecoration: 'none' }}>
+								<IonButton color="warning" size="default" expand="full" href="/confirmation" onClick={handleSubmit} disabled={!validate()}>
+									<IonIcon name="card" slot="start"></IonIcon>Pay and Confirm
+								</IonButton>
+							</Link>
+						</IonCol>
+					</IonRow>
+				</IonList>
+
+			</IonGrid>
+		</IonContent>
+	</>)
+}
+
+export default Listing;

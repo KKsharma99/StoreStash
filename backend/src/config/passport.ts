@@ -2,10 +2,9 @@ import passport from "passport";
 import passportLocal from "passport-local";
 import passportFacebook from "passport-facebook";
 import _ from "lodash";
-
-// import { User, UserType } from '../models/User';
 import { User, UserDocument } from "../models/User";
 import { Request, Response, NextFunction } from "express";
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 
 const LocalStrategy = passportLocal.Strategy;
 const FacebookStrategy = passportFacebook.Strategy;
@@ -40,6 +39,22 @@ passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, don
     });
 }));
 
+// From https://www.digitalocean.com/community/tutorials/api-authentication-with-json-web-tokensjwt-and-passport
+//This verifies that the token sent by the user is valid
+passport.use(new JwtStrategy({
+    //secret we used to sign our JWT
+    secretOrKey: '5r37C%NvJzATzGC5',
+    //we expect the user to send the token as a query parameter with the name 'secret_token'
+    jwtFromRequest : ExtractJwt.fromUrlQueryParameter('secret_token')
+    }, async (token, done) => {
+        try {
+            //Pass the user details to the next middleware
+            return done(null, token.user);
+        } catch (error) {
+            done(error);
+        }
+}));
+
 
 /**
  * OAuth Strategy Overview
@@ -55,7 +70,6 @@ passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, don
  *       - If there is, return an error message.
  *       - Else create a new account.
  */
-
 
 /**
  * Sign in with Facebook.
