@@ -18,7 +18,6 @@ import { RouteComponentProps } from 'react-router';
 const Register: React.SFC<RouteComponentProps> = (props) => {
 	const { state, dispatch } = useContext(AppContext);
 	const { email, agreed } = state;
-	console.log(email);
 	const [password1, setPassword1] = useState('');
 	const [password2, setPassword2] = useState('');
 
@@ -35,6 +34,7 @@ const Register: React.SFC<RouteComponentProps> = (props) => {
 		if (validationErr) {
 			e.preventDefault();
 		} else {
+			// TODO: get authorization token
 			await wretch('http://localhost:3001/api/users/new')
 				.post({
 					email: email,
@@ -129,7 +129,7 @@ const Register: React.SFC<RouteComponentProps> = (props) => {
 								size="default"
 								href="/discover"
 								expand="block"
-								onClick={e => handleSubmit(e)}
+								onClick={handleSubmit}
 								disabled={!email.endsWith("@gatech.edu") || password1 !== password2 || password1 === ''}
 							>Register</IonButton>
 
