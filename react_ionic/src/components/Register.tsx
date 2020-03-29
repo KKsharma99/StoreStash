@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, SyntheticEvent } from 'react'
 import {
 	IonContent,
 	IonItem,
@@ -16,13 +16,14 @@ import { AppContext, ActionTypes } from '../context/appContext';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 
-const Register: React.SFC<RouteComponentProps> = (props) => {
+const Register: React.FC<RouteComponentProps> = (props) => {
 	const { state, dispatch } = useContext(AppContext);
 	const { email, agreed } = state;
 	const [password1, setPassword1] = useState('');
 	const [password2, setPassword2] = useState('');
 
-	async function handleSubmit(e: MouseEvent) {
+	const handleSubmit = async (e: any) => {
+		e.persist();
 		let validationErr = false;
 		if (!email.endsWith("@gatech.edu")) {
 			validationErr = true;
@@ -36,7 +37,7 @@ const Register: React.SFC<RouteComponentProps> = (props) => {
 			e.preventDefault();
 		} else {
 			// TODO: get authorization token
-			// TODO: error handling fails if server is not running
+			// TODO: request is not made
 			await wretch('http://localhost:3001/api/users/new')
 				.post({
 					email: email,
