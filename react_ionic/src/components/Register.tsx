@@ -22,7 +22,7 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 	const [password1, setPassword1] = useState('');
 	const [password2, setPassword2] = useState('');
 
-	const handleSubmit = async (e: any) => {
+	const handleSubmit = async (e: MouseEvent) => {
 		e.preventDefault();
 		let validationErr = false;
 		if (!email.endsWith("@gatech.edu")) {
@@ -34,7 +34,6 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 			alert("Passwords don't match");
 		}
 		// TODO: get authorization token
-		// TODO: request is not made
 		if (!validationErr) {
 			try {
 				await wretch('http://localhost:3001/api/users/new')
@@ -50,7 +49,7 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 					alert("Another user with that email already exists");
 				}
 			}
-}
+		}
 	}
 
 	function setEmail(email: string) {

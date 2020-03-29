@@ -24,22 +24,20 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 	const [password, setPassword] = useState('');
 
 	async function handleSubmit(e: MouseEvent) {
+		e.preventDefault();
 		let validationErr = false;
 		if (!email.endsWith("@gatech.edu")) {
 			validationErr = true;
 			alert("Email must be a @gatech.edu address");
 		}
-		if (validationErr) {
-			e.preventDefault();
-		} else {
+		try {
 			// TODO: get authorization token
 			await wretch('http://localhost:3001/api/login')
 				.post({ email, password })
-				.json(data => console.log(data))
-				.catch(err => {
-					console.log(err);
-					e.preventDefault();
-				});
+				.json(data => console.log(data));
+			props.history.push('/discover');
+		} catch (err) {
+			console.log(err);
 		}
 	}
 
