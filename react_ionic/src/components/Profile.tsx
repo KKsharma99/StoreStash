@@ -44,7 +44,7 @@ export default class Profile extends React.Component {
 			<IonContent>
 				<IonCard text-center>
 					<IonItem>
-						<IonTitle><h1>sarahshadid</h1></IonTitle>
+						<IonTitle><h1>Sarah Shadid</h1></IonTitle>
 					</IonItem>
 
 					<IonCardContent class="ion-no-padding">
@@ -53,7 +53,62 @@ export default class Profile extends React.Component {
 								<IonImg src={user} alt="User Profile Picture"/>
 								<hr></hr>
 								
-								<IonButton expand="full" color="warning" size="default"><IonIcon name="add-circle" slot="start"></IonIcon>Lend Space</IonButton>
+								<IonButton expand="full" color="warning" size="default" href="/post"><IonIcon name="add-circle" slot="start"></IonIcon>Lend Space</IonButton>
+							</IonCol>
+						</IonRow>
+					</IonCardContent>
+				</IonCard>
+
+				<IonItem>
+					<IonTitle>Lending History</IonTitle>
+				</IonItem>
+
+				<IonCard>
+					<IonCardContent>
+						<IonCardSubtitle>Sarah Smith</IonCardSubtitle>
+						<hr></hr>
+						<IonRow>
+							<IonCol col-12 >
+								<p>
+									Total Cost: <IonText color="success"><b>$110</b></IonText> <br></br>
+									Boxes: 1 <br></br>
+									Feb 26, 2020 - Apr 20, 2020 <br></br>
+									Status: <IonText color="success"><b>Current</b></IonText>
+								</p> 
+							</IonCol>
+						</IonRow>
+					</IonCardContent>
+				</IonCard>
+
+				<IonCard>
+					<IonCardContent>
+						<IonCardSubtitle>Donald Trump</IonCardSubtitle>
+						<hr></hr>
+						<IonRow>
+							<IonCol col-12 >
+								<p>
+									Total Cost: <IonText color="success"><b>$99</b></IonText> <br></br>
+									Boxes: 3 <br></br>
+									Jun 4, 2019 - Jun 19, 2020 <br></br>
+									Status: <IonText color="success"><b>Current</b></IonText>
+								</p> 
+							</IonCol>
+						</IonRow>
+					</IonCardContent>
+				</IonCard>
+
+				<IonCard color="light">
+					<IonCardContent>
+						<IonCardSubtitle>Rick Ross</IonCardSubtitle>
+						<hr></hr>
+						<IonRow>
+							<IonCol col-12 >
+								<p>
+									Total Cost: <IonText color="success"><b>$59</b></IonText> <br></br>
+									Boxes: 3 <br></br>
+									May 8, 2019 - Jun 23, 2019 <br></br>
+									Status: Past
+								</p> 
 							</IonCol>
 						</IonRow>
 					</IonCardContent>
@@ -61,7 +116,7 @@ export default class Profile extends React.Component {
 
 
 				<IonItem>
-					<IonTitle>Rent History</IonTitle>
+					<IonTitle>Renting History</IonTitle>
 				</IonItem>
 
 				<IonCard>

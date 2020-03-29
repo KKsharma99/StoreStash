@@ -28,6 +28,8 @@ import Register from './Register'
 import Listing from './Listing'
 import Confirmation from './Confirmation'
 import Login from './Login'
+import Post from './Post'
+import Agreement from './Agreement'
 
 class Home extends Component {
 	render() {
@@ -43,6 +45,8 @@ class Home extends Component {
 							<Route path="/:tab(register)" component={Register} exact />
 							<Route path="/:tab(listing)" component={Listing} exact />
 							<Route path="/:tab(confirmation)" component={Confirmation} exact />
+							<Route path="/:tab(post)" component={Post} exact />
+							<Route path="/:tab(agreement)" component={Agreement} exact />
 						</IonRouterOutlet>
 
 						<IonTabBar slot="bottom">

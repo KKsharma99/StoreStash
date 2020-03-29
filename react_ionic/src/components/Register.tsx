@@ -8,7 +8,7 @@ import {
 	IonButton,
 	IonInput,
 	IonGrid,
-	IonText
+	IonCheckbox
 
 } from '@ionic/react'
 import { Link } from 'react-router-dom'
@@ -64,9 +64,6 @@ export default class Register extends React.Component<{}, { email: string, passw
 				<IonGrid>
 					<IonRow>
 						<IonCol col-12 >
-							<br></br>
-							<br></br>
-							<br></br>
 							<IonImg src={logo} alt="logo"/>
 						</IonCol>
 					</IonRow>
@@ -82,7 +79,12 @@ export default class Register extends React.Component<{}, { email: string, passw
 										required
 									></IonInput>
 								</IonItem>
-
+								<IonItem>
+									<IonInput type="text" placeholder="First Name"></IonInput>
+								</IonItem>
+								<IonItem>
+									<IonInput type="text" placeholder="Last Name"></IonInput>
+								</IonItem>
 								<IonItem>
 									<IonInput
 										type="password"
@@ -103,6 +105,14 @@ export default class Register extends React.Component<{}, { email: string, passw
 									></IonInput>
 								</IonItem>
 							<br></br>
+								<IonItem>
+									<IonCheckbox slot="start" value="agree"></IonCheckbox>
+									Agree to Terms and Conditions
+								</IonItem>
+								<IonButton color="light" size="small"  expand="full" href="/agreement">Read Terms and Conditions</IonButton>
+							<br></br>
+							<br></br>
+
 								<IonButton
 									color="warning"
 									size="default"
@@ -111,6 +121,7 @@ export default class Register extends React.Component<{}, { email: string, passw
 									onClick={e => this.handleSubmit(e)}
 									disabled={!this.state.email.endsWith("@gatech.edu") || this.state.password1 !== this.state.password2 || this.state.password1 === ''}
 								>Register</IonButton>
+
 							<IonButton color="light" size="small"  expand="block" href="/">or Login</IonButton>
 						</IonCol>
 					</IonRow>
