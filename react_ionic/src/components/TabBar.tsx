@@ -31,7 +31,7 @@ import Login from './Login'
 import Post from './Post'
 import Agreement from './Agreement'
 
-class Home extends Component {
+class TabBar extends Component {
 	render() {
 		return (
 			<IonApp>
@@ -42,6 +42,7 @@ class Home extends Component {
 							<Route path="/:tab(discover)" component={Discover} exact />
 							<Route path="/:tab(profile)" component={Profile} exact />
 							<Route path="/:tab(listing)" component={Listing} exact />
+							<Route path="/:tab(confirmation)" component={Confirmation} exact />
 							<Route path="/:tab(post)" component={Post} exact />
 						</IonRouterOutlet>
 
@@ -63,4 +64,4 @@ class Home extends Component {
 	}
 }
 
-export default Home;
+export default TabBar;
