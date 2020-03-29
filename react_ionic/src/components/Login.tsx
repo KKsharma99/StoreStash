@@ -92,7 +92,7 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 							expand="block"
 							href="/discover"
 							onClick={handleSubmit}
-							disabled={!email.endsWith('@gatech.edu')}
+							disabled={!email.endsWith('@gatech.edu') || password === ''}
 						>Login</IonButton>
 						<Link to={{
 							pathname: '/register',

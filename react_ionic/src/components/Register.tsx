@@ -36,6 +36,7 @@ const Register: React.SFC<RouteComponentProps> = (props) => {
 			e.preventDefault();
 		} else {
 			// TODO: get authorization token
+			// TODO: error handling fails if server is not running
 			await wretch('http://localhost:3001/api/users/new')
 				.post({
 					email: email,
@@ -131,7 +132,7 @@ const Register: React.SFC<RouteComponentProps> = (props) => {
 								href="/discover"
 								expand="block"
 								onClick={handleSubmit}
-								disabled={!email.endsWith("@gatech.edu") || password1 !== password2 || password1 === ''}
+								disabled={!email.endsWith("@gatech.edu") || password1 !== password2 || password1 === '' || agreed === false}
 							>Register</IonButton>
 
 						<Link to={{
