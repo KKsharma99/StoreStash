@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import { prependOnceListener } from 'cluster';
 
-let AppContext = createContext<{state: any, dispatch: (action: any) => void} | null>(null);
+export let AppContext = createContext<{state: any, dispatch: (action: any) => void} | null>(null);
 
 enum ActionTypes {
     setAuth = 'setAuth',
