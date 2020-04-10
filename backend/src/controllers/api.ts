@@ -125,8 +125,8 @@ export const getListing = async (req: Request, res: Response) => {
  * @param {string} req.params.id Listing ID
  * @param {string} req.body.renter Renter ID
  * @param {number} req.body.boxes Number of boxes to be rented
- * @param {Date} req.body.dropoff Dropoff date
- * @param {Date} req.body.pickup Pickup date
+ * @param {string} req.body.dropoff Dropoff date
+ * @param {string} req.body.pickup Pickup date
  * Response: the new Rental
  */
 export const rentListing = async (req: Request, res: Response) => {
@@ -144,12 +144,14 @@ export const rentListing = async (req: Request, res: Response) => {
  * @param {number} req.query.lon Longitude of where the user is
  * @param {number} req.query.minCapacity Minimum capacity of a listing to show up in the results
  * @param {number} req.query.maxPrice
- * @param {string} req.query.startDate
- * @param {string} req.query.endDate
+ * @param {string?} req.query.startDate
+ * @param {string?} req.query.endDate
  */
 export const getNearby = async (req: Request, res: Response) => {
     try {
-        const listings = await (Listing as unknown as ListingDocument).getNearby(req.query.lat, req.query.lon, req.query.minCapacity, req.query.maxPrice, new Date(req.query.startDate), new Date(req.query.endDate));
+        const startDate = req.query.startDate ? new Date(req.query.startDate) : undefined;
+        const endDate = req.query.endDate ? new Date(req.query.endDate) : undefined;
+        const listings = await (Listing as unknown as ListingDocument).getNearby(req.query.lat, req.query.lon, req.query.minCapacity, req.query.maxPrice, startDate, endDate);
         res.json(listings);
     } catch (err) {
         res.status(400).send(err);
