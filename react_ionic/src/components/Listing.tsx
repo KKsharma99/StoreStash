@@ -62,7 +62,8 @@ const ListingCard: React.FC<{ price: number, distance: number, boxes: number, ho
 	</>)
 }
 
-const Listing: React.FC<RouteComponentProps> = (props) => {
+const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => {
+	const listingId = props.listingId;
 	const { state, dispatch } = useContext(AppContext);
 	const { userId, token } = state;
 	const [boxes, setBoxes] = useState<number>(1);
@@ -112,7 +113,7 @@ const Listing: React.FC<RouteComponentProps> = (props) => {
 				</IonRow>
 			</IonGrid>
 
-			<ListingCard price={6} distance={0.3} boxes={3} host="Kunal Sharma" startDate={new Date('December 15, 2019')} endDate={new Date('December 10, 2020')} image={room_1} />
+			<ListingCard price={6} distance={0.3} boxes={3} host="Kunal Sharma" startDate={new Date('December 15, 2019')} endDate={new Date('December 10, 2020')} image={room_1} listingId={listingId} />
 
 			<IonGrid>
 				<IonRow>
