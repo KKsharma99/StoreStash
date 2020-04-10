@@ -32,6 +32,10 @@ import { RouteComponentProps } from 'react-router';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
+import room_1 from '../assets/img/room_1.png';
+import room_2 from '../assets/img/room_2.png';
+import room_3 from '../assets/img/room_3.png';
+
 const ListingCard: React.FC<{ price: number, distance: number, boxes: number, host: string, startDate: Date, endDate: Date, listingId?: string, image?: string }> = ({ price, distance, boxes, host, startDate, endDate, listingId, image }) => {
 	return (<>
 		<IonCard>
@@ -108,7 +112,7 @@ const Listing: React.FC<RouteComponentProps> = (props) => {
 				</IonRow>
 			</IonGrid>
 
-			<ListingCard price={55} distance={4} boxes={3} host="Sarah Smith" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2026')} image="https://image.advance.net/home/adv-media/width380/img/home_ideas/photo/2016/07/19/empty-interior-with-single-column-in-the-center-8b3f359e84b27f53.jpg" />
+			<ListingCard price={6} distance={0.3} boxes={3} host="Kunal Sharma" startDate={new Date('December 15, 2019')} endDate={new Date('December 10, 2020')} image={room_1} />
 
 			<IonGrid>
 				<IonRow>

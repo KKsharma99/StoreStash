@@ -142,16 +142,22 @@ export default class Discover extends React.Component {
 
 				<IonRow>
 					<IonCol col-12 text-center>
-						<h1><b>7</b> Listings</h1>
+						<h1><b>12</b> Listings</h1>
 						<p>Listed prices are monthly per box.</p>
 					</IonCol>
 				</IonRow>
 
-				<DiscoverCard price={23} distance={1.3} boxes={3} host="Savannah Smith" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2019')} image={room_1} />
-				<DiscoverCard price={43} distance={1.3} boxes={4} host="Charles Smith" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2019')} image={room_2} />
-				<DiscoverCard price={33} distance={5.3} boxes={2} host="James Smith" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2019')} image={room_3} />
-				<DiscoverCard price={19} distance={7.4} boxes={1} host="Indie Smith" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2019')} image={room_1} />
-				<DiscoverCard price={55} distance={4} boxes={3} host="Sarah Smith" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2026')} image={room_2} />
+				<DiscoverCard price={10} distance={0.1} boxes={4} host="Charlie Schmidt" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2020')} image={room_1} />
+				<DiscoverCard price={15} distance={0.2} boxes={6} host="Pilar Nakagawa" startDate={new Date('Jan 3, 2020')} endDate={new Date('Apr 30, 2021')} image={room_2} />
+				<DiscoverCard price={5} distance={0.4} boxes={1} host="Cole Fauci" startDate={new Date('March 3, 2019')} endDate={new Date('Jun 19, 2020')} image={room_3} />
+				<DiscoverCard price={6} distance={0.3} boxes={3} host="Kunal Sharma" startDate={new Date('December 15, 2019')} endDate={new Date('December 10, 2020')} image={room_1} />
+				<DiscoverCard price={8} distance={0.7} boxes={4} host="Fatema Saleh" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2021')} image={room_2} />
+				<DiscoverCard price={12} distance={1} boxes={4} host="Lucy Williams" startDate={new Date('Feb 4, 2020')} endDate={new Date('Jun 21, 2020')} image={room_3} />
+				<DiscoverCard price={8} distance={1} boxes={4} host="Hsiang Tsai" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2021')} image={room_1} />
+				<DiscoverCard price={8} distance={1} boxes={4} host="Glenn Washington" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2021')} image={room_2} />
+				<DiscoverCard price={8} distance={1.3} boxes={4} host="Zendaya Wadzanai" startDate={new Date('March 3, 2019')} endDate={new Date('Aug 8, 2021')} image={room_3} />
+
+
 			</IonContent>
 		</>)
 	}
