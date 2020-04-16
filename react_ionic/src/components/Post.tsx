@@ -2,6 +2,7 @@ import React from 'react'
 // @ts-ignore
 import Geocode from 'react-geocode';
 import wretch from 'wretch';
+import { v1 as uuidv1 } from 'uuid';
 
 import {
 	IonContent,
@@ -66,12 +67,13 @@ export default class Post extends React.Component<any, any> {
             const { lat, lng } = response.results[0].geometry.location;
             let today = new Date()
             let lon = lng
+            let id = uuidv1();
             console.log(typeof hostId);
             console.log(typeof price);
             console.log(typeof capacity);
             console.log(typeof today);
-            await wretch('http://localhost:3000/api/listings/new')
-                .post({ hostId, lat, lon, capacity, startDate: new Date(), endDate: new Date(), price })
+            await wretch('http://localhost:3001/api/listings/new')
+                .post({ id, lat, lon, capacity, startDate: new Date(), endDate: new Date(), price })
                 .json(data => console.log(data));
           },
           (error:any) => {
