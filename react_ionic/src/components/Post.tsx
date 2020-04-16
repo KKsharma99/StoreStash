@@ -1,6 +1,8 @@
 import React from 'react'
 // @ts-ignore
 import Geocode from 'react-geocode';
+import wretch from 'wretch';
+
 import {
 	IonContent,
 	IonItem,
@@ -28,9 +30,10 @@ export default class Post extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         // @ts-ignore
+        const today = new Date();
         Geocode.setApiKey("AIzaSyDfbGSyIXX1nhPFH-lBUFJhrstImpicaiQ");
-        this.state = {price: '', street: '', city: '', state: '', zip: ''};
-        console.log("constructor");
+        this.state = {street: '', city: '', state: '', zip: '',
+            capacity: 0, startDate: today, endDate: today, price: ''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
@@ -46,16 +49,30 @@ export default class Post extends React.Component<any, any> {
         });
     }
 
-    handleSubmit(event: any) {
+    handleSubmit = async event => {
         console.log('A name was submitted: ' + this.state.street);
         // Address Geocoding
         let address: string = this.state.street + "," + this.state.city + "," + this.state.state + "," + this.state.zip
         // @ts-ignore
+        let hostId = "testId"
+        let capacity = Number(this.state.capacity)
+        let startDate = this.state.startDate
+        let endDate = this.state.endDate
+        let price = Number(this.state.price)
+
+        //hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number)
         Geocode.fromAddress(address).then(
-          (response:any) => {
+          async (response:any) => {
             const { lat, lng } = response.results[0].geometry.location;
-            console.log(lat, lng);
-            //Listing(hostId: "1", lat: lat, lon: lng, capacity: 4, startDate: Date, endDate: Date, price: 0)
+            let today = new Date()
+            let lon = lng
+            console.log(typeof hostId);
+            console.log(typeof price);
+            console.log(typeof capacity);
+            console.log(typeof today);
+            await wretch('http://localhost:3000/api/listings/new')
+                .post({ hostId, lat, lon, capacity, startDate: new Date(), endDate: new Date(), price })
+                .json(data => console.log(data));
           },
           (error:any) => {
             console.error(error);
@@ -83,33 +100,33 @@ export default class Post extends React.Component<any, any> {
 								<IonItem>
 									<IonIcon name="calendar" slot="start"></IonIcon>
 									<IonLabel>Start Availability</IonLabel>
-									<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={null}></IonDatetime>
+									<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={this.state.startDate} name="startDate" onIonChange={this.handleChange}></IonDatetime>
 								</IonItem>
 								<IonItem>
 									<IonIcon name="calendar" slot="start"></IonIcon>
 									<IonLabel>End Availability</IonLabel>
-									<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={null}></IonDatetime>
+									<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={this.state.endDate} name="endDate" onIonChange={this.handleChange}></IonDatetime>
 								</IonItem>
 
 								<IonItem>
 									<IonIcon name="cube" slot="start"></IonIcon>
 									<IonLabel>Boxes</IonLabel>
-									<IonSelect>
-										<IonSelectOption value="1" selected>1</IonSelectOption>
-										<IonSelectOption value="2">2</IonSelectOption>
-										<IonSelectOption value="3">3</IonSelectOption>
-										<IonSelectOption value="4">4</IonSelectOption>
-										<IonSelectOption value="5">5</IonSelectOption>
-										<IonSelectOption value="6">6</IonSelectOption>
-										<IonSelectOption value="7">7</IonSelectOption>
-										<IonSelectOption value="8">8</IonSelectOption>
-										<IonSelectOption value="9">9</IonSelectOption>
-										<IonSelectOption value="10">10</IonSelectOption>
+									<IonSelect value={this.state.capacity} name="capacity" onIonChange={this.handleChange}>
+										<IonSelectOption value="1" >1</IonSelectOption>
+										<IonSelectOption value="2" > 2 </IonSelectOption>
+										<IonSelectOption value="3"> 3 </IonSelectOption>
+										<IonSelectOption value="4"> 4 </IonSelectOption>
+										<IonSelectOption value="5"> 5 </IonSelectOption>
+										<IonSelectOption value="6"> 6 </IonSelectOption>
+										<IonSelectOption value="7"> 7 </IonSelectOption>
+										<IonSelectOption value="8"> 8 </IonSelectOption>
+										<IonSelectOption value="9"> 9 </IonSelectOption>
+										<IonSelectOption value="10"> 10 </IonSelectOption>
 									</IonSelect>
 								</IonItem>
 
 								<IonItem>
-									<IonInput type="text" placeholder="Monthly Price per Box ($)"></IonInput>
+									<IonInput type="text" placeholder="Monthly Price per Box ($)" name="price" value={this.state.price} onIonChange={this.handleChange}></IonInput>
 								</IonItem>
 
 								<IonItem>
