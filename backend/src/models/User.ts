@@ -8,8 +8,7 @@ export type UserDocument = mongoose.Document & {
     passwordResetToken: string;
     passwordResetExpires: Date;
 
-    facebook: string;
-    tokens: AuthToken[];
+    token: string;
 
     profile: {
         name: string;
@@ -24,12 +23,7 @@ export type UserDocument = mongoose.Document & {
     construct: (email: string, password: string) => Promise<UserDocument>;
 };
 
-type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
-
-export interface AuthToken {
-    accessToken: string;
-    kind: string;
-}
+type comparePasswordFunction = (candidatePassword: string, cb: (err: Error, isMatch: boolean) => {} | any) => void;
 
 const userSchema = new mongoose.Schema({
     email: { type: String, unique: true },
@@ -37,10 +31,7 @@ const userSchema = new mongoose.Schema({
     passwordResetToken: String,
     passwordResetExpires: Date,
 
-    facebook: String,
-    twitter: String,
-    google: String,
-    tokens: Array,
+    tokens: String,
 
     profile: {
         name: String,

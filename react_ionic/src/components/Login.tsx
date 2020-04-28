@@ -35,7 +35,10 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 			// TODO: get authorization token
 			await wretch('http://localhost:3001/api/login')
 				.post({ email, password })
-				.json(data => console.log(data));
+				.json(data => {
+					console.log(data);
+					dispatch({ type: ActionTypes.setUser, user: data as any })
+				});
 			props.history.push('/discover');
 		} catch (err) {
 			console.log(err);

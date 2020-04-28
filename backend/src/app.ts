@@ -93,6 +93,7 @@ app.use(
 /**
  * API routes.
  */
+app.post("/api/login", apiController.login);
 app.post("/api/listings/new", apiController.newListing);
 app.get("/api/listings/nearby", apiController.getNearby);
 app.post("/api/users/new", apiController.newUser);

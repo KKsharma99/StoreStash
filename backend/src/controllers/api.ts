@@ -56,6 +56,31 @@ type MongoJson = {
 }
 
 /**
+ * POST /api/users/login
+ * @param req.body.email
+ * @param req.body.password
+ * Response: the token of the user
+ */
+export const login = async (req: Request, res: Response) => {
+    try {
+        const user: any = await User.findOne({ email: req.body.email });
+        user.comparePassword(req.body.password, (err, isMatch) => {
+            if (err) {
+                console.log(err);
+                res.status(400).send(err);
+            } else {
+                if (isMatch) {
+                    res.json({ ...user.toObject(), gravatar: user.gravatar() });
+                }
+            }
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(400).send(err);
+    }
+};
+
+/**
  * POST /api/users/new
  * @param req.body.email
  * @param req.body.password
@@ -63,8 +88,7 @@ type MongoJson = {
  */
 export const newUser = async (req: Request, res: Response) => {
     try {
-        let user;
-        user = await (User as unknown as UserDocument).construct(req.body.email, req.body.password);
+        const user = await (User as unknown as UserDocument).construct(req.body.email, req.body.password);
         res.json(user.toObject());
     } catch (err) {
         res.status(400).send(err);
