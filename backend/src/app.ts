@@ -100,4 +100,5 @@ app.get("/api/users/:id/rentals", apiController.getRentalHistory);
 app.post("/api/listings/:id/rent", apiController.rentListing);
 app.get("/api/listings/:id", apiController.getListing);
 
+
 export default app;

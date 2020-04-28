@@ -16,9 +16,9 @@ const TabBar: React.FC<TabBarProps> = () =>
 		<IonRouterOutlet>
 			<Route path="/:tab(discover)" component={Discover} exact />
 			<Route path="/:tab(profile)" component={Profile} exact />
-			<Route path="/listing" component={Listing} />
-			<Route path="/confirmation" component={Confirmation} exact />
-			<Route path="/post" component={Post} exact />
+			<Route path="/:tab(listing)/:listingId" component={Listing} />
+			<Route path="/:tab(confirmation)" component={Confirmation} exact />
+			<Route path="/:tab(post)" component={Post} exact />
 		</IonRouterOutlet>
 
 		<IonTabBar slot="bottom">

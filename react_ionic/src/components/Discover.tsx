@@ -32,7 +32,7 @@ function fetcher(url: string): Promise<[DiscoverListing]> {
 	return wretch(url).query({ lat: 11, lon: 11, minCapacity: 1, maxPrice: 100 }).get().json();
 }
 
-const DiscoverCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, host, fullName, startDate, endDate, _id: _id, image }) => {
+const DiscoverCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, host, fullName, startDate, endDate, _id, image }) => {
 	return (<>
 		<IonCard>
 			<IonItem>
@@ -53,7 +53,7 @@ const DiscoverCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, ho
 						<p>Space Available: {moment(startDate).format('ll')} - {moment(endDate).format('ll')}</p>
 						
 						<Link to={`/listing/${_id}`}>
-							<IonButton expand="full" color="warning" size="default" href="/listing">
+							<IonButton expand="full" color="warning" size="default" href={`/listing/${_id}`}>
 								<IonIcon icon={calendar} slot="start"></IonIcon>BOOK
 							</IonButton>
 						</Link>

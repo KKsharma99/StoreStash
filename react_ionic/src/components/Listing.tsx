@@ -49,7 +49,7 @@ const ListingCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, hos
 						<IonCardTitle color="success">${price}/mo</IonCardTitle>
 						<IonCardSubtitle><IonIcon icon={pin}></IonIcon>{distance} Miles </IonCardSubtitle>
 						<IonCardSubtitle><IonIcon icon={cube}></IonIcon> {remSpace} Boxes</IonCardSubtitle>
-						<IonCardSubtitle><IonIcon icon={person}></IonIcon> {host}</IonCardSubtitle>
+						<IonCardSubtitle><IonIcon icon={person}></IonIcon> {fullName}</IonCardSubtitle>
 					</IonCol>
 				</IonRow>
 			</IonItem>
@@ -102,10 +102,11 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 	let listing;
 	if (!listingId || error)
 		listing = <div>Failed to load</div>
-	if (!data)
+	else if (!data)
 		listing = <div>Loading…</div>
-	else
-		listing = <ListingCard {...listing} fullName={listing.fullName || "Anonymous"} />;
+	else {
+		listing = <ListingCard {...(data as DiscoverListing)} fullName={data.fullName || "Anonymous"} image={data.image || room_1} key={data._id} />;
+	}
 
 	return (<IonPage>
 		<IonHeader>
