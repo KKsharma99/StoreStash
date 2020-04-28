@@ -1,7 +1,8 @@
 import React, { Component, createContext, useReducer, useEffect } from 'react'
 import '@ionic/core/css/core.css'
 import '@ionic/core/css/ionic.bundle.css'
-import { IonApp } from '@ionic/react'
+import { IonApp, IonRouterOutlet } from '@ionic/react'
+import { IonReactRouter } from '@ionic/react-router'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import TabBar from './components/TabBar'
 import Login from './components/Login'
@@ -29,15 +30,15 @@ const App: React.FC = () => {
 	return (
 		<IonApp>
 			<AppContext.Provider value={{ state, dispatch }}>
-				<Router>
-					<Switch>
+				<IonReactRouter>
+					<IonRouterOutlet>
 						<Route exact path="/" component={Login} />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/register" component={Register} />
 						<Route exact path="/agreement" component={Agreement} />
 						<Route path="/" component={TabBar} />
-					</Switch>
-				</Router>
+					</IonRouterOutlet>
+				</IonReactRouter>
 			</AppContext.Provider>
 		</IonApp>
 	)

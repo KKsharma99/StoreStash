@@ -1,31 +1,7 @@
 import React from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
-import {
-	IonContent,
-	IonHeader,
-	IonToolbar,
-	IonButtons,
-	IonMenuButton,
-	IonTitle,
-	IonIcon,
-	IonList,
-	IonSelectOption,
-	IonSelect,
-	IonItem,
-	IonLabel,
-	IonDatetime,
-	IonButton,
-	IonCard,
-	IonCardContent,
-	IonCardHeader,
-	IonCardSubtitle,
-	IonCardTitle,
-	IonRow,
-	IonCol,
-	IonImg,
-	IonGrid
-
-} from '@ionic/react'
+import { IonContent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonIcon, IonList, IonSelectOption, IonSelect, IonItem, IonLabel, IonDatetime, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonRow, IonCol, IonImg, IonPage } from '@ionic/react';
+import { pin, cube, calendar, person, cash } from 'ionicons/icons';
 import moment from "moment";
 import useSWR from 'swr';
 import wretch from 'wretch';
@@ -35,33 +11,37 @@ import room_1 from '../assets/img/room_1.png';
 import room_2 from '../assets/img/room_2.png';
 import room_3 from '../assets/img/room_3.png';
 
-type DiscoverListing = {
-    host: any;
-    lat: number;
-    lon: number;
-    capacity: number;
+export type DiscoverListing = {
+	host: any;
+	fullName: string;
+    lat?: number;
+    lon?: number;
+    capacity?: number;
     remSpace: number;
     startDate: Date;
     endDate: Date;
 	price: number;
 	distance: number;
 	image?: string;
+	_id: string;
 }
 
+// TODO: get user's current location
+// TODO: use values from the search parameters
 function fetcher(url: string): Promise<[DiscoverListing]> {
 	return wretch(url).query({ lat: 11, lon: 11, minCapacity: 1, maxPrice: 100 }).get().json();
 }
 
-const DiscoverCard: React.FC<{ price: number, distance: number, boxes: number, host: string, startDate: Date, endDate: Date, listingId?: string, image?: string }> = ({ price, distance, boxes, host, startDate, endDate, listingId, image }) => {
+const DiscoverCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, host, fullName, startDate, endDate, _id, image }) => {
 	return (<>
 		<IonCard>
 			<IonItem>
 				<IonRow>
 					<IonCol col-12>
 						<IonCardTitle color="success">${price}/mo</IonCardTitle>
-						<IonCardSubtitle><IonIcon name="pin"></IonIcon>{distance} Miles </IonCardSubtitle>
-						<IonCardSubtitle><IonIcon name="cube"></IonIcon> {boxes} Boxes</IonCardSubtitle>
-						<IonCardSubtitle><IonIcon name="person"></IonIcon> {host}</IonCardSubtitle>
+						<IonCardSubtitle><IonIcon icon={pin}></IonIcon>{distance} Miles </IonCardSubtitle>
+						<IonCardSubtitle><IonIcon icon={cube}></IonIcon> {remSpace} Boxes</IonCardSubtitle>
+						<IonCardSubtitle><IonIcon icon={person}></IonIcon> {fullName}</IonCardSubtitle>
 					</IonCol>
 				</IonRow>
 			</IonItem>
@@ -72,14 +52,9 @@ const DiscoverCard: React.FC<{ price: number, distance: number, boxes: number, h
 						<IonImg src={image} alt="Room"/>
 						<p>Space Available: {moment(startDate).format('ll')} - {moment(endDate).format('ll')}</p>
 						
-						<Link to={{
-							pathname: '/listing',
-							state: {
-								listingId: listingId
-							}
-						}}>
-							<IonButton expand="full" color="warning" size="default" href="/listing">
-								<IonIcon name="calendar" slot="start"></IonIcon>BOOK
+						<Link to={`/listing/${_id}`}>
+							<IonButton expand="full" color="warning" size="default" href={`/listing/${_id}`}>
+								<IonIcon icon={calendar} slot="start"></IonIcon>BOOK
 							</IonButton>
 						</Link>
 					</IonCol>
@@ -98,7 +73,7 @@ const Discover: React.FC<RouteComponentProps> = () => {
 		content = <div>loading...</div>
 	else {
 		const listings = data.map(o => 
-			<DiscoverCard price={o.price} distance={o.distance} boxes={o.remSpace} host={o.host} startDate={o.startDate} endDate={o.endDate} image={o.image || room_1} />
+			<DiscoverCard {...o} fullName={o.fullName || "Anonymous"} image={o.image || room_1} key={o._id} />
 		)
 		content =
 		<div>
@@ -112,7 +87,7 @@ const Discover: React.FC<RouteComponentProps> = () => {
 		</div>
 	}
 
-	return (<>
+	return (<IonPage>
 		<IonHeader>
 			<IonToolbar color="warning">
 				<IonButtons slot="start">
@@ -132,14 +107,14 @@ const Discover: React.FC<RouteComponentProps> = () => {
 				<IonRow>
 					<IonCol col-12 >
 						<IonItem>
-							<IonIcon name="calendar" slot="start"></IonIcon>
+							<IonIcon icon={calendar} slot="start"></IonIcon>
 							<IonLabel>Drop off</IonLabel>
 							<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={null}></IonDatetime>
 						</IonItem>
 					</IonCol>
 					<IonCol col-12 >
 						<IonItem>
-							<IonIcon name="calendar" slot="start"></IonIcon>
+							<IonIcon icon={calendar} slot="start"></IonIcon>
 							<IonLabel>Pick up</IonLabel>
 							<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={null}></IonDatetime>
 						</IonItem>
@@ -149,10 +124,10 @@ const Discover: React.FC<RouteComponentProps> = () => {
 				<IonRow>
 					<IonCol col-12 >
 						<IonItem>
-							<IonIcon name="cube" slot="start"></IonIcon>
+							<IonIcon icon={cube} slot="start"></IonIcon>
 							<IonLabel>Boxes</IonLabel>
 							<IonSelect>
-								<IonSelectOption value="1" selected>1</IonSelectOption>
+								<IonSelectOption value="1">1</IonSelectOption>
 								<IonSelectOption value="2">2</IonSelectOption>
 								<IonSelectOption value="3">3</IonSelectOption>
 								<IonSelectOption value="4">4</IonSelectOption>
@@ -166,10 +141,10 @@ const Discover: React.FC<RouteComponentProps> = () => {
 				<IonRow>
 					<IonCol col-12 >
 						<IonItem>
-							<IonIcon name="cash" slot="start"></IonIcon>
+							<IonIcon icon={cash} slot="start"></IonIcon>
 							<IonLabel>Max Price per Box</IonLabel>
 							<IonSelect>
-								<IonSelectOption value="20" selected>$20</IonSelectOption>
+								<IonSelectOption value="20">$20</IonSelectOption>
 								<IonSelectOption value="40">$40</IonSelectOption>
 								<IonSelectOption value="75">$75</IonSelectOption>
 								<IonSelectOption value="100">$100</IonSelectOption>
@@ -184,7 +159,7 @@ const Discover: React.FC<RouteComponentProps> = () => {
 
 
 		</IonContent>
-	</>)
+	</IonPage>)
 }
 
 export default Discover;

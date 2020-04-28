@@ -12,13 +12,14 @@ import {
 	IonToolbar,
 	IonButtons,
 	IonMenuButton,
-	IonTitle
+	IonTitle,
+	IonPage
 
 } from '@ionic/react'
 
 export default class Confirmation extends React.Component {
 	render() {
-		return (<>
+		return (<IonPage>
 
 
 			<IonHeader>
@@ -41,6 +42,6 @@ export default class Confirmation extends React.Component {
 				</IonGrid>
 			</IonContent>
 
-		</>)
+		</IonPage>)
 	}
 }

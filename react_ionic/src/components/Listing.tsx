@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, MouseEvent } from 'react'
 import {
 	IonContent,
 	IonHeader,
@@ -24,28 +24,32 @@ import {
 	IonButton,
 	IonText,
 	IonGrid,
-	IonInput
+	IonInput,
+	IonPage
 } from '@ionic/react'
+import { pin, cube, person, calendar, card } from 'ionicons/icons';
 import { AppContext, ActionTypes } from '../context/appContext';
 import wretch from 'wretch';
 import { RouteComponentProps } from 'react-router';
+import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
+import { DiscoverListing } from './Discover'
 
 import room_1 from '../assets/img/room_1.png';
 import room_2 from '../assets/img/room_2.png';
 import room_3 from '../assets/img/room_3.png';
+import useSWR from 'swr';
 
-const ListingCard: React.FC<{ price: number, distance: number, boxes: number, host: string, startDate: Date, endDate: Date, listingId?: string, image?: string }> = ({ price, distance, boxes, host, startDate, endDate, listingId, image }) => {
+const ListingCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, host, fullName, startDate, endDate, _id: listingId, image }) => {
 	return (<>
 		<IonCard>
 			<IonItem>
 				<IonRow>
 					<IonCol col-12>
 						<IonCardTitle color="success">${price}/mo</IonCardTitle>
-						<IonCardSubtitle><IonIcon name="pin"></IonIcon>{distance} Miles </IonCardSubtitle>
-						<IonCardSubtitle><IonIcon name="cube"></IonIcon> {boxes} Boxes</IonCardSubtitle>
-						<IonCardSubtitle><IonIcon name="person"></IonIcon> {host}</IonCardSubtitle>
+						<IonCardSubtitle><IonIcon icon={pin}></IonIcon>{distance} Miles </IonCardSubtitle>
+						<IonCardSubtitle><IonIcon icon={cube}></IonIcon> {remSpace} Boxes</IonCardSubtitle>
+						<IonCardSubtitle><IonIcon icon={person}></IonIcon> {fullName}</IonCardSubtitle>
 					</IonCol>
 				</IonRow>
 			</IonItem>
@@ -63,7 +67,7 @@ const ListingCard: React.FC<{ price: number, distance: number, boxes: number, ho
 }
 
 const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => {
-	const listingId = props.listingId;
+	const { listingId } = useParams();
 	const { state, dispatch } = useContext(AppContext);
 	const { userId, token } = state;
 	const [boxes, setBoxes] = useState<number>(1);
@@ -75,26 +79,36 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 		return dropoff != '' && pickup != '' && phoneNum != '';
 	}
 
-	const handleSubmit = async (e: MouseEvent) => {
+	const handleSubmit = (e: MouseEvent | any) => {
 		e.preventDefault();
 		if (validate()) {
 			try {
-				await wretch('http://localhost:3001/api/listings/5e5430932e29c233b8c04455/rent')
+				wretch(`http://localhost:3001/api/listings/${listingId}/rent`)
 					.post({
 						renter: '5e5642bec7dd3d438c196572',
 						boxes,
 						dropoff: dropoff,
 						pickup: pickup
 					})
-					.json(data => console.log(data));
-				props.history.push('/confirmation')
+					.json(data => console.log(data))
+					.then(() => props.history.push('/confirmation'));
 			} catch (err) {
 				console.log(err);
 			}
 		}
 	}
 
-	return (<>
+	const { data, error } = useSWR(`http://localhost:3001/api/listings/${listingId}`, url => wretch(url).get().json());
+	let listing;
+	if (!listingId || error)
+		listing = <div>Failed to load</div>
+	else if (!data)
+		listing = <div>Loading…</div>
+	else {
+		listing = <ListingCard {...(data as DiscoverListing)} fullName={data.fullName || "Anonymous"} image={data.image || room_1} key={data._id} />;
+	}
+
+	return (<IonPage>
 		<IonHeader>
 			<IonToolbar color="warning">
 				<IonButtons slot="start">
@@ -113,7 +127,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 				</IonRow>
 			</IonGrid>
 
-			<ListingCard price={6} distance={0.3} boxes={3} host="Kunal Sharma" startDate={new Date('December 15, 2019')} endDate={new Date('December 10, 2020')} image={room_1} listingId={listingId} />
+			{listing}
 
 			<IonGrid>
 				<IonRow>
@@ -126,14 +140,14 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 					<IonRow>
 						<IonCol col-12 >
 							<IonItem>
-								<IonIcon name="calendar" slot="start"></IonIcon>
+								<IonIcon icon={calendar} slot="start"></IonIcon>
 								<IonLabel>Drop off</IonLabel>
 								<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={dropoff} onIonChange={e => setDropoff((e.target as HTMLInputElement).value)} ></IonDatetime>
 							</IonItem>
 						</IonCol>
 						<IonCol col-12 >
 							<IonItem>
-								<IonIcon name="calendar" slot="start"></IonIcon>
+								<IonIcon icon={calendar} slot="start"></IonIcon>
 								<IonLabel>Pick up</IonLabel>
 								<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={pickup} onIonChange={e => setPickup((e.target as HTMLInputElement).value)} ></IonDatetime>
 							</IonItem>
@@ -143,10 +157,10 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 					<IonRow>
 						<IonCol col-12 >
 							<IonItem>
-								<IonIcon name="cube" slot="start"></IonIcon>
+								<IonIcon icon={cube} slot="start"></IonIcon>
 								<IonLabel>Box Count</IonLabel>
 								<IonSelect>
-									<IonSelectOption value="1" selected>1</IonSelectOption>
+									<IonSelectOption value="1">1</IonSelectOption>
 									<IonSelectOption value="2">2</IonSelectOption>
 									<IonSelectOption value="3">3</IonSelectOption>
 								</IonSelect>
@@ -179,7 +193,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 							{/* Disable link: https://stackoverflow.com/a/38321726/5139284 */}
 							<Link to={{pathname: '/confirmation'}} style={{ textDecoration: 'none' }}>
 								<IonButton color="warning" size="default" expand="full" href="/confirmation" onClick={handleSubmit} disabled={!validate()}>
-									<IonIcon name="card" slot="start"></IonIcon>Pay and Confirm
+									<IonIcon icon={card} slot="start"></IonIcon>Pay and Confirm
 								</IonButton>
 							</Link>
 						</IonCol>
@@ -188,7 +202,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 
 			</IonGrid>
 		</IonContent>
-	</>)
+	</IonPage>)
 }
 
 export default Listing;

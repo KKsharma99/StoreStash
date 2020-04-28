@@ -1,4 +1,4 @@
-import React, { Component, useState, useContext } from 'react'
+import React, { Component, useState, useContext, MouseEvent } from 'react'
 import {
 	IonContent,
 	IonGrid,
@@ -9,6 +9,7 @@ import {
 	IonButton,
 	IonImg,
 	IonText,
+	IonPage,
 } from '@ionic/react'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { AppContext, ActionTypes } from '../context/appContext'
@@ -23,7 +24,7 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 	const { email } = state;
 	const [password, setPassword] = useState('');
 
-	async function handleSubmit(e: MouseEvent) {
+	async function handleSubmit(e: MouseEvent | any) {
 		e.preventDefault();
 		let validationErr = false;
 		if (!email.endsWith("@gatech.edu")) {
@@ -50,7 +51,7 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 		setPassword((e.target as HTMLInputElement).value);
 	}
 
-	return (<>
+	return (<IonPage>
 		<IonContent class="ion-padding">
 			<IonGrid>
 				<IonRow>
@@ -101,7 +102,7 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 				</IonRow>
 			</IonGrid>
 		</IonContent>
-	</>);
+	</IonPage>);
 }
 
 export default Login;
