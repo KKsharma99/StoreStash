@@ -34,32 +34,28 @@ import Agreement from './Agreement'
 class TabBar extends Component {
 	render() {
 		return (
-			<IonApp>
-				<IonPage>
 
 					<IonTabs>
 						<IonRouterOutlet>
-							<Route path="/:tab(discover)" component={Discover} exact />
-							<Route path="/:tab(profile)" component={Profile} exact />
-							<Route path="/:tab(listing)" component={Listing} />
-							<Route path="/:tab(confirmation)" component={Confirmation} exact />
-							<Route path="/:tab(post)" component={Post} exact />
+							<Route path="/discover" component={Discover} exact />
+							<Route path="/profile" component={Profile} exact />
+							<Route path="/listing" component={Listing} />
+							<Route path="/confirmation" component={Confirmation} exact />
+							<Route path="/post" component={Post} exact />
 						</IonRouterOutlet>
 
 						<IonTabBar slot="bottom">
 							<IonTabButton tab="home" href="/discover">
-								<IonIcon name="search" />
+								<IonIcon icon="search" />
 								<IonLabel>Discover</IonLabel>
 							</IonTabButton>
 							<IonTabButton tab="settings" href="/profile">
-								<IonIcon name="person" />
+								<IonIcon icon="person" />
 								<IonLabel>Profile</IonLabel>
 							</IonTabButton>
 
 						</IonTabBar>
 					</IonTabs>
-				</IonPage>
-			</IonApp>
 		);
 	}
 }

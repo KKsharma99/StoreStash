@@ -55,7 +55,7 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 							<hr></hr>
 							
 							<Link to={{pathname: '/post'}} style={{ textDecoration: 'none' }}>
-								<IonButton expand="full" color="warning" size="default" href="/post"><IonIcon name="add-circle" slot="start"></IonIcon>Lend Space</IonButton>
+								<IonButton expand="full" color="warning" size="default" href="/post"><IonIcon icon="add-circle" slot="start"></IonIcon>Lend Space</IonButton>
 							</Link>
 						</IonCol>
 					</IonRow>

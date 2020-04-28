@@ -4,12 +4,6 @@ Built with Ionic React
 
 Install dependencies: `npm install`
 
-For now, don't run `npm audit fix`, or else we'll get the following error when trying to serve the app. It seems to be an issue with the latest ionicons package.
-```
-./node_modules/@ionic/react/dist/components/index.js
-Attempted import error: 'ICON_PATHS' is not exported from 'ionicons/icons'.
-```
-
 Serve the app: `npm start`
 
 You can use your browser dev tools to use a mobile view for the app. Ionic has some issues in Firefox (dialogs not opening, requests getting a NetworkError) so it's best to use Chromium.
