@@ -9,36 +9,28 @@ import Listing from './Listing'
 import Confirmation from './Confirmation'
 import Post from './Post'
 
-class TabBar extends Component {
-	render() {
-		return (
-			<IonApp>
-			<IonPage>
-					<IonTabs>
-						<IonRouterOutlet>
-							<Route path="/:tab(discover)" component={Discover} exact />
-							<Route path="/:tab(profile)" component={Profile} exact />
-							<Route path="/:tab(listing)" component={Listing} />
-							<Route path="/:tab(confirmation)" component={Confirmation} exact />
-							<Route path="/:tab(post)" component={Post} exact />
-						</IonRouterOutlet>
+interface TabBarProps {}
 
-						<IonTabBar slot="bottom">
-							<IonTabButton tab="home" href="/discover">
-								<IonIcon icon={search} />
-								<IonLabel>Discover</IonLabel>
-							</IonTabButton>
-							<IonTabButton tab="settings" href="/profile">
-								<IonIcon icon={person} />
-								<IonLabel>Profile</IonLabel>
-							</IonTabButton>
+const TabBar: React.FC<TabBarProps> = () =>
+	<IonTabs>
+		<IonRouterOutlet>
+			<Route path="/:tab(discover)" component={Discover} exact />
+			<Route path="/:tab(profile)" component={Profile} exact />
+			<Route path="/listing" component={Listing} />
+			<Route path="/confirmation" component={Confirmation} exact />
+			<Route path="/post" component={Post} exact />
+		</IonRouterOutlet>
 
-						</IonTabBar>
-					</IonTabs>
-				</IonPage>
-			</IonApp>
-		);
-	}
-}
+		<IonTabBar slot="bottom">
+			<IonTabButton tab="discover" href="/discover">
+				<IonIcon icon={search} />
+				<IonLabel>Discover</IonLabel>
+			</IonTabButton>
+			<IonTabButton tab="profile" href="/profile">
+				<IonIcon icon={person} />
+				<IonLabel>Profile</IonLabel>
+			</IonTabButton>
+		</IonTabBar>
+	</IonTabs>;
 
 export default TabBar;

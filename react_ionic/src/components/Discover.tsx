@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
-import { IonContent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonIcon, IonList, IonSelectOption, IonSelect, IonItem, IonLabel, IonDatetime, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonRow, IonCol, IonImg, IonGrid } from '@ionic/react';
+import { IonContent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonIcon, IonList, IonSelectOption, IonSelect, IonItem, IonLabel, IonDatetime, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonRow, IonCol, IonImg, IonPage } from '@ionic/react';
 import { pin, cube, calendar, person, cash } from 'ionicons/icons';
 import moment from "moment";
 import useSWR from 'swr';
@@ -87,7 +87,7 @@ const Discover: React.FC<RouteComponentProps> = () => {
 		</div>
 	}
 
-	return (<>
+	return (<IonPage>
 		<IonHeader>
 			<IonToolbar color="warning">
 				<IonButtons slot="start">
@@ -159,7 +159,7 @@ const Discover: React.FC<RouteComponentProps> = () => {
 
 
 		</IonContent>
-	</>)
+	</IonPage>)
 }
 
 export default Discover;
