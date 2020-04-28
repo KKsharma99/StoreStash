@@ -31,13 +31,13 @@ const App: React.FC = () => {
 		<IonApp>
 			<AppContext.Provider value={{ state, dispatch }}>
 				<IonReactRouter>
-					<IonRouterOutlet>
+					<Switch>
 						<Route exact path="/" component={Login} />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/register" component={Register} />
 						<Route exact path="/agreement" component={Agreement} />
 						<Route path="/" component={TabBar} />
-					</IonRouterOutlet>
+					</Switch>
 				</IonReactRouter>
 			</AppContext.Provider>
 		</IonApp>
