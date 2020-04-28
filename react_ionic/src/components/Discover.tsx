@@ -168,7 +168,7 @@ const Discover: React.FC<RouteComponentProps> = () => {
 							<IonIcon name="cash" slot="start"></IonIcon>
 							<IonLabel>Max Price per Box</IonLabel>
 							<IonSelect>
-								<IonSelectOption value="20" selected>$20</IonSelectOption>
+								<IonSelectOption value="20">$20</IonSelectOption>
 								<IonSelectOption value="40">$40</IonSelectOption>
 								<IonSelectOption value="75">$75</IonSelectOption>
 								<IonSelectOption value="100">$100</IonSelectOption>

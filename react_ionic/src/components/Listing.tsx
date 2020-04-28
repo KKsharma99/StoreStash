@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, MouseEvent } from 'react'
 import {
 	IonContent,
 	IonHeader,
@@ -78,19 +78,19 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 		return dropoff != '' && pickup != '' && phoneNum != '';
 	}
 
-	const handleSubmit = async (e: MouseEvent) => {
+	const handleSubmit = (e: MouseEvent) => {
 		e.preventDefault();
 		if (validate()) {
 			try {
-				await wretch(`http://localhost:3001/api/listings/${listingId}/rent`)
+				wretch(`http://localhost:3001/api/listings/${listingId}/rent`)
 					.post({
 						renter: '5e5642bec7dd3d438c196572',
 						boxes,
 						dropoff: dropoff,
 						pickup: pickup
 					})
-					.json(data => console.log(data));
-				props.history.push('/confirmation')
+					.json(data => console.log(data))
+					.then(() => props.history.push('/confirmation'));
 			} catch (err) {
 				console.log(err);
 			}
@@ -158,7 +158,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 								<IonIcon name="cube" slot="start"></IonIcon>
 								<IonLabel>Box Count</IonLabel>
 								<IonSelect>
-									<IonSelectOption value="1" selected>1</IonSelectOption>
+									<IonSelectOption value="1">1</IonSelectOption>
 									<IonSelectOption value="2">2</IonSelectOption>
 									<IonSelectOption value="3">3</IonSelectOption>
 								</IonSelect>

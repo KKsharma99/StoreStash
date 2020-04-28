@@ -1,4 +1,4 @@
-import React, { Component, useState, useContext } from 'react'
+import React, { Component, useState, useContext, MouseEvent } from 'react'
 import {
 	IonContent,
 	IonGrid,
