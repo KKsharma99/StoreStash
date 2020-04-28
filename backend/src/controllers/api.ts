@@ -110,7 +110,7 @@ export const getRentalHistory = async (req: Request, res: Response) => {
 };
 
 /**
- * GET /api/users/:id/lends
+ * GET /api/users/:id/lendings
  * @param {string} req.params.id User ID
  * Response: Rental[]
  */

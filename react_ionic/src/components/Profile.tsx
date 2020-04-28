@@ -62,8 +62,14 @@ const HistoryCard: React.FC<HistoryType> = ({ name, totalCost, boxes, startDate,
 const Profile: React.FC<RouteComponentProps> = (props) => {
 	const { state, dispatch } = useContext(AppContext);
 	const { userId, token } = state;
+	let lendingsContent;
+	let rentalsContent;
+	if (userId) {
+		// const { data: rentals, error: errorRentals } = useSWR(`http://localhost:3001/api/${userId}/rentals`, url => wretch(url).get());
+		// const { data: lendings, error: errorLendings } = useSWR(`http://localhost:3001/api/${userId}/lendings`, url => wretch(url).get());
+	} else {
 
-	const { data, error } = useSWR('http://localhost:3001/api');
+	}
 
 	return (<IonPage>
 		<IonHeader>
