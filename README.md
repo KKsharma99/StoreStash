@@ -2,6 +2,35 @@
 
 App for CS 4261: Mobile Apps & Services.
 
+## Running locally
+
+### Backend
+
+`cd backend`
+
+Create a MongoDB database, perhaps on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas). Remember to whitelist your connection IP address. Copy `.env.example` into a new `.env` file and replace the MongoDB <password> in `MONGODB_URI` with your actual one.
+
+Install dependencies: `npm install`
+
+Then, to start the server locally, run
+
+```
+npm run build
+npm start
+```
+
+In production, if you end up using cookies, you should change the `SESSION_SECRET` environment variable.
+
+### Frontend
+
+`cd react_ionic`
+
+Install dependencies: `npm install`
+
+Serve the app: `npm start`
+
+## Deploying
+
 Some helpful commands for pushing the subfolders to Heroku:
 
 ```bash
