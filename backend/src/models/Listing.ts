@@ -65,8 +65,8 @@ listingSchema.statics.getNearby = async function (lat: number, lon: number, minC
             endDate: { $gte: endDate },
         }).exec();
         return await listings
-            .map((listing: ListingDocument) => { return {...listing.toObject(), distance: distance(lat, lon, listing.lat, listing.lon)}; })
-            .sort((listing: _ListingDocument & { distance: number }) => listing.distance);
+            .map((listing: ListingDocument) => { return {...listing.toObject(), distance: distance(lat, lon, listing.lat, listing.lon).toFixed(2)}; })
+            .sort((listing1: _ListingDocument & { distance: number }, listing2: _ListingDocument & { distance: number }) => listing2.distance - listing1.distance);
     } catch (err) {
         console.log(err);
         return Promise.reject(err);

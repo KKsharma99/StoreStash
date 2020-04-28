@@ -41,7 +41,7 @@ class TabBar extends Component {
 						<IonRouterOutlet>
 							<Route path="/:tab(discover)" component={Discover} exact />
 							<Route path="/:tab(profile)" component={Profile} exact />
-							<Route path="/:tab(listing)" component={Listing} exact />
+							<Route path="/:tab(listing)" component={Listing} />
 							<Route path="/:tab(confirmation)" component={Confirmation} exact />
 							<Route path="/:tab(post)" component={Post} exact />
 						</IonRouterOutlet>

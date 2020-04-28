@@ -29,14 +29,16 @@ import {
 import { AppContext, ActionTypes } from '../context/appContext';
 import wretch from 'wretch';
 import { RouteComponentProps } from 'react-router';
-import moment from 'moment';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
+import { DiscoverListing } from './Discover'
 
 import room_1 from '../assets/img/room_1.png';
 import room_2 from '../assets/img/room_2.png';
 import room_3 from '../assets/img/room_3.png';
+import useSWR from 'swr';
 
-const ListingCard: React.FC<{ price: number, distance: number, boxes: number, host: string, startDate: Date, endDate: Date, listingId?: string, image?: string }> = ({ price, distance, boxes, host, startDate, endDate, listingId, image }) => {
+const ListingCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, host, fullName, startDate, endDate, _id: listingId, image }) => {
 	return (<>
 		<IonCard>
 			<IonItem>
@@ -44,7 +46,7 @@ const ListingCard: React.FC<{ price: number, distance: number, boxes: number, ho
 					<IonCol col-12>
 						<IonCardTitle color="success">${price}/mo</IonCardTitle>
 						<IonCardSubtitle><IonIcon name="pin"></IonIcon>{distance} Miles </IonCardSubtitle>
-						<IonCardSubtitle><IonIcon name="cube"></IonIcon> {boxes} Boxes</IonCardSubtitle>
+						<IonCardSubtitle><IonIcon name="cube"></IonIcon> {remSpace} Boxes</IonCardSubtitle>
 						<IonCardSubtitle><IonIcon name="person"></IonIcon> {host}</IonCardSubtitle>
 					</IonCol>
 				</IonRow>
@@ -63,7 +65,8 @@ const ListingCard: React.FC<{ price: number, distance: number, boxes: number, ho
 }
 
 const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => {
-	const listingId = props.listingId;
+	// const listingId = { useParams }
+	let listingId;
 	const { state, dispatch } = useContext(AppContext);
 	const { userId, token } = state;
 	const [boxes, setBoxes] = useState<number>(1);
@@ -79,7 +82,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 		e.preventDefault();
 		if (validate()) {
 			try {
-				await wretch('http://localhost:3001/api/listings/5e5430932e29c233b8c04455/rent')
+				await wretch(`http://localhost:3001/api/listings/${listingId}/rent`)
 					.post({
 						renter: '5e5642bec7dd3d438c196572',
 						boxes,
@@ -93,6 +96,15 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 			}
 		}
 	}
+
+	const { data, error } = useSWR(`http://localhost:3001/api/listings/${listingId}`, url => wretch(url).get().json());
+	let listing;
+	if (!listingId || error)
+		listing = <div>Failed to load</div>
+	if (!data)
+		listing = <div>Loading…</div>
+	else
+		listing = <ListingCard {...listing} fullName={listing.fullName || "Anonymous"} />;
 
 	return (<>
 		<IonHeader>
@@ -113,7 +125,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 				</IonRow>
 			</IonGrid>
 
-			<ListingCard price={6} distance={0.3} boxes={3} host="Kunal Sharma" startDate={new Date('December 15, 2019')} endDate={new Date('December 10, 2020')} image={room_1} listingId={listingId} />
+			{listing}
 
 			<IonGrid>
 				<IonRow>
