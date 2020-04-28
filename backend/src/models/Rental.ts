@@ -11,6 +11,7 @@ export type RentalDocument = mongoose.Document & {
     price: number;
     construct: (listingId: mongoose.Types.ObjectId | string, renter: mongoose.Types.ObjectId | string, boxes: number, dropoff: Date, pickup: Date) => Promise<RentalDocument>;
     listRenterHistory: (renter: mongoose.Types.ObjectId | string) => Promise<Array<RentalDocument>>;
+    listLenderHistory: (renter: mongoose.Types.ObjectId | string) => Promise<Array<RentalDocument>>;
 };
 
 const rentalSchema = new mongoose.Schema({
@@ -47,7 +48,17 @@ rentalSchema.statics.construct = async function (listingId: mongoose.Types.Objec
 
 rentalSchema.statics.listRenterHistory = async function (renter: mongoose.Types.ObjectId | string): Promise<Array<RentalDocument>> {
     try {
-        return await this.find({ renter }).sort({ dropoff: -1 }).exec();
+        const results = await this.find({ renter }).sort({ dropoff: -1 }).populate("host");
+        console.log(results);
+        return results;
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
+
+rentalSchema.statics.listLenderHistory = async function (host: mongoose.Types.ObjectId | string): Promise<Array<RentalDocument>> {
+    try {
+        return await this.find({ host }).sort({ dropoff: -1 }).populate("renter").execPopulate();
     } catch (err) {
         return Promise.reject(err);
     }

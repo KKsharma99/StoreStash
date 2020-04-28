@@ -86,6 +86,20 @@ export const getRentalHistory = async (req: Request, res: Response) => {
 };
 
 /**
+ * GET /api/users/:id/lends
+ * @param {string} req.params.id User ID
+ * Response: Rental[]
+ */
+export const getLendingHistory = async (req: Request, res: Response) => {
+    try {
+        const history = await (Rental as unknown as RentalDocument).listLenderHistory(req.params.id);
+        res.json(history.map(rental => rental.toObject()));
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};
+
+/**
  * POST /api/listings/new
  * @param {string} req.body.hostId
  * @param {number} req.body.lat
