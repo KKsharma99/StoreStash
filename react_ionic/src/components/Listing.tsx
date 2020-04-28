@@ -34,6 +34,7 @@ import { RouteComponentProps } from 'react-router';
 import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
 import { DiscoverListing } from './Discover'
+import { range } from 'lodash';
 
 import room_1 from '../assets/img/room_1.png';
 import room_2 from '../assets/img/room_2.png';
@@ -71,27 +72,27 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 	const { state, dispatch } = useContext(AppContext);
 	const { userId, token } = state;
 	const [boxes, setBoxes] = useState<number>(1);
-	const [dropoff, setDropoff] = useState('');
-	const [pickup, setPickup] = useState('');
+	const [dropoff, setDropoff] = useState<Date|null>(null);
+	const [pickup, setPickup] = useState<Date|null>(null);
 	const [phoneNum, setPhoneNum] = useState('');
 
 	function validate() {
-		return dropoff != '' && pickup != '' && phoneNum != '';
+		return dropoff != null && pickup != null && phoneNum != '';
 	}
 
-	const handleSubmit = (e: MouseEvent | any) => {
+	const handleSubmit = async (e: MouseEvent | any) => {
 		e.preventDefault();
 		if (validate()) {
 			try {
-				wretch(`http://localhost:3001/api/listings/${listingId}/rent`)
+				await wretch(`http://localhost:3001/api/listings/${listingId}/rent`)
 					.post({
 						renter: '5e5642bec7dd3d438c196572',
 						boxes,
-						dropoff: dropoff,
-						pickup: pickup
+						dropoff,
+						pickup
 					})
 					.json(data => console.log(data))
-					.then(() => props.history.push('/confirmation'));
+				props.history.push('/confirmation')
 			} catch (err) {
 				console.log(err);
 			}
@@ -142,14 +143,14 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 							<IonItem>
 								<IonIcon icon={calendar} slot="start"></IonIcon>
 								<IonLabel>Drop off</IonLabel>
-								<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={dropoff} onIonChange={e => setDropoff((e.target as HTMLInputElement).value)} ></IonDatetime>
+								<IonDatetime displayFormat="MMM DD, YYYY" min={data?.startDate} max={data?.endDate} value={dropoff?.toString()} onIonChange={e => setDropoff(new Date((e.target as HTMLInputElement).value))} ></IonDatetime>
 							</IonItem>
 						</IonCol>
 						<IonCol col-12 >
 							<IonItem>
 								<IonIcon icon={calendar} slot="start"></IonIcon>
 								<IonLabel>Pick up</IonLabel>
-								<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={pickup} onIonChange={e => setPickup((e.target as HTMLInputElement).value)} ></IonDatetime>
+								<IonDatetime displayFormat="MMM DD, YYYY" min={data?.startDate} max={data?.endDate} value={pickup?.toString()} onIonChange={e => setPickup(new Date((e.target as HTMLInputElement).value))} ></IonDatetime>
 							</IonItem>
 						</IonCol>
 					</IonRow>
@@ -159,10 +160,11 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 							<IonItem>
 								<IonIcon icon={cube} slot="start"></IonIcon>
 								<IonLabel>Box Count</IonLabel>
-								<IonSelect>
-									<IonSelectOption value="1">1</IonSelectOption>
-									<IonSelectOption value="2">2</IonSelectOption>
-									<IonSelectOption value="3">3</IonSelectOption>
+								
+								<IonSelect value={boxes} onIonChange={e => setBoxes(parseInt((e.target as HTMLInputElement).value))}>
+									{range(1, data?.remSpace + 1 || 3).map(i => 
+										<IonSelectOption value={i} key={i}>{i}</IonSelectOption>
+									)}
 								</IonSelect>
 							</IonItem>
 						</IonCol>
@@ -173,7 +175,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 						<IonCol col-12 >
 							<IonItem>
 								<IonInput
-									type="text"
+									type="tel"
 									placeholder="Enter Phone Number"
 									value={phoneNum}
 									onIonChange={e => setPhoneNum((e.target as HTMLInputElement).value)}
@@ -184,18 +186,17 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 
 					<IonRow>
 						<IonCol col-12 text-center>
-							<p><b>Order Total: </b><IonText color="success"><b>$55</b></IonText></p>
+							{/* 2.628e9 is the number of milliseconds per month */}
+							<p><b>Order Total: </b><IonText color="success"><b>{dropoff && pickup && dropoff < pickup ? (Math.abs(pickup as any - (dropoff as any)) / 2.628e9 * boxes * data?.price).toFixed(2) : '…'}</b></IonText></p>
 						</IonCol>
 					</IonRow>
 
 					<IonRow>
 						<IonCol col-12 >
 							{/* Disable link: https://stackoverflow.com/a/38321726/5139284 */}
-							<Link to={{pathname: '/confirmation'}} style={{ textDecoration: 'none' }}>
-								<IonButton color="warning" size="default" expand="full" href="/confirmation" onClick={handleSubmit} disabled={!validate()}>
-									<IonIcon icon={card} slot="start"></IonIcon>Pay and Confirm
-								</IonButton>
-							</Link>
+							<IonButton color="warning" size="default" expand="full" onClick={handleSubmit} disabled={!validate()} href="/confirmation">
+								<IonIcon icon={card} slot="start"></IonIcon>Pay and Confirm
+							</IonButton>
 						</IonCol>
 					</IonRow>
 				</IonList>

@@ -17,6 +17,7 @@
     "@types/react-router-dom": "^5.1.5",
     "axios": "^0.19.2",
     "cordova-android": "^8.1.0",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "qs": "^6.9.3",
     "react": "^16.13.1",
