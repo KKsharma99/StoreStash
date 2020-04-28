@@ -31,6 +31,8 @@ export enum ActionTypes {
     setAuth = 'setAuth',
     setEmail = 'setEmail',
     setAgreed = 'setAgreed',
+    setToken = 'setToken',
+    setUser = 'setUser'
 }
 
 type Action = {
@@ -42,6 +44,31 @@ type Action = {
 } | {
     type: ActionTypes.setAgreed,
     agreed: boolean
+} | {
+    type: ActionTypes.setToken,
+    token: string
+} | {
+    type: ActionTypes.setUser,
+    user: {
+        email: string;
+        password: string;
+        passwordResetToken: string;
+        passwordResetExpires: Date;
+
+        token: string;
+
+        profile: {
+            name: string;
+            gender: string;
+            location: string;
+            website: string;
+            picture: string;
+        };
+
+        comparePassword: comparePasswordFunction;
+        gravatar: (size: number) => string;
+        construct: (email: string, password: string) => Promise<UserDocument>;
+    }
 }
 
 export const AppContext = createContext<{state: State, dispatch: (action: Action) => void}>({ state: initialState, dispatch: null as any });
@@ -59,6 +86,14 @@ export const reducer: React.Reducer<State, Action> = (state, action) => {
         case ActionTypes.setAgreed: {
             localStorage.setItem('agreed', action.agreed.toString());
             return { ...state, agreed: action.agreed };
+        }
+        case ActionTypes.setToken: {
+            localStorage.setItem('token', action.token.toString());
+            return { ...state, token: action.token };
+        }
+        case ActionTypes.setUser: {
+            localStorage.setItem('user', action.user.toString());
+            return { ...state, user: action.user };
         }
     }
 }
