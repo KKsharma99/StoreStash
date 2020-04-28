@@ -86,7 +86,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 			try {
 				await wretch(`http://localhost:3001/api/listings/${listingId}/rent`)
 					.post({
-						renter: '5e5642bec7dd3d438c196572',
+						renter: userId,
 						boxes,
 						dropoff,
 						pickup

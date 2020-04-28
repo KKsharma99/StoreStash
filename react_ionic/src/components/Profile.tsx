@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { useState, useContext, MouseEvent } from 'react';
+import { AppContext, ActionTypes } from '../context/appContext';
+import wretch from 'wretch';
+import moment from 'moment';
+import useSWR from 'swr';
 import {
 	IonContent,
 	IonHeader,
@@ -32,7 +36,35 @@ import { RouteComponentProps } from 'react-router';
 import user from '../assets/img/user.png';
 import { Link } from 'react-router-dom';
 
+const HistoryCard: React.FC<HistoryType> = ({ name, totalCost, boxes, startDate, endDate }) => {
+	const current = endDate > new Date();
+
+	return (<>
+		<IonCard color={current ? "" : "light"}>
+			<IonCardContent>
+				<IonCardSubtitle>{name}</IonCardSubtitle>
+				<hr></hr>
+				<IonRow>
+					<IonCol col-12 >
+						<p>
+							Total Cost: <IonText color="success"><b>${totalCost}</b></IonText> <br />
+							Boxes: {boxes} <br />
+							{moment(startDate).format('ll')} - {moment(endDate).format('ll')} <br />
+							Status: {current ? <IonText color="success"><b>Current</b></IonText> : "Past"}
+						</p> 
+					</IonCol>
+				</IonRow>
+			</IonCardContent>
+		</IonCard>
+	</>);
+}
+
 const Profile: React.FC<RouteComponentProps> = (props) => {
+	const { state, dispatch } = useContext(AppContext);
+	const { userId, token } = state;
+
+	const { data, error } = useSWR('http://localhost:3001/api');
+
 	return (<IonPage>
 		<IonHeader>
 			<IonToolbar color="warning">
@@ -66,6 +98,8 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 			<IonItem>
 				<IonTitle>Lending History</IonTitle>
 			</IonItem>
+
+			<HistoryCard name="Sarah Smith" totalCost={110} boxes={1} startDate={new Date('Feb 26, 2020')} endDate={new Date('Apr 27, 2020')} />
 
 			<IonCard>
 				<IonCardContent>
@@ -209,6 +243,14 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 			</IonCard>
 		</IonContent>
 	</IonPage>)
+}
+
+type HistoryType = {
+	name: string,
+	totalCost: number,
+	boxes: number,
+	startDate: Date,
+	endDate: Date
 }
 
 export default Profile;
