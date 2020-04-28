@@ -13,6 +13,7 @@ import {
 	IonButton,
 	IonIcon
 } from '@ionic/react'
+import { arrowBack } from 'ionicons/icons'
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -39,7 +40,7 @@ const Agreement: React.FC<RouteComponentProps> = (props) => {
 					<IonCol align-self-center size-md="12" size-lg="12" size-xs="12">
 						<Link to={{ pathname: '/register' }} style={{ textDecoration: 'none' }}>
 							<IonButton color="primary" size="small" href="/register" expand="full">
-								<IonIcon slot="start" icon="arrow-back"/>
+								<IonIcon slot="start" icon={arrowBack}/>
 								Back to Registration
 							</IonButton>
 						</Link>
@@ -49,7 +50,7 @@ const Agreement: React.FC<RouteComponentProps> = (props) => {
 						<IonImg src={tc_4} alt="tc_4"/>
 						<Link to={{ pathname: '/register' }} style={{ textDecoration: 'none' }}>
 							<IonButton color="primary" size="small" href="/register" expand="full">
-								<IonIcon slot="start" icon="arrow-back"/>
+								<IonIcon slot="start" icon={arrowBack}/>
 								Back to Registration
 							</IonButton>
 						</Link>

@@ -1,31 +1,7 @@
 import React from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
-import {
-	IonContent,
-	IonHeader,
-	IonToolbar,
-	IonButtons,
-	IonMenuButton,
-	IonTitle,
-	IonIcon,
-	IonList,
-	IonSelectOption,
-	IonSelect,
-	IonItem,
-	IonLabel,
-	IonDatetime,
-	IonButton,
-	IonCard,
-	IonCardContent,
-	IonCardHeader,
-	IonCardSubtitle,
-	IonCardTitle,
-	IonRow,
-	IonCol,
-	IonImg,
-	IonGrid
-
-} from '@ionic/react'
+import { IonContent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonIcon, IonList, IonSelectOption, IonSelect, IonItem, IonLabel, IonDatetime, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonRow, IonCol, IonImg, IonGrid } from '@ionic/react';
+import { pin, cube, calendar, person, cash } from 'ionicons/icons';
 import moment from "moment";
 import useSWR from 'swr';
 import wretch from 'wretch';
@@ -63,9 +39,9 @@ const DiscoverCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, ho
 				<IonRow>
 					<IonCol col-12>
 						<IonCardTitle color="success">${price}/mo</IonCardTitle>
-						<IonCardSubtitle><IonIcon icon="pin"></IonIcon>{distance} Miles </IonCardSubtitle>
-						<IonCardSubtitle><IonIcon icon="cube"></IonIcon> {remSpace} Boxes</IonCardSubtitle>
-						<IonCardSubtitle><IonIcon icon="person"></IonIcon> {fullName}</IonCardSubtitle>
+						<IonCardSubtitle><IonIcon icon={pin}></IonIcon>{distance} Miles </IonCardSubtitle>
+						<IonCardSubtitle><IonIcon icon={cube}></IonIcon> {remSpace} Boxes</IonCardSubtitle>
+						<IonCardSubtitle><IonIcon icon={person}></IonIcon> {fullName}</IonCardSubtitle>
 					</IonCol>
 				</IonRow>
 			</IonItem>
@@ -78,7 +54,7 @@ const DiscoverCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, ho
 						
 						<Link to={`/listing/${_id}`}>
 							<IonButton expand="full" color="warning" size="default" href="/listing">
-								<IonIcon icon="calendar" slot="start"></IonIcon>BOOK
+								<IonIcon icon={calendar} slot="start"></IonIcon>BOOK
 							</IonButton>
 						</Link>
 					</IonCol>
@@ -131,14 +107,14 @@ const Discover: React.FC<RouteComponentProps> = () => {
 				<IonRow>
 					<IonCol col-12 >
 						<IonItem>
-							<IonIcon icon="calendar" slot="start"></IonIcon>
+							<IonIcon icon={calendar} slot="start"></IonIcon>
 							<IonLabel>Drop off</IonLabel>
 							<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={null}></IonDatetime>
 						</IonItem>
 					</IonCol>
 					<IonCol col-12 >
 						<IonItem>
-							<IonIcon icon="calendar" slot="start"></IonIcon>
+							<IonIcon icon={calendar} slot="start"></IonIcon>
 							<IonLabel>Pick up</IonLabel>
 							<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={null}></IonDatetime>
 						</IonItem>
@@ -148,7 +124,7 @@ const Discover: React.FC<RouteComponentProps> = () => {
 				<IonRow>
 					<IonCol col-12 >
 						<IonItem>
-							<IonIcon icon="cube" slot="start"></IonIcon>
+							<IonIcon icon={cube} slot="start"></IonIcon>
 							<IonLabel>Boxes</IonLabel>
 							<IonSelect>
 								<IonSelectOption value="1">1</IonSelectOption>
@@ -165,7 +141,7 @@ const Discover: React.FC<RouteComponentProps> = () => {
 				<IonRow>
 					<IonCol col-12 >
 						<IonItem>
-							<IonIcon icon="cash" slot="start"></IonIcon>
+							<IonIcon icon={cash} slot="start"></IonIcon>
 							<IonLabel>Max Price per Box</IonLabel>
 							<IonSelect>
 								<IonSelectOption value="20">$20</IonSelectOption>

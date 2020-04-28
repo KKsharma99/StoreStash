@@ -4,6 +4,7 @@ import Geocode from 'react-geocode';
 import wretch from 'wretch';
 import { v1 as uuidv1 } from 'uuid';
 
+import { cube, calendar } from 'ionicons/icons';
 import {
 	IonContent,
 	IonItem,
@@ -100,18 +101,18 @@ export default class Post extends React.Component<any, any> {
 								<br></br>
 
 								<IonItem>
-									<IonIcon icon="calendar" slot="start"></IonIcon>
+									<IonIcon icon={calendar} slot="start"></IonIcon>
 									<IonLabel>Start Availability</IonLabel>
 									<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={this.state.startDate} name="startDate" onIonChange={this.handleChange}></IonDatetime>
 								</IonItem>
 								<IonItem>
-									<IonIcon icon="calendar" slot="start"></IonIcon>
+									<IonIcon icon={calendar} slot="start"></IonIcon>
 									<IonLabel>End Availability</IonLabel>
 									<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={this.state.endDate} name="endDate" onIonChange={this.handleChange}></IonDatetime>
 								</IonItem>
 
 								<IonItem>
-									<IonIcon icon="cube" slot="start"></IonIcon>
+									<IonIcon icon={cube} slot="start"></IonIcon>
 									<IonLabel>Boxes</IonLabel>
 									<IonSelect value={this.state.capacity} name="capacity" onIonChange={this.handleChange}>
 										<IonSelectOption value="1" >1</IonSelectOption>
