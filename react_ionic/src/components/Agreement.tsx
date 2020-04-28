@@ -11,7 +11,8 @@ import {
 	IonTitle,
 	IonImg,
 	IonButton,
-	IonIcon
+	IonIcon,
+	IonPage
 } from '@ionic/react'
 import { arrowBack } from 'ionicons/icons'
 import { RouteComponentProps } from 'react-router';
@@ -24,7 +25,7 @@ import tc_3 from '../assets/img/tc/tc_3.png';
 import tc_4 from '../assets/img/tc/tc_4.png';
 
 const Agreement: React.FC<RouteComponentProps> = (props) => {
-	return (<>
+	return (<IonPage>
 		<IonHeader>
 			<IonToolbar color="warning">
 				<IonButtons slot="start">
@@ -58,7 +59,7 @@ const Agreement: React.FC<RouteComponentProps> = (props) => {
 				</IonRow>
 			</IonGrid>
 		</IonContent>
-	</>)
+	</IonPage>)
 }
 
 export default Agreement;

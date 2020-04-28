@@ -22,7 +22,8 @@ import {
 	IonCol,
 	IonImg,
 	IonButton,
-	IonText
+	IonText,
+	IonPage
 
 } from '@ionic/react'
 import { RouteComponentProps } from 'react-router';
@@ -32,7 +33,7 @@ import user from '../assets/img/user.png';
 import { Link } from 'react-router-dom';
 
 const Profile: React.FC<RouteComponentProps> = (props) => {
-	return (<>
+	return (<IonPage>
 		<IonHeader>
 			<IonToolbar color="warning">
 				<IonButtons slot="start">
@@ -207,7 +208,7 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 				</IonCardContent>
 			</IonCard>
 		</IonContent>
-	</>)
+	</IonPage>)
 }
 
 export default Profile;

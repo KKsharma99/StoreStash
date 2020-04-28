@@ -8,7 +8,8 @@ import {
 	IonButton,
 	IonInput,
 	IonGrid,
-	IonCheckbox
+	IonCheckbox,
+	IonPage
 } from '@ionic/react'
 import wretch from "wretch"
 import logo from '../assets/img/logo.png';
@@ -22,7 +23,7 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 	const [password1, setPassword1] = useState('');
 	const [password2, setPassword2] = useState('');
 
-	const handleSubmit = async (e: MouseEvent) => {
+	const handleSubmit = async (e: MouseEvent | any) => {
 		e.preventDefault();
 		let validationErr = false;
 		if (!email.endsWith("@gatech.edu")) {
@@ -66,7 +67,7 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 		})
 	}
 
-	return (<>
+	return (<IonPage>
 		<IonContent class="ion-padding">
 			<IonGrid>
 				<IonRow>
@@ -141,7 +142,7 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 			</IonGrid>
 		</IonContent>
 
-	</>)
+	</IonPage>)
 }
 
 export default Register;

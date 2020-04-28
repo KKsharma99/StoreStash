@@ -23,7 +23,8 @@ import {
 	IonSelect,
 	IonLabel,
 	IonDatetime,
-	IonCheckbox
+	IonCheckbox,
+	IonPage
 
 } from '@ionic/react'
 
@@ -84,7 +85,7 @@ export default class Post extends React.Component<any, any> {
     }
 
 	render() {
-		return (<>
+		return (<IonPage>
 			<IonHeader>
 				<IonToolbar color="warning">
 					<IonButtons slot="start">
@@ -158,6 +159,6 @@ export default class Post extends React.Component<any, any> {
 				</IonGrid>
 			</IonContent>
 
-		</>)
+		</IonPage>)
 	}
 }

@@ -24,7 +24,8 @@ import {
 	IonButton,
 	IonText,
 	IonGrid,
-	IonInput
+	IonInput,
+	IonPage
 } from '@ionic/react'
 import { pin, cube, person, calendar, card } from 'ionicons/icons';
 import { AppContext, ActionTypes } from '../context/appContext';
@@ -78,7 +79,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 		return dropoff != '' && pickup != '' && phoneNum != '';
 	}
 
-	const handleSubmit = (e: MouseEvent) => {
+	const handleSubmit = (e: MouseEvent | any) => {
 		e.preventDefault();
 		if (validate()) {
 			try {
@@ -106,7 +107,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 	else
 		listing = <ListingCard {...listing} fullName={listing.fullName || "Anonymous"} />;
 
-	return (<>
+	return (<IonPage>
 		<IonHeader>
 			<IonToolbar color="warning">
 				<IonButtons slot="start">
@@ -200,7 +201,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 
 			</IonGrid>
 		</IonContent>
-	</>)
+	</IonPage>)
 }
 
 export default Listing;
