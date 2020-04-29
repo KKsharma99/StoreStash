@@ -57,7 +57,7 @@ export default class Post extends React.Component<any, any> {
         // Address Geocoding
         let address: string = this.state.street + "," + this.state.city + "," + this.state.state + "," + this.state.zip
         // @ts-ignore
-        let hostId = "testId"
+        let hostId = "5ea8d36d80b3240023a15445"
         let capacity = Number(this.state.capacity)
         let startDate = this.state.startDate
         let endDate = this.state.endDate
@@ -65,7 +65,7 @@ export default class Post extends React.Component<any, any> {
 
         //hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number)
         Geocode.fromAddress(address).then(
-          async (response:any) => {
+          async (response: any) => {
             const { lat, lng } = response.results[0].geometry.location;
             let today = new Date()
             let lon = lng
@@ -75,7 +75,7 @@ export default class Post extends React.Component<any, any> {
             console.log(typeof capacity);
             console.log(typeof today);
             await wretch('http://localhost:3001/api/listings/new')
-                .post({ id, lat, lon, capacity, startDate: new Date(), endDate: new Date(), price })
+                .post({ id, hostId, lat, lon, capacity, startDate: new Date(), endDate: new Date(), price })
                 .json(data => console.log(data));
           },
           (error:any) => {
