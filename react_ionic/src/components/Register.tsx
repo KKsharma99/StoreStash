@@ -54,6 +54,7 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 						dispatch({ type: 'firstName', firstName: data.firstName });
 						dispatch({ type: 'lastName', lastName: data.lastName });
 						dispatch({ type: 'email', email: data.email });
+						dispatch({ type: 'phone', phone: data.phone });
 						dispatch({ type: 'token', token: data.token });
 						dispatch({ type: 'gravatar', gravatar: data.gravatar });
 					});
