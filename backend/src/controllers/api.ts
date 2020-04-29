@@ -120,7 +120,7 @@ export const getRentalHistory = async (req: Request, res: Response) => {
 export const getLendingHistory = async (req: Request, res: Response) => {
     try {
         const history = await (Rental as unknown as RentalDocument).listLenderHistory(req.params.id);
-        res.json(history.map(rental => {return { ...(rental.toObject()), name: rental.lender.firstName + " " + rental.lender.lastName };}));
+        res.json(history.map(rental => {return { ...(rental.toObject()), name: rental.renter.firstName + " " + rental.renter.lastName };}));
     } catch (err) {
         res.status(400).send(err);
     }
@@ -193,6 +193,19 @@ export const getNearby = async (req: Request, res: Response) => {
         const startDate = req.query.startDate ? new Date(req.query.startDate) : undefined;
         const endDate = req.query.endDate ? new Date(req.query.endDate) : undefined;
         const listings = await (Listing as unknown as ListingDocument).getNearby(req.query.lat, req.query.lon, req.query.minCapacity, req.query.maxPrice, startDate, endDate);
+        res.json(listings);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};
+
+/**
+ * GET /api/users/:id/listings
+ * @param {string} req.params.id
+ */
+export const getListingsByHostId = async (req: Request, res: Response) => {
+    try {
+        const listings = await (Listing as any as ListingDocument).getByHostId(req.params.id);
         res.json(listings);
     } catch (err) {
         res.status(400).send(err);

@@ -33,6 +33,7 @@ type _ListingDocument = {
     price: number;
     construct: (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number) => Promise<ListingDocument>;
     getNearby: (lat?: number, lon?: number, minCapacity?: number, maxPrice?: number, startDate?: Date, endDate?: Date) => Promise<Array<ListingDocument & { distance: number }>>;
+    getByHostId: (hostId: string) => Promise<Array<ListingDocument>>;
 }
 
 export type ListingDocument = mongoose.Document & _ListingDocument;
@@ -67,6 +68,15 @@ listingSchema.statics.getNearby = async function (lat: number, lon: number, minC
         return await listings
             .map((listing: ListingDocument) => { return {...listing.toObject(), distance: distance(lat, lon, listing.lat, listing.lon).toFixed(2), fullName: listing.host.firstName + " " + listing.host.lastName }; })
             .sort((listing1: _ListingDocument & { distance: number }, listing2: _ListingDocument & { distance: number }) => listing1.distance - listing2.distance);
+    } catch (err) {
+        console.log(err);
+        return Promise.reject(err);
+    }
+};
+
+listingSchema.statics.getByHostId = async function (userId: string) {
+    try {
+        return await this.find({ host: userId }).sort({ endDate: -1 }).exec();
     } catch (err) {
         console.log(err);
         return Promise.reject(err);
