@@ -120,7 +120,7 @@ export const getRentalHistory = async (req: Request, res: Response) => {
 export const getLendingHistory = async (req: Request, res: Response) => {
     try {
         const history = await (Rental as unknown as RentalDocument).listLenderHistory(req.params.id);
-        res.json(history.map(rental => {return { ...(rental.toObject()), name: rental.lender.firstName + " " + rental.lender.lastName };}));
+        res.json(history.map(rental => {return { ...(rental.toObject()), name: rental.renter.firstName + " " + rental.renter.lastName };}));
     } catch (err) {
         res.status(400).send(err);
     }
