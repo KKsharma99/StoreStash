@@ -19,7 +19,7 @@ function fetcher(url: string) {
 }
 
 const Discover: React.FC<RouteComponentProps> = () => {
-	const { data, error } = useSWR('http://localhost:3001/api/listings/nearby', fetcher);
+	const { data, error } = useSWR('https://storestash.herokuapp.com/api/listings/nearby', fetcher);
 	let content;
 	if (error)
 		content = <div>failed to load</div>

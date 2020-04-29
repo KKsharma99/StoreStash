@@ -60,7 +60,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 		e.preventDefault();
 		if (validate()) {
 			try {
-				await wretch(`http://localhost:3001/api/listings/${listingId}/rent`)
+				await wretch(`https://storestash.herokuapp.com/api/listings/${listingId}/rent`)
 					.post({
 						renter: userId,
 						boxes,
@@ -75,7 +75,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 		}
 	}
 
-	const { data, error } = useSWR(`http://localhost:3001/api/listings/${listingId}`, url => wretch(url).get().json());
+	const { data, error } = useSWR(`https://storestash.herokuapp.com/api/listings/${listingId}`, url => wretch(url).get().json());
 	let listing;
 	if (!listingId || error)
 		listing = <div>Failed to load</div>

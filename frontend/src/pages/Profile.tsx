@@ -98,9 +98,9 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 
 	// TODO: re-fetch on page load
 
-	const { data: listings, error: errorListings } = useSWR(userId ? `http://localhost:3001/api/users/${userId}/listings` : null, url => wretch(url).get().json());
-	const { data: lendings, error: errorLendings } = useSWR(userId ? `http://localhost:3001/api/users/${userId}/lendings` : null, url => wretch(url).get().json());
-	const { data: rentals, error: errorRentals } = useSWR(userId ? `http://localhost:3001/api/users/${userId}/rentals` : null, url => wretch(url).get().json());
+	const { data: listings, error: errorListings } = useSWR(userId ? `https://storestash.herokuapp.com/api/users/${userId}/listings` : null, url => wretch(url).get().json());
+	const { data: lendings, error: errorLendings } = useSWR(userId ? `https://storestash.herokuapp.com/api/users/${userId}/lendings` : null, url => wretch(url).get().json());
+	const { data: rentals, error: errorRentals } = useSWR(userId ? `https://storestash.herokuapp.com/api/users/${userId}/rentals` : null, url => wretch(url).get().json());
 	if (!errorListings && listings) {
 		listingsContent = listings.length > 0 ? listings.map(listing => <YourListingCard {...listing} key={listing._id} />) : <IonItem><IonLabel>No listings (yet!)</IonLabel></IonItem>
 	}
