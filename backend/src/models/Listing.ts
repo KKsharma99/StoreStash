@@ -46,7 +46,8 @@ const listingSchema = new mongoose.Schema({
     remSpace: { type: Number, required: true },
     startDate: { type: Date, default: new Date() },
     endDate: { type: Date, default: new Date(2200, 1, 1) },
-    price: { type: Number, required: true }
+    price: { type: Number, required: true },
+    image: { type: String }
 }, { timestamps: true });
 
 listingSchema.statics.construct = async function (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number, image: string): Promise<ListingDocument> {
