@@ -198,3 +198,16 @@ export const getNearby = async (req: Request, res: Response) => {
         res.status(400).send(err);
     }
 };
+
+/**
+ * GET /api/users/:id/listings
+ * @param {string} req.params.id
+ */
+export const getListingsByHostId = async (req: Request, res: Response) => {
+    try {
+        const listings = await (Listing as any as ListingDocument).getByHostId(req.params.id);
+        res.json(listings);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};

@@ -51,7 +51,7 @@ const DiscoverCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, ho
 					<IonCol col-12 >
 						<IonImg src={image} alt="Room"/>
 						<p>Space Available: {moment(startDate).format('ll')} - {moment(endDate).format('ll')}</p>
-						<p>Contact: {host.phoneNumber || host.email} </p> {/* TODO: Add phone number to discover card */}
+						<p>Contact: {host.phoneNumber || host.email} </p>
 						
 						<Link to={`/listing/${_id}`}>
 							<IonButton expand="full" color="warning" size="default" href={`/listing/${_id}`}>
