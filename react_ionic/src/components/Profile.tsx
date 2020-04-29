@@ -74,7 +74,7 @@ const HistoryCard: React.FC<HistoryType> = ({ name, price, boxes, dropoff, picku
 						<p>
 							Total Cost: <IonText color="success"><b>${price}</b></IonText> <br />
 							Boxes: {boxes} <br />
-							{moment(startDate).format('ll')} - {moment(endDate).format('ll')} <br />
+							{moment(dropoff).format('ll')} - {moment(pickup).format('ll')} <br />
 							Status: {current ? <IonText color="success"><b>Current</b></IonText> : "Past"}  <br />
 							{current ? <a href="#"><IonText color="danger"><b>Cancel</b></IonText></a> : ""}
 
@@ -119,7 +119,6 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 
 		<IonContent>
 			<IonCard text-center>
-				{/* TODO: use user's name */}
 				<IonItem>
 					<IonTitle><h1>{firstName + ' ' + lastName}</h1></IonTitle>
 				</IonItem>
@@ -127,10 +126,8 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 				<IonCardContent class="ion-no-padding">
 					<IonRow>
 						<IonCol col-12 >
-
 							{/* <IonImg src={user} alt="User Profile Picture"/>
 							<hr></hr> */}
-							
 
 							<Link to={{pathname: '/post'}} style={{ textDecoration: 'none' }}>
 								<IonButton expand="full" color="warning" size="default" href="/post"><IonIcon icon={addCircle} slot="start"></IonIcon>Lend Space</IonButton>
@@ -143,61 +140,6 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 			<IonItem>
 				<IonTitle>Lending History</IonTitle>
 			</IonItem>
-
-			<HistoryCard name="Sarah Smith" totalCost={110} boxes={1} startDate={new Date('Feb 26, 2020')} endDate={new Date('Apr 30, 2020')} />
-
-			<IonCard>
-				<IonCardContent>
-					<IonCardSubtitle>Sarah Smith</IonCardSubtitle>
-					<hr></hr>
-					<IonRow>
-						<IonCol col-12 >
-							<p>
-								Total Cost: <IonText color="success"><b>$110</b></IonText> <br />
-								Boxes: 1 <br />
-								Feb 26, 2020 - Apr 20, 2020 <br />
-								Status: <IonText color="success"><b>Current</b></IonText> <br />
-								<a href="#"><IonText color="danger"><b>Cancel</b></IonText></a>
-							</p>
-
-						</IonCol>
-					</IonRow>
-				</IonCardContent>
-			</IonCard>
-
-			<IonCard>
-				<IonCardContent>
-					<IonCardSubtitle>Donald Trump</IonCardSubtitle>
-					<hr></hr>
-					<IonRow>
-						<IonCol col-12 >
-							<p>
-								Total Cost: <IonText color="success"><b>$99</b></IonText> <br />
-								Boxes: 3 <br />
-								Jun 4, 2019 - Jun 19, 2020 <br />
-								Status: <IonText color="success"><b>Current</b></IonText>
-							</p> 
-						</IonCol>
-					</IonRow>
-				</IonCardContent>
-			</IonCard>
-
-			<IonCard color="light">
-				<IonCardContent>
-					<IonCardSubtitle>Rick Ross</IonCardSubtitle>
-					<hr></hr>
-					<IonRow>
-						<IonCol col-12 >
-							<p>
-								Total Cost: <IonText color="success"><b>$59</b></IonText> <br />
-								Boxes: 3 <br />
-								May 8, 2019 - Jun 23, 2019 <br />
-								Status: Past
-							</p> 
-						</IonCol>
-					</IonRow>
-				</IonCardContent>
-			</IonCard>
 			{lendingsContent}
 
 
