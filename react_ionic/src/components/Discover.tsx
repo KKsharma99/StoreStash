@@ -38,7 +38,7 @@ const DiscoverCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, ho
 			<IonItem>
 				<IonRow>
 					<IonCol col-12>
-						<IonCardTitle color="success">${price}/mo</IonCardTitle>
+						<IonCardTitle color="success">${price}/mo per box</IonCardTitle>
 						<IonCardSubtitle><IonIcon icon={pin}></IonIcon>{distance} Miles </IonCardSubtitle>
 						<IonCardSubtitle><IonIcon icon={cube}></IonIcon> {remSpace} Boxes</IonCardSubtitle>
 						<IonCardSubtitle><IonIcon icon={person}></IonIcon> {fullName}</IonCardSubtitle>
@@ -51,10 +51,11 @@ const DiscoverCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, ho
 					<IonCol col-12 >
 						<IonImg src={image} alt="Room"/>
 						<p>Space Available: {moment(startDate).format('ll')} - {moment(endDate).format('ll')}</p>
+						<p>Contact: Phone Number </p> {/* TODO: Add phone number to discover card */}
 						
 						<Link to={`/listing/${_id}`}>
 							<IonButton expand="full" color="warning" size="default" href={`/listing/${_id}`}>
-								<IonIcon icon={calendar} slot="start"></IonIcon>BOOK
+								<IonIcon icon={calendar} slot="start"></IonIcon><strong>BOOK</strong>
 							</IonButton>
 						</Link>
 					</IonCol>

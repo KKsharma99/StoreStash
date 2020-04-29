@@ -3,7 +3,6 @@ import React from 'react'
 import Geocode from 'react-geocode';
 import wretch from 'wretch';
 import { v1 as uuidv1 } from 'uuid';
-
 import { cube, calendar } from 'ionicons/icons';
 import {
 	IonContent,
@@ -96,10 +95,10 @@ export default class Post extends React.Component<any, any> {
 				</IonToolbar>
 			</IonHeader>
 
-			<IonContent class="ion-padding">
+			<IonContent class="ion-padding add-margins">
 				<IonGrid>
 					<IonRow justify-content-center>
-						<IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
+						<IonCol align-self-center size-xs="12" size-md="5" size-lg="5" >
 								<br></br>
 
 								<IonItem>

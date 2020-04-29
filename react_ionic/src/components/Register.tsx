@@ -118,6 +118,15 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 							</IonItem>
 							<IonItem>
 								<IonInput
+									type="text"
+									placeholder="Phone Number"
+									//value={email}
+									//onIonChange={e => setEmail((e.target as HTMLInputElement).value)}
+									required
+								/>
+							</IonItem>
+							<IonItem>
+								<IonInput
 									type="password"
 									placeholder="Password"
 									value={password1}
@@ -135,6 +144,7 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 									required
 								/>
 							</IonItem>
+
 							<Link to={{ pathname: '/agreement' }} style={{ textDecoration: 'none' }}>
 								<IonButton color="light" size="small"  expand="full" href="/agreement">Show Terms and Conditions</IonButton>
 							</Link>
