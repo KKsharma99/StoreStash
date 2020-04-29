@@ -51,7 +51,7 @@ const HistoryCard: React.FC<HistoryType> = ({ name, price, boxes, dropoff, picku
 
 							{moment(startDate).format('ll')} - {moment(endDate).format('ll')} <br />
 							Status: {current ? <IonText color="success"><b>Current</b></IonText> : "Past"}  <br />
-
+							{current ? <a href="#"><IonText color="danger"><b>Cancel</b></IonText></a> : ""}
 
 						</p> 
 					</IonCol>
