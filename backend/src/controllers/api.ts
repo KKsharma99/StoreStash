@@ -80,7 +80,7 @@ export const login = async (req: Request, res: Response) => {
 };
 
 /**
- * POST /api/users/new
+ * POST /api/register
  * @param {string} req.body.email
  * @param {string} req.body.password
  * @param {string} req.body.phone
@@ -127,7 +127,7 @@ export const getLendingHistory = async (req: Request, res: Response) => {
 };
 
 /**
- * POST /api/listings/new
+ * POST /api/new-listing
  * @param {string} req.body.hostId
  * @param {number} req.body.lat
  * @param {number} req.body.lon
@@ -181,7 +181,7 @@ export const rentListing = async (req: Request, res: Response) => {
 };
 
 /**
- * GET /api/listings/nearby
+ * GET /api/discover
  * @param {number} req.query.lat Latitude of where the user is
  * @param {number} req.query.lon Longitude of where the user is
  * @param {number} req.query.minCapacity Minimum capacity of a listing to show up in the results
