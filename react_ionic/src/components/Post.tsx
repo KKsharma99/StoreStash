@@ -76,7 +76,8 @@ export default class Post extends React.Component<any, any> {
             console.log(typeof today);
             await wretch('http://localhost:3001/api/listings/new')
                 .post({ id, hostId, lat, lon, capacity, startDate: new Date(), endDate: new Date(), price })
-                .json(data => console.log(data));
+				.json(data => console.log(data));
+			this.props.history.push('/listing_confirmation')	
           },
           (error:any) => {
             console.error(error);
