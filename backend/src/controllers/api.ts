@@ -63,7 +63,7 @@ type MongoJson = {
 export const login = async (req: Request, res: Response) => {
     try {
         const user: any = await User.findOne({ email: req.body.email });
-        user.comparePassword(req.body.password, (err, isMatch) => {
+        user.comparePassword(req.body.password, (err: any, isMatch: any) => {
             if (err) {
                 console.log(err);
                 res.status(400).send(err);
@@ -106,7 +106,7 @@ export const newUser = async (req: Request, res: Response) => {
 export const getRentalHistory = async (req: Request, res: Response) => {
     try {
         const history = await (Rental as unknown as RentalDocument).listRenterHistory(req.params.id);
-        res.json(history.map(rental => { return { ...(rental.toObject()), name: rental.host.firstName + " " + rental.host.lastName };}));
+        res.json(history.map((rental: any) => { return { ...(rental.toObject()), name: rental.host.firstName + " " + rental.host.lastName };}));
     } catch (err) {
         res.status(400).send(err);
     }
@@ -120,7 +120,7 @@ export const getRentalHistory = async (req: Request, res: Response) => {
 export const getLendingHistory = async (req: Request, res: Response) => {
     try {
         const history = await (Rental as unknown as RentalDocument).listLenderHistory(req.params.id);
-        res.json(history.map(rental => {return { ...(rental.toObject()), name: rental.renter.firstName + " " + rental.renter.lastName };}));
+        res.json(history.map((rental: any) => {return { ...(rental.toObject()), name: rental.renter.firstName + " " + rental.renter.lastName };}));
     } catch (err) {
         res.status(400).send(err);
     }
@@ -190,9 +190,9 @@ export const rentListing = async (req: Request, res: Response) => {
  */
 export const getNearby = async (req: Request, res: Response) => {
     try {
-        const startDate = req.query.startDate ? new Date(req.query.startDate) : undefined;
-        const endDate = req.query.endDate ? new Date(req.query.endDate) : undefined;
-        const listings = await (Listing as unknown as ListingDocument).getNearby(req.query.lat, req.query.lon, req.query.minCapacity, req.query.maxPrice, startDate, endDate);
+        const startDate = req.query.startDate ? new Date(req.query.startDate as string) : undefined;
+        const endDate = req.query.endDate ? new Date(req.query.endDate as string) : undefined;
+        const listings = await (Listing as unknown as ListingDocument).getNearby(req.query.lat as any as number, req.query.lon as any as number, req.query.minCapacity as any as number, req.query.maxPrice as any as number, startDate, endDate);
         res.json(listings);
     } catch (err) {
         res.status(400).send(err);

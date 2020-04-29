@@ -2,25 +2,12 @@ import async from "async";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
 import passport from "passport";
-import { User, UserDocument, AuthToken } from "../models/User";
+import { User, UserDocument } from "../models/User";
 import { Request, Response, NextFunction } from "express";
 import { IVerifyOptions } from "passport-local";
 import { WriteError } from "mongodb";
 import { check, sanitize, validationResult } from "express-validator";
 import "../config/passport";
-
-/**
- * GET /login
- * Login page.
- */
-export const getLogin = (req: Request, res: Response) => {
-    if (req.user) {
-        return res.redirect("/");
-    }
-    res.render("account/login", {
-        title: "Login"
-    });
-};
 
 /**
  * POST /login
@@ -146,10 +133,11 @@ export const postUpdateProfile = async (req: Request, res: Response, next: NextF
     User.findById(user.id, (err, user: UserDocument) => {
         if (err) { return next(err); }
         user.email = req.body.email || "";
-        user.profile.name = req.body.name || "";
-        user.profile.gender = req.body.gender || "";
-        user.profile.location = req.body.location || "";
-        user.profile.website = req.body.website || "";
+        user.firstName = req.body.firstName || "";
+        user.lastName = req.body.lastName || "";
+        user.gender = req.body.gender || "";
+        user.location = req.body.location || "";
+        user.website = req.body.website || "";
         user.save((err: WriteError) => {
             if (err) {
                 if (err.code === 11000) {
@@ -202,25 +190,6 @@ export const postDeleteAccount = (req: Request, res: Response, next: NextFunctio
         req.logout();
         req.flash("info", { msg: "Your account has been deleted." });
         res.redirect("/");
-    });
-};
-
-/**
- * GET /account/unlink/:provider
- * Unlink OAuth provider.
- */
-export const getOauthUnlink = (req: Request, res: Response, next: NextFunction) => {
-    const provider = req.params.provider;
-    const user = req.user as UserDocument;
-    User.findById(user.id, (err, user: any) => {
-        if (err) { return next(err); }
-        user[provider] = undefined;
-        user.tokens = user.tokens.filter((token: AuthToken) => token.kind !== provider);
-        user.save((err: WriteError) => {
-            if (err) { return next(err); }
-            req.flash("info", { msg: `${provider} account has been unlinked.` });
-            res.redirect("/account");
-        });
     });
 };
 
@@ -345,7 +314,7 @@ export const postForgot = async (req: Request, res: Response, next: NextFunction
                 done(err, token);
             });
         },
-        function setRandomToken(token: AuthToken, done: Function) {
+        function setRandomToken(token: string, done: Function) {
             User.findOne({ email: req.body.email }, (err, user: any) => {
                 if (err) { return done(err); }
                 if (!user) {
@@ -359,7 +328,7 @@ export const postForgot = async (req: Request, res: Response, next: NextFunction
                 });
             });
         },
-        function sendForgotPasswordEmail(token: AuthToken, user: UserDocument, done: Function) {
+        function sendForgotPasswordEmail(token: string, user: UserDocument, done: Function) {
             const transporter = nodemailer.createTransport({
                 service: "SendGrid",
                 auth: {
