@@ -19,7 +19,7 @@ export type UserDocument = mongoose.Document & {
 
     comparePassword: comparePasswordFunction;
     gravatar: (size?: number) => string;
-    construct: (email: string, password: string) => Promise<UserDocument>;
+    construct: (email: string, password: string, firstName: string, lastName: string) => Promise<UserDocument>;
 };
 
 type comparePasswordFunction = (candidatePassword: string, cb: (err: Error, isMatch: boolean) => {} | any) => void;
