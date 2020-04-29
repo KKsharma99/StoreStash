@@ -31,7 +31,7 @@ type _ListingDocument = {
     startDate: Date;
     endDate: Date;
     price: number;
-    construct: (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number) => Promise<ListingDocument>;
+    construct: (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number, image?: string) => Promise<ListingDocument>;
     getNearby: (lat?: number, lon?: number, minCapacity?: number, maxPrice?: number, startDate?: Date, endDate?: Date) => Promise<Array<ListingDocument & { distance: number }>>;
     getByHostId: (hostId: string) => Promise<Array<ListingDocument>>;
 }
@@ -46,12 +46,13 @@ const listingSchema = new mongoose.Schema({
     remSpace: { type: Number, required: true },
     startDate: { type: Date, default: new Date() },
     endDate: { type: Date, default: new Date(2200, 1, 1) },
-    price: { type: Number, required: true }
+    price: { type: Number, required: true },
+    image: { type: String }
 }, { timestamps: true });
 
-listingSchema.statics.construct = async function (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number): Promise<ListingDocument> {
+listingSchema.statics.construct = async function (hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number, image: string): Promise<ListingDocument> {
     return new Promise((resolve, reject) => {
-        new Listing({ host: hostId, lat, lon, capacity, remSpace: capacity, startDate, endDate, price }).save()
+        new Listing({ host: hostId, lat, lon, capacity, remSpace: capacity, startDate, endDate, price, image }).save()
             .then(newListing => resolve(newListing))
             .catch(err => reject(err));
     });

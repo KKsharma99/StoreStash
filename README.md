@@ -1,6 +1,8 @@
 # StoreStash
 
-App for CS 4261: Mobile Apps & Services.
+App for CS 4261: Mobile Apps & Services, Spring 2020.
+
+2nd place winner of the [Georgia Tech Convergence Innovation Competition: Global Response](http://www.cic.gatech.edu/).
 
 ## Running locally
 
@@ -29,23 +31,40 @@ Install dependencies: `npm install`
 
 Serve the app: `npm start`
 
-## Deploying
+## Deploying to Heroku
 
-Some helpful commands for pushing the subfolders to Heroku:
+Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli), and then set it up:
 
 ```bash
-npm install -g heroku
+npm install -g heroku # adds the heroku command to CLI on Windows
 heroku login
+```
 
-# Add Heroku remote
-heroku git:remote -a storestash # or…
+Add Heroku remote. Replace the URLs here with the ones for your Heroku app.
+
+```bash
 git remote add storestash-app-heroku https://git.heroku.com/storestash-app.git
 git remote add storestash-backend-heroku https://git.heroku.com/storestash.git
+```
 
-# cd to StoreStash folder, not backend/ or react_ionic
+For the following instructions, make sure your command line is in the StoreStash folder, not backend/ or react_ionic
 
-# Push
-git subtree push --prefix backend heroku master
+Push from the master branch (non-force):
+
+```bash
+git subtree push --prefix frontend storestash-app-heroku master
+git subtree push --prefix backend storestash-backend-heroku master
+```
+
+Force push from the master branch:
+
+```bash
+git push storestash-app-heroku `git subtree split --prefix frontend master`:master --force
+git push storestash-app-heroku `git subtree split --prefix backend master`:master --force
+```
+
+Other commands that may be helpful:
+```bash
 # Force push from local end_to_end branch
 git push heroku `git subtree split --prefix backend end_to_end`:master --force
 heroku logs -a storestash
