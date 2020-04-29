@@ -9,6 +9,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Agreement from './pages/Agreement'
 import { AppContext, initialState, reducer } from './context/appContext'
+import './App.css'
 
 const App: React.FC = () => {
 	useEffect(() => {
