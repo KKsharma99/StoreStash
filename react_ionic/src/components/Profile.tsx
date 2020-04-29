@@ -64,12 +64,9 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 	const { userId, token } = state;
 	let lendingsContent;
 	let rentalsContent;
-	if (userId) {
-		// const { data: rentals, error: errorRentals } = useSWR(`http://localhost:3001/api/${userId}/rentals`, url => wretch(url).get());
-		// const { data: lendings, error: errorLendings } = useSWR(`http://localhost:3001/api/${userId}/lendings`, url => wretch(url).get());
-	} else {
-
-	}
+	// TODO
+	const { data: rentals, error: errorRentals } = useSWR(userId ? `http://localhost:3001/api/users/${userId}/rentals` : null, url => wretch(url).get());
+	// const { data: lendings, error: errorLendings } = useSWR(userId ? `http://localhost:3001/api/users/${userId}/lendings` : null, url => wretch(url).get());
 
 	return (<IonPage>
 		<IonHeader>
@@ -83,6 +80,7 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 
 		<IonContent>
 			<IonCard text-center>
+				{/* TODO: use user's name */}
 				<IonItem>
 					<IonTitle><h1>Sarah Shadid</h1></IonTitle>
 				</IonItem>

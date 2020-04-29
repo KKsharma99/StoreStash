@@ -23,13 +23,14 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 	const { state, dispatch } = useContext(AppContext);
 	const { email } = state;
 	const [password, setPassword] = useState('');
+	const [errorMsg, setErrorMsg] = useState('');
 
 	async function handleSubmit(e: MouseEvent | any) {
 		e.preventDefault();
 		let validationErr = false;
 		if (!email.endsWith("@gatech.edu")) {
 			validationErr = true;
-			alert("Email must be a @gatech.edu address");
+			setErrorMsg("Email must be a @gatech.edu address");
 		}
 		try {
 			// TODO: get authorization token
@@ -37,11 +38,17 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 				.post({ email, password })
 				.json(data => {
 					console.log(data);
-					dispatch({ type: ActionTypes.setUser, user: data as any })
+					dispatch({ type: 'userId', userId: data._id });
+					dispatch({ type: 'firstName', firstName: data.firstName });
+					dispatch({ type: 'lastName', lastName: data.lastName });
+					dispatch({ type: 'email', email: data.email });
+					dispatch({ type: 'token', token: data.token });
+					dispatch({ type: 'gravatar', gravatar: data.gravatar });
 				});
 			props.history.push('/discover');
 		} catch (err) {
 			console.log(err);
+			setErrorMsg('Email and/or password incorrect');
 		}
 	}
 
@@ -87,7 +94,7 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 								required
 							></IonInput>
 						</IonItem>
-						<br />
+						<p style={{ color: "red" }}>{errorMsg}</p>
 						<IonButton
 							color="warning"
 							size="default"

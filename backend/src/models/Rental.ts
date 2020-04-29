@@ -14,6 +14,13 @@ export type RentalDocument = mongoose.Document & {
     listLenderHistory: (renter: mongoose.Types.ObjectId | string) => Promise<Array<RentalDocument>>;
 };
 
+export type HistoryType = {
+    _id: string;
+    name: string;
+    isRental: boolean; // or else it is a listing
+    
+}
+
 const rentalSchema = new mongoose.Schema({
     host: { type: Schema.Types.ObjectId, ref: "User" },
     renter: { type: Schema.Types.ObjectId, ref: "User" },

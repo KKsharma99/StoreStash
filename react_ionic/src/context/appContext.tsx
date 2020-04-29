@@ -69,7 +69,7 @@ type Action = {
         gravatar: (size: number) => string;
         construct: (email: string, password: string) => Promise<UserDocument>;
     }
-}
+} | any;
 
 export const AppContext = createContext<{state: State, dispatch: (action: Action) => void}>({ state: initialState, dispatch: null as any });
 
@@ -94,6 +94,15 @@ export const reducer: React.Reducer<State, Action> = (state, action) => {
         case ActionTypes.setUser: {
             localStorage.setItem('user', action.user.toString());
             return { ...state, user: action.user };
+        }
+        default: {
+            if (action[action.type] != null) {
+                localStorage.setItem(action.type, action[action.type].toString());
+                return { ...state, [action.type]: action[action.type] };
+            } else {
+                console.log(action);
+                return state;
+            }
         }
     }
 }

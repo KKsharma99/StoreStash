@@ -89,7 +89,8 @@ export const login = async (req: Request, res: Response) => {
 export const newUser = async (req: Request, res: Response) => {
     try {
         const user = await (User as unknown as UserDocument).construct(req.body.email, req.body.password);
-        res.json(user.toObject());
+        console.log(user);
+        res.json({ ...user.toObject(), gravatar: user.gravatar() });
     } catch (err) {
         res.status(400).send(err);
     }

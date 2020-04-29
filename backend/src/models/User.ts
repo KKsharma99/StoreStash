@@ -10,16 +10,15 @@ export type UserDocument = mongoose.Document & {
 
     token: string;
 
-    profile: {
-        name: string;
-        gender: string;
-        location: string;
-        website: string;
-        picture: string;
-    };
+    firstName: string;
+    lastName: string;
+    gender: string;
+    location: string;
+    website: string;
+    picture: string;
 
     comparePassword: comparePasswordFunction;
-    gravatar: (size: number) => string;
+    gravatar: (size?: number) => string;
     construct: (email: string, password: string) => Promise<UserDocument>;
 };
 
@@ -31,15 +30,14 @@ const userSchema = new mongoose.Schema({
     passwordResetToken: String,
     passwordResetExpires: Date,
 
-    tokens: String,
+    token: String,
 
-    profile: {
-        name: String,
-        gender: String,
-        location: String,
-        website: String,
-        picture: String
-    }
+    firstName: String,
+    lastName: String,
+    gender: String,
+    location: String,
+    website: String,
+    picture: String
 }, { timestamps: true });
 
 /**
@@ -77,9 +75,9 @@ userSchema.methods.gravatar = function (size: number = 200) {
     return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
 };
 
-userSchema.statics.construct = function (email: string, password: string): Promise<UserDocument> {
+userSchema.statics.construct = function (email: string, password: string, firstName?: string, lastName?: string): Promise<UserDocument> {
     return new Promise((resolve, reject) => {
-        new User({ email, password }).save()
+        new User({ email, password, firstName, lastName, token: crypto.randomBytes(64).toString("hex") }).save()
             .then(newUser => resolve(newUser))
             .catch(err => reject(err));
     });
