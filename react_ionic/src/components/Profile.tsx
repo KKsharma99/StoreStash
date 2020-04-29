@@ -1,5 +1,6 @@
 import React, { useState, useContext, MouseEvent } from 'react';
 import { AppContext, ActionTypes } from '../context/appContext';
+import { addCircle, closeCircle } from 'ionicons/icons';
 import wretch from 'wretch';
 import moment from 'moment';
 import useSWR from 'swr';
@@ -50,7 +51,8 @@ const HistoryCard: React.FC<HistoryType> = ({ name, totalCost, boxes, startDate,
 							Total Cost: <IonText color="success"><b>${totalCost}</b></IonText> <br />
 							Boxes: {boxes} <br />
 							{moment(startDate).format('ll')} - {moment(endDate).format('ll')} <br />
-							Status: {current ? <IonText color="success"><b>Current</b></IonText> : "Past"}
+							Status: {current ? <IonText color="success"><b>Current</b></IonText> : "Past"}  <br />
+							{current ? <a href="#"><IonText color="danger"><b>Cancel</b></IonText></a> : ""}
 						</p> 
 					</IonCol>
 				</IonRow>
@@ -88,11 +90,11 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 				<IonCardContent class="ion-no-padding">
 					<IonRow>
 						<IonCol col-12 >
-							<IonImg src={user} alt="User Profile Picture"/>
-							<hr></hr>
+							{/* <IonImg src={user} alt="User Profile Picture"/>
+							<hr></hr> */}
 							
 							<Link to={{pathname: '/post'}} style={{ textDecoration: 'none' }}>
-								<IonButton expand="full" color="warning" size="default" href="/post"><IonIcon icon="add-circle" slot="start"></IonIcon>Lend Space</IonButton>
+								<IonButton expand="full" color="warning" size="default" href="/post"><IonIcon icon={addCircle} slot="start"></IonIcon>Lend Space</IonButton>
 							</Link>
 						</IonCol>
 					</IonRow>
@@ -103,7 +105,7 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 				<IonTitle>Lending History</IonTitle>
 			</IonItem>
 
-			<HistoryCard name="Sarah Smith" totalCost={110} boxes={1} startDate={new Date('Feb 26, 2020')} endDate={new Date('Apr 27, 2020')} />
+			<HistoryCard name="Sarah Smith" totalCost={110} boxes={1} startDate={new Date('Feb 26, 2020')} endDate={new Date('Apr 30, 2020')} />
 
 			<IonCard>
 				<IonCardContent>
@@ -115,8 +117,10 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 								Total Cost: <IonText color="success"><b>$110</b></IonText> <br />
 								Boxes: 1 <br />
 								Feb 26, 2020 - Apr 20, 2020 <br />
-								Status: <IonText color="success"><b>Current</b></IonText>
-							</p> 
+								Status: <IonText color="success"><b>Current</b></IonText> <br />
+								<a href="#"><IonText color="danger"><b>Cancel</b></IonText></a>
+							</p>
+
 						</IonCol>
 					</IonRow>
 				</IonCardContent>

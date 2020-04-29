@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { IonContent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonIcon, IonList, IonSelectOption, IonSelect, IonItem, IonLabel, IonDatetime, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonRow, IonCol, IonImg, IonPage } from '@ionic/react';
-import { pin, cube, calendar, person, cash } from 'ionicons/icons';
+import { pin, cube, calendar, person, cash, checkmark } from 'ionicons/icons';
 import moment from "moment";
 import useSWR from 'swr';
 import wretch from 'wretch';
@@ -41,7 +41,7 @@ const DiscoverCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, ho
 						<IonCardTitle color="success">${price}/mo per box</IonCardTitle>
 						<IonCardSubtitle><IonIcon icon={pin}></IonIcon>{distance} Miles </IonCardSubtitle>
 						<IonCardSubtitle><IonIcon icon={cube}></IonIcon> {remSpace} Boxes</IonCardSubtitle>
-						<IonCardSubtitle><IonIcon icon={person}></IonIcon> {fullName}</IonCardSubtitle>
+						<IonCardSubtitle><IonIcon icon={person}></IonIcon> {fullName} <IonIcon icon={checkmark}></IonIcon></IonCardSubtitle>
 					</IonCol>
 				</IonRow>
 			</IonItem>
