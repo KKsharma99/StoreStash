@@ -17,7 +17,7 @@ import {
 
 } from '@ionic/react'
 
-export default class Confirmation extends React.Component {
+export default class ListingConfirmation extends React.Component {
 	render() {
 		return (<IonPage>
 
@@ -27,7 +27,7 @@ export default class Confirmation extends React.Component {
 					<IonButtons slot="start">
 						<IonMenuButton></IonMenuButton>
 					</IonButtons>
-					<IonTitle>Confirmation</IonTitle>
+					<IonTitle>Listing Confirmation</IonTitle>
 				</IonToolbar>
 			</IonHeader>
 
@@ -35,8 +35,8 @@ export default class Confirmation extends React.Component {
 				<IonGrid>
 					<IonRow>
 						<IonCol col-12 text-center>
-							<h1>Order Placed!</h1>
-							<p>You can see your order details in the profile tab. Thank you for using StoreStash.</p>
+							<h1>Listing Posted!</h1>
+							<p>Your listing has been posted. You can find your listing in your profile. Thank you for using StoreStash.</p>
 						</IonCol>
 					</IonRow>
 				</IonGrid>

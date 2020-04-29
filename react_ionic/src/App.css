@@ -37,6 +37,12 @@
   cursor: default;
 }
 
+/* GENERAL STYLING */
+.add-margins {
+  margin-left: 10px;
+  padding-right: 25%;
+}
+
 /* LOGIN STYLING */
 
 

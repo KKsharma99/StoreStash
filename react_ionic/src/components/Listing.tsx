@@ -92,7 +92,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 						pickup
 					})
 					.json(data => console.log(data))
-				props.history.push('/confirmation')
+				props.history.push('/booking_confirmation')
 			} catch (err) {
 				console.log(err);
 			}
@@ -194,7 +194,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 					<IonRow>
 						<IonCol col-12 >
 							{/* Disable link: https://stackoverflow.com/a/38321726/5139284 */}
-							<IonButton color="warning" size="default" expand="full" onClick={handleSubmit} disabled={!validate()} href="/confirmation">
+							<IonButton color="warning" size="default" expand="full" onClick={handleSubmit} disabled={!validate()}>
 								<IonIcon icon={card} slot="start"></IonIcon>Pay and Confirm
 							</IonButton>
 						</IonCol>
