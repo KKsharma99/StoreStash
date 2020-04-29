@@ -49,16 +49,17 @@ git remote add storestash-backend-heroku https://git.heroku.com/storestash.git
 
 For the following instructions, make sure your command line is in the StoreStash folder, not backend/ or react_ionic
 
-Push from the master branch:
+Push from the master branch (non-force):
 
 ```bash
-git subtree push --prefix react_ionic storestash-app-heroku master
+git subtree push --prefix frontend storestash-app-heroku master
 git subtree push --prefix backend storestash-backend-heroku master
 ```
 
 Force push from the master branch:
 
 ```bash
+git push storestash-app-heroku `git subtree split --prefix frontend master`:master --force
 git push storestash-app-heroku `git subtree split --prefix backend master`:master --force
 ```
 
