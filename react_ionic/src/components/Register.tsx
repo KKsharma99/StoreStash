@@ -86,12 +86,12 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 		<IonContent class="ion-padding">
 			<IonGrid>
 				<IonRow>
-					<IonCol col-12 >
+					<IonCol sizeMd="4" offsetMd="4" >
 						<IonImg src={logo} alt="logo"/>
 					</IonCol>
 				</IonRow>
 				<IonRow justify-content-center>
-					<IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
+					<IonCol align-self-center sizeMd="4" offsetMd="4">
 							<IonItem>
 								{/* TODO: add HTML pattern to input to validate email ends with @gatech.edu */}
 								<IonInput

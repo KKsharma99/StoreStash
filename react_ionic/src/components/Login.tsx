@@ -65,7 +65,7 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 		<IonContent class="ion-padding">
 			<IonGrid>
 				<IonRow>
-					<IonCol align-self-center size-md="6" size-lg="5" size-xs="12" >
+					<IonCol align-self-center sizeMd="4" offsetMd="4" >
 						<br />
 						<br />
 						<br />
@@ -73,7 +73,7 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 					</IonCol>
 				</IonRow>
 				<IonRow justify-content-center>
-					<IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
+					<IonCol align-self-center sizeMd="4" offsetMd="4">
 						<br />
 						<IonItem>
 							<IonInput

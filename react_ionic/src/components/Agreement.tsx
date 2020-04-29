@@ -38,7 +38,7 @@ const Agreement: React.FC<RouteComponentProps> = (props) => {
 		<IonContent class="ion-padding">
 			<IonGrid>
 				<IonRow justify-content-center>
-					<IonCol align-self-center size-md="12" size-lg="12" size-xs="12">
+					<IonCol align-self-center sizeMd="8" offsetMd="2">
 						<Link to={{ pathname: '/register' }} style={{ textDecoration: 'none' }}>
 							<IonButton color="primary" size="small" href="/register" expand="full">
 								<IonIcon slot="start" icon={arrowBack}/>

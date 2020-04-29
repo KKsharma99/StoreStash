@@ -1,9 +1,9 @@
 import React, { useState, useContext, MouseEvent } from 'react';
 import { AppContext, ActionTypes } from '../context/appContext';
-import { addCircle, closeCircle } from 'ionicons/icons';
 import wretch from 'wretch';
 import moment from 'moment';
 import useSWR from 'swr';
+
 import {
 	IonContent,
 	IonHeader,
@@ -29,7 +29,8 @@ import {
 	IonImg,
 	IonButton,
 	IonText,
-	IonPage
+	IonPage,
+	IonGrid
 
 } from '@ionic/react';
 import { pin, cube, calendar, person, cash } from 'ionicons/icons';
@@ -78,7 +79,6 @@ const HistoryCard: React.FC<HistoryType> = ({ name, price, boxes, dropoff, picku
 							Status: {current ? <IonText color="success"><b>Current</b></IonText> : "Past"}  <br />
 							{/* TODO: make cancellation functional */}
 							{current ? <a href="#"><IonText color="danger"><b>Cancel</b></IonText></a> : ""}
-
 						</p> 
 					</IonCol>
 				</IonRow>
@@ -119,40 +119,47 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 		</IonHeader>
 
 		<IonContent>
-			<IonCard text-center>
-				<IonItem>
-					<IonTitle><h1>Hi, {firstName + ' ' + lastName}</h1></IonTitle>
-				</IonItem>
+			<IonGrid>
+				<IonRow>
+					<IonCol sizeMd="6" offsetMd="3">
+						<IonCard>
+							<IonItem>
+								<IonTitle><h1>{firstName + ' ' + lastName}</h1></IonTitle>
+							</IonItem>
 
-				<IonCardContent class="ion-no-padding">
-					<IonRow>
-						<IonCol col-12 >
-							{/* <IonImg src={user} alt="User Profile Picture"/>
-							<hr></hr> */}
-
-							<Link to={{pathname: '/post'}} style={{ textDecoration: 'none' }}>
-								<IonButton expand="full" color="warning" size="default" href="/post"><IonIcon icon={addCircle} slot="start"></IonIcon>Lend Space</IonButton>
-							</Link>
-						</IonCol>
-					</IonRow>
-				</IonCardContent>
-			</IonCard>
-
-			<IonItem>
-				<IonTitle>Lending History</IonTitle>
-			</IonItem>
-			{lendingsContent}
-
-
-			<IonItem>
-				<IonTitle>Renting History</IonTitle>
-			</IonItem>
-			{rentalsContent}
-
-			<IonItem>
-				<IonTitle>Your Listings</IonTitle>
-			</IonItem>
-			{listingsContent}
+							<IonCardContent class="ion-no-padding">
+								<Link to={{pathname: '/post'}} style={{ textDecoration: 'none' }}>
+									<IonButton expand="full" color="warning" size="default" href="/post"><IonIcon icon="add-circle" slot="start"></IonIcon>Lend Space</IonButton>
+								</Link>
+							</IonCardContent>
+						</IonCard>
+					</IonCol>
+				</IonRow>
+				<IonRow>
+					<IonCol sizeMd="6" offsetMd="3">
+						<IonItem>
+							<IonTitle>Lending History</IonTitle>
+						</IonItem>
+						{lendingsContent}
+					</IonCol>
+				</IonRow>
+				<IonRow>
+					<IonCol sizeMd="6" offsetMd="3">
+						<IonItem>
+							<IonTitle>Renting History</IonTitle>
+						</IonItem>
+						{rentalsContent}
+					</IonCol>
+				</IonRow>
+                <IonRow>
+					<IonCol sizeMd="6" offsetMd="3">
+						<IonItem>
+							<IonTitle>Listings History</IonTitle>
+						</IonItem>
+						{listingsContent}
+					</IonCol>
+				</IonRow>
+			</IonGrid>
 
 		</IonContent>
 	</IonPage>)
