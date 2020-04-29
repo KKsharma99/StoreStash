@@ -30,6 +30,8 @@ import { AppContext } from '../context/appContext';
 
 export default class Post extends React.Component<any, any> {
 
+	static contextType = AppContext;
+
     constructor(props: any) {
         super(props);
         // @ts-ignore
@@ -39,7 +41,6 @@ export default class Post extends React.Component<any, any> {
             capacity: 0, startDate: today, endDate: today, price: '', imageUrl: ''};
         this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.context = AppContext;
 	  }
 	  
     handleChange(event: any) {
@@ -57,7 +58,7 @@ export default class Post extends React.Component<any, any> {
         console.log('A name was submitted: ' + this.state.street);
         // Address Geocoding
         let address: string = this.state.street + "," + this.state.city + "," + this.state.state + "," + this.state.zip
-		const hostId = this.context.userId;
+		const hostId = this.context.state.userId;
         let capacity = Number(this.state.capacity)
         let price = Number(this.state.price)
 
@@ -129,7 +130,7 @@ export default class Post extends React.Component<any, any> {
 								</IonItem>
 
 								<IonItem>
-									<IonInput type="text" placeholder="Monthly Price per Box ($)" name="price" value={this.state.price} onIonChange={this.handleChange}></IonInput>
+									<IonInput type="number" placeholder="Monthly Price per Box ($)" name="price" value={this.state.price} onIonChange={this.handleChange}></IonInput>
 								</IonItem>
 
 								<IonItem>
@@ -150,7 +151,7 @@ export default class Post extends React.Component<any, any> {
 									<input type="file" placeholder="Storage Space"></input>
 								</IonItem>
 								<IonItem>
-									<IonInput type="text" placeholder="Image URL" name="image-url" value={this.state.imageUrl} onIonChange={this.handleChange}></IonInput>
+									<IonInput type="text" placeholder="Image URL" name="imageUrl" value={this.state.imageUrl} onIonChange={this.handleChange}></IonInput>
 								</IonItem>
 							<br></br>
 								<IonButton color="warning" size="default" expand="block" onClick={this.handleSubmit}>
