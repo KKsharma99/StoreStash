@@ -19,9 +19,12 @@ import { Link } from 'react-router-dom';
 
 const Register: React.FC<RouteComponentProps> = (props) => {
 	const { state, dispatch } = useContext(AppContext);
+	// TODO: move email and agreed out of context and into state
 	const { email, agreed } = state;
 	const [password1, setPassword1] = useState('');
 	const [password2, setPassword2] = useState('');
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
 
 	const handleSubmit = async (e: MouseEvent | any) => {
 		e.preventDefault();
@@ -37,12 +40,22 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 		// TODO: get authorization token
 		if (!validationErr) {
 			try {
-				await wretch('https://storestash.herokuapp.com/api/users/new')
+				await wretch('http://localhost:3001/api/users/new')
 					.post({
-						email: email,
-						password: password1
+						email,
+						password: password1,
+						firstName,
+						lastName
 					})
-					.json(data => console.log(data));
+					.json(data => {
+						console.log(data);
+						dispatch({ type: 'userId', userId: data._id });
+						dispatch({ type: 'firstName', firstName: data.firstName });
+						dispatch({ type: 'lastName', lastName: data.lastName });
+						dispatch({ type: 'email', email: data.email });
+						dispatch({ type: 'token', token: data.token });
+						dispatch({ type: 'gravatar', gravatar: data.gravatar });
+					});
 				props.history.push('/discover')
 			} catch (err) {
 				console.log(err);
@@ -78,19 +91,30 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 				<IonRow justify-content-center>
 					<IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
 							<IonItem>
+								{/* TODO: add HTML pattern to input to validate email ends with @gatech.edu */}
 								<IonInput
 									type="email"
-									placeholder="Gatech Email"
+									placeholder="Georgia Tech Email"
 									value={email}
 									onIonChange={e => setEmail((e.target as HTMLInputElement).value)}
 									required
-								></IonInput>
+								/>
 							</IonItem>
 							<IonItem>
-								<IonInput type="text" placeholder="First Name"></IonInput>
+								<IonInput
+									type="text"
+									placeholder="First Name"
+									value={firstName}
+									onIonChange={e => setFirstName((e.target as HTMLInputElement).value)}
+								/>
 							</IonItem>
 							<IonItem>
-								<IonInput type="text" placeholder="Last Name"></IonInput>
+								<IonInput
+									type="text"
+									placeholder="Last Name"
+									value={lastName}
+									onIonChange={e => setLastName((e.target as HTMLInputElement).value)}
+								/>
 							</IonItem>
 							<IonItem>
 								<IonInput
@@ -99,7 +123,7 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 									value={password1}
 									onIonChange={e => setPassword1((e.target as HTMLInputElement).value)}
 									required
-								></IonInput>
+								/>
 							</IonItem>
 
 							<IonItem>
@@ -109,7 +133,7 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 									value={password2}
 									onIonChange={e => setPassword2((e.target as HTMLInputElement).value)}
 									required
-								></IonInput>
+								/>
 							</IonItem>
 							<Link to={{ pathname: '/agreement' }} style={{ textDecoration: 'none' }}>
 								<IonButton color="light" size="small"  expand="full" href="/agreement">Show Terms and Conditions</IonButton>
@@ -120,7 +144,7 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 									value="agree"
 									checked={agreed}
 									onIonChange={e => setAgreed(!agreed)}
-								></IonCheckbox>
+								/>
 								I agree to the terms and conditions
 							</IonItem>
 							<br />
