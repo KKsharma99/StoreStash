@@ -63,9 +63,9 @@ listingSchema.statics.getNearby = async function (lat: number, lon: number, minC
             price: { $lte: maxPrice },
             startDate: { $lte: startDate },
             endDate: { $gte: endDate },
-        }).exec();
+        }).populate("host", "firstName lastName phone email").exec();
         return await listings
-            .map((listing: ListingDocument) => { return {...listing.toObject(), distance: distance(lat, lon, listing.lat, listing.lon).toFixed(2)}; })
+            .map((listing: ListingDocument) => { return {...listing.toObject(), distance: distance(lat, lon, listing.lat, listing.lon).toFixed(2), fullName: listing.host.firstName + " " + listing.host.lastName }; })
             .sort((listing1: _ListingDocument & { distance: number }, listing2: _ListingDocument & { distance: number }) => listing1.distance - listing2.distance);
     } catch (err) {
         console.log(err);

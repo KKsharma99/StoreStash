@@ -21,6 +21,7 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 	const { state, dispatch } = useContext(AppContext);
 	// TODO: move email and agreed out of context and into state
 	const { email, agreed } = state;
+	const [phone, setPhone] = useState('');
 	const [password1, setPassword1] = useState('');
 	const [password2, setPassword2] = useState('');
 	const [firstName, setFirstName] = useState('');
@@ -118,10 +119,10 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 							</IonItem>
 							<IonItem>
 								<IonInput
-									type="text"
+									type="tel"
 									placeholder="Phone Number"
-									//value={email}
-									//onIonChange={e => setEmail((e.target as HTMLInputElement).value)}
+									value={phone}
+									onIonChange={e => setPhone((e.target as HTMLInputElement).value)}
 									required
 								/>
 							</IonItem>

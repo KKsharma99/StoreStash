@@ -11,6 +11,7 @@ import {
 	IonMenuButton,
 	IonTitle,
 	IonIcon,
+	IonNote,
 	IonList,
 	IonSelectOption,
 	IonSelect,
@@ -31,9 +32,6 @@ import {
 
 } from '@ionic/react'
 import { RouteComponentProps } from 'react-router';
-
-// Images
-import user from '../assets/img/user.png';
 import { Link } from 'react-router-dom';
 
 const HistoryCard: React.FC<HistoryType> = ({ name, price, boxes, dropoff, pickup }) => {
@@ -59,17 +57,21 @@ const HistoryCard: React.FC<HistoryType> = ({ name, price, boxes, dropoff, picku
 	</>);
 }
 
+// TODO: list spaces you've rented
+
 const Profile: React.FC<RouteComponentProps> = (props) => {
 	const { state, dispatch } = useContext(AppContext);
 	const { userId, token, firstName, lastName } = state;
 	let lendingsContent;
 	let rentalsContent;
-	// TODO
 	const { data: lendings, error: errorLendings } = useSWR(userId ? `http://localhost:3001/api/users/${userId}/lendings` : null, url => wretch(url).get().json());
 	const { data: rentals, error: errorRentals } = useSWR(userId ? `http://localhost:3001/api/users/${userId}/rentals` : null, url => wretch(url).get().json());
 	if (!errorRentals && rentals) {
-		rentalsContent = rentals.map(rental => <HistoryCard {...rental} key={rental._id} />)
-	} 
+		rentalsContent = rentals.length > 0 ? rentals.map(rental => <HistoryCard {...rental} key={rental._id} />) : <IonItem><IonLabel>No rentals (yet!)</IonLabel></IonItem>
+	}
+	if (!errorLendings && lendings) {
+		lendingsContent = lendings.length > 0 ? lendings.map(lending => <HistoryCard {...lending} key={lending._id} />) : <IonItem><IonLabel>No lendings (yet!)</IonLabel></IonItem>
+	}
 
 	return (<IonPage>
 		<IonHeader>
@@ -102,14 +104,12 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 			<IonItem>
 				<IonTitle>Lending History</IonTitle>
 			</IonItem>
-
-			{/* TODO */}
+			{lendingsContent}
 
 
 			<IonItem>
 				<IonTitle>Renting History</IonTitle>
 			</IonItem>
-
 			{rentalsContent}
 
 		</IonContent>

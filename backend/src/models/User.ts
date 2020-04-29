@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 
 export type UserDocument = mongoose.Document & {
     email: string;
+    phone: string;
     password: string;
     passwordResetToken: string;
     passwordResetExpires: Date;
@@ -26,6 +27,7 @@ type comparePasswordFunction = (candidatePassword: string, cb: (err: Error, isMa
 
 const userSchema = new mongoose.Schema({
     email: { type: String, unique: true },
+    phone: { type: String, unique: true },
     password: String,
     passwordResetToken: String,
     passwordResetExpires: Date,
@@ -75,9 +77,9 @@ userSchema.methods.gravatar = function (size: number = 200) {
     return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
 };
 
-userSchema.statics.construct = function (email: string, password: string, firstName?: string, lastName?: string): Promise<UserDocument> {
+userSchema.statics.construct = function (email: string, password: string, firstName?: string, lastName?: string, phone?: string): Promise<UserDocument> {
     return new Promise((resolve, reject) => {
-        new User({ email, password, firstName, lastName, token: crypto.randomBytes(64).toString("hex") }).save()
+        new User({ email, password, firstName, lastName, phone, token: crypto.randomBytes(64).toString("hex") }).save()
             .then(newUser => resolve(newUser))
             .catch(err => reject(err));
     });

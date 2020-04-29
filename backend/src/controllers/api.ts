@@ -83,13 +83,14 @@ export const login = async (req: Request, res: Response) => {
  * POST /api/users/new
  * @param {string} req.body.email
  * @param {string} req.body.password
+ * @param {string} req.body.phone
  * @param {string?} req.body.firstName
  * @param {string?} req.body.lastName
  * Response: the new User
  */
 export const newUser = async (req: Request, res: Response) => {
     try {
-        const user = await (User as unknown as UserDocument).construct(req.body.email, req.body.password, req.body.firstName, req.body.lastName);
+        const user = await (User as unknown as UserDocument).construct(req.body.email, req.body.password, req.body.phone, req.body.firstName, req.body.lastName);
         console.log(user);
         res.json({ ...user.toObject(), gravatar: user.gravatar() });
     } catch (err) {
