@@ -48,7 +48,6 @@ const HistoryCard: React.FC<HistoryType> = ({ name, price, boxes, dropoff, picku
 						<p>
 							Total Cost: <IonText color="success"><b>${price}</b></IonText> <br />
 							Boxes: {boxes} <br />
-
 							{moment(startDate).format('ll')} - {moment(endDate).format('ll')} <br />
 							Status: {current ? <IonText color="success"><b>Current</b></IonText> : "Past"}  <br />
 							{current ? <a href="#"><IonText color="danger"><b>Cancel</b></IonText></a> : ""}
@@ -97,12 +96,11 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 				<IonCardContent class="ion-no-padding">
 					<IonRow>
 						<IonCol col-12 >
-<<<<<<< HEAD
+
 							{/* <IonImg src={user} alt="User Profile Picture"/>
 							<hr></hr> */}
 							
-=======
->>>>>>> 3c03d0450b79e1f0807aea317f01600c64b7710c
+
 							<Link to={{pathname: '/post'}} style={{ textDecoration: 'none' }}>
 								<IonButton expand="full" color="warning" size="default" href="/post"><IonIcon icon={addCircle} slot="start"></IonIcon>Lend Space</IonButton>
 							</Link>
@@ -114,7 +112,6 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 			<IonItem>
 				<IonTitle>Lending History</IonTitle>
 			</IonItem>
-<<<<<<< HEAD
 
 			<HistoryCard name="Sarah Smith" totalCost={110} boxes={1} startDate={new Date('Feb 26, 2020')} endDate={new Date('Apr 30, 2020')} />
 
@@ -170,9 +167,7 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 					</IonRow>
 				</IonCardContent>
 			</IonCard>
-=======
 			{lendingsContent}
->>>>>>> 3c03d0450b79e1f0807aea317f01600c64b7710c
 
 
 			<IonItem>
