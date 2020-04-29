@@ -60,7 +60,7 @@ Force push from the master branch:
 
 ```bash
 git push storestash-app-heroku `git subtree split --prefix frontend master`:master --force
-git push storestash-app-heroku `git subtree split --prefix backend master`:master --force
+git push storestash-backend-heroku `git subtree split --prefix backend master`:master --force
 ```
 
 Other commands that may be helpful:
