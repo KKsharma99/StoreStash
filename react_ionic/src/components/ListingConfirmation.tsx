@@ -34,7 +34,7 @@ export default class ListingConfirmation extends React.Component {
 			<IonContent class="ion-padding">
 				<IonGrid>
 					<IonRow>
-						<IonCol col-12 text-center>
+						<IonCol sizeMd="4" offsetMd="4">
 							<h1>Listing Posted!</h1>
 							<p>Your listing has been posted. You can find your listing in your profile. Thank you for using StoreStash.</p>
 						</IonCol>

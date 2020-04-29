@@ -35,7 +35,7 @@ export default class BookingConfirmation extends React.Component {
 			<IonContent class="ion-padding">
 				<IonGrid>
 					<IonRow>
-						<IonCol col-12 text-center>
+						<IonCol col-12 sizeMd="4" offsetMd="4">
 							<h1>Order Placed!</h1>
 							<p>You can see your order details in the profile tab. Thank you for using StoreStash.</p>
 						</IonCol>

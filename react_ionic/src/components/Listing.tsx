@@ -122,31 +122,32 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 		<IonContent>
 			<IonGrid>
 				<IonRow>
-					<IonCol col-12 text-center>
+					<IonCol sizeMd="6" offsetMd="3" text-center>
 						<h2>Listing Details</h2>
 					</IonCol>
 				</IonRow>
-			</IonGrid>
-
-			{listing}
-
-			<IonGrid>
 				<IonRow>
-					<IonCol col-12 text-center>
+					<IonCol sizeMd="6" offsetMd="3" text-center>
+						{listing}
+					</IonCol>
+				</IonRow>
+				
+				<IonRow>
+					<IonCol sizeMd="6" offsetMd="3" text-center>
 						<h2>Order Details</h2>
 					</IonCol>
 				</IonRow>
 			
 				<IonList lines="none">
 					<IonRow>
-						<IonCol col-12 >
+						<IonCol sizeMd="6" offsetMd="3" >
 							<IonItem>
 								<IonIcon icon={calendar} slot="start"></IonIcon>
 								<IonLabel>Drop off</IonLabel>
 								<IonDatetime displayFormat="MMM DD, YYYY" min={data?.startDate} max={data?.endDate} value={dropoff?.toString()} onIonChange={e => setDropoff(new Date((e.target as HTMLInputElement).value))} ></IonDatetime>
 							</IonItem>
 						</IonCol>
-						<IonCol col-12 >
+						<IonCol sizeMd="6" offsetMd="3" >
 							<IonItem>
 								<IonIcon icon={calendar} slot="start"></IonIcon>
 								<IonLabel>Pick up</IonLabel>
@@ -156,7 +157,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 					</IonRow>
 
 					<IonRow>
-						<IonCol col-12 >
+						<IonCol sizeMd="6" offsetMd="3" >
 							<IonItem>
 								<IonIcon icon={cube} slot="start"></IonIcon>
 								<IonLabel>Box Count</IonLabel>
@@ -172,7 +173,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 
 
 					<IonRow>
-						<IonCol col-12 >
+						<IonCol sizeMd="6" offsetMd="3" >
 							<IonItem>
 								<IonInput
 									type="tel"
@@ -185,14 +186,14 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 					</IonRow>
 
 					<IonRow>
-						<IonCol col-12 text-center>
+						<IonCol sizeMd="6" offsetMd="3" text-center>
 							{/* 2.628e9 is the number of milliseconds per month */}
 							<p><b>Order Total: </b><IonText color="success"><b>{dropoff && pickup && dropoff < pickup ? (Math.abs(pickup as any - (dropoff as any)) / 2.628e9 * boxes * data?.price).toFixed(2) : '…'}</b></IonText></p>
 						</IonCol>
 					</IonRow>
 
 					<IonRow>
-						<IonCol col-12 >
+						<IonCol sizeMd="6" offsetMd="3" >
 							{/* Disable link: https://stackoverflow.com/a/38321726/5139284 */}
 							<IonButton color="warning" size="default" expand="full" onClick={handleSubmit} disabled={!validate()}>
 								<IonIcon icon={card} slot="start"></IonIcon>Pay and Confirm

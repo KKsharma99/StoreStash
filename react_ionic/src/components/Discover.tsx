@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
-import { IonContent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonIcon, IonList, IonSelectOption, IonSelect, IonItem, IonLabel, IonDatetime, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonRow, IonCol, IonImg, IonPage } from '@ionic/react';
+import { IonContent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonIcon, IonList, IonGrid, IonSelectOption, IonSelect, IonItem, IonLabel, IonDatetime, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonRow, IonCol, IonImg, IonPage } from '@ionic/react';
 import { pin, cube, calendar, person, cash, checkmark } from 'ionicons/icons';
 import moment from "moment";
 import useSWR from 'swr';
@@ -99,21 +99,21 @@ const Discover: React.FC<RouteComponentProps> = () => {
 		</IonHeader>
 
 		<IonContent>
-			<IonList lines="none">
+			<IonGrid>
 				<IonRow>
-					<IonCol col-12 text-center>
+					<IonCol sizeMd="6" offsetMd="3">
 						<h1>Filter</h1>
 					</IonCol>
 				</IonRow>
 				<IonRow>
-					<IonCol col-12 >
+					<IonCol sizeMd="3" offsetMd="3" >
 						<IonItem>
 							<IonIcon icon={calendar} slot="start"></IonIcon>
 							<IonLabel>Drop off</IonLabel>
 							<IonDatetime displayFormat="MMM DD, YYYY" max="2056" value={null}></IonDatetime>
 						</IonItem>
 					</IonCol>
-					<IonCol col-12 >
+					<IonCol sizeMd="3">
 						<IonItem>
 							<IonIcon icon={calendar} slot="start"></IonIcon>
 							<IonLabel>Pick up</IonLabel>
@@ -123,7 +123,7 @@ const Discover: React.FC<RouteComponentProps> = () => {
 				</IonRow>
 
 				<IonRow>
-					<IonCol col-12 >
+					<IonCol sizeMd="3" offsetMd="3">
 						<IonItem>
 							<IonIcon icon={cube} slot="start"></IonIcon>
 							<IonLabel>Boxes</IonLabel>
@@ -137,10 +137,7 @@ const Discover: React.FC<RouteComponentProps> = () => {
 							</IonSelect>
 						</IonItem>
 					</IonCol>
-				</IonRow>
-
-				<IonRow>
-					<IonCol col-12 >
+					<IonCol sizeMd="3">
 						<IonItem>
 							<IonIcon icon={cash} slot="start"></IonIcon>
 							<IonLabel>Max Price per Box</IonLabel>
@@ -153,12 +150,12 @@ const Discover: React.FC<RouteComponentProps> = () => {
 						</IonItem>
 					</IonCol>
 				</IonRow>
-
-			</IonList>
-
-			{content}
-
-
+				<IonRow>
+					<IonCol sizeMd="6" offsetMd="3">
+						{content}
+					</IonCol>
+				</IonRow>
+			</IonGrid>
 		</IonContent>
 	</IonPage>)
 }

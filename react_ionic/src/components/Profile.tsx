@@ -3,6 +3,7 @@ import { AppContext, ActionTypes } from '../context/appContext';
 import wretch from 'wretch';
 import moment from 'moment';
 import useSWR from 'swr';
+
 import {
 	IonContent,
 	IonHeader,
@@ -28,7 +29,8 @@ import {
 	IonImg,
 	IonButton,
 	IonText,
-	IonPage
+	IonPage,
+	IonGrid
 
 } from '@ionic/react'
 import { RouteComponentProps } from 'react-router';
@@ -85,33 +87,39 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 		</IonHeader>
 
 		<IonContent>
-			<IonCard text-center>
-				{/* TODO: use user's name */}
-				<IonItem>
-					<IonTitle><h1>{firstName + ' ' + lastName}</h1></IonTitle>
-				</IonItem>
+			<IonGrid>
+				<IonRow>
+					<IonCol sizeMd="6" offsetMd="3">
+						<IonCard>
+							<IonItem>
+								<IonTitle><h1>{firstName + ' ' + lastName}</h1></IonTitle>
+							</IonItem>
 
-				<IonCardContent class="ion-no-padding">
-					<IonRow>
-						<IonCol col-12 >
-							<Link to={{pathname: '/post'}} style={{ textDecoration: 'none' }}>
-								<IonButton expand="full" color="warning" size="default" href="/post"><IonIcon icon="add-circle" slot="start"></IonIcon>Lend Space</IonButton>
-							</Link>
-						</IonCol>
-					</IonRow>
-				</IonCardContent>
-			</IonCard>
-
-			<IonItem>
-				<IonTitle>Lending History</IonTitle>
-			</IonItem>
-			{lendingsContent}
-
-
-			<IonItem>
-				<IonTitle>Renting History</IonTitle>
-			</IonItem>
-			{rentalsContent}
+							<IonCardContent class="ion-no-padding">
+								<Link to={{pathname: '/post'}} style={{ textDecoration: 'none' }}>
+									<IonButton expand="full" color="warning" size="default" href="/post"><IonIcon icon="add-circle" slot="start"></IonIcon>Lend Space</IonButton>
+								</Link>
+							</IonCardContent>
+						</IonCard>
+					</IonCol>
+				</IonRow>
+				<IonRow>
+					<IonCol sizeMd="6" offsetMd="3">
+						<IonItem>
+							<IonTitle>Lending History</IonTitle>
+						</IonItem>
+						{lendingsContent}
+					</IonCol>
+				</IonRow>
+				<IonRow>
+					<IonCol sizeMd="6" offsetMd="3">
+						<IonItem>
+							<IonTitle>Renting History</IonTitle>
+						</IonItem>
+						{rentalsContent}
+					</IonCol>
+				</IonRow>
+			</IonGrid>
 
 		</IonContent>
 	</IonPage>)
