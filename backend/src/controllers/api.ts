@@ -1,6 +1,5 @@
 "use strict";
 
-import graph from "fbgraph";
 import mongoose from "mongoose";
 import { Response, Request, NextFunction } from "express";
 import { UserDocument, User } from "../models/User";
@@ -82,13 +81,16 @@ export const login = async (req: Request, res: Response) => {
 
 /**
  * POST /api/users/new
- * @param req.body.email
- * @param req.body.password
+ * @param {string} req.body.email
+ * @param {string} req.body.password
+ * @param {string} req.body.phone
+ * @param {string?} req.body.firstName
+ * @param {string?} req.body.lastName
  * Response: the new User
  */
 export const newUser = async (req: Request, res: Response) => {
     try {
-        const user = await (User as unknown as UserDocument).construct(req.body.email, req.body.password);
+        const user = await (User as unknown as UserDocument).construct(req.body.email, req.body.password, req.body.phone, req.body.firstName, req.body.lastName);
         console.log(user);
         res.json({ ...user.toObject(), gravatar: user.gravatar() });
     } catch (err) {
@@ -104,7 +106,7 @@ export const newUser = async (req: Request, res: Response) => {
 export const getRentalHistory = async (req: Request, res: Response) => {
     try {
         const history = await (Rental as unknown as RentalDocument).listRenterHistory(req.params.id);
-        res.json(history.map(rental => rental.toObject()));
+        res.json(history.map(rental => { return { ...(rental.toObject()), name: rental.host.firstName + " " + rental.host.lastName };}));
     } catch (err) {
         res.status(400).send(err);
     }
@@ -118,7 +120,7 @@ export const getRentalHistory = async (req: Request, res: Response) => {
 export const getLendingHistory = async (req: Request, res: Response) => {
     try {
         const history = await (Rental as unknown as RentalDocument).listLenderHistory(req.params.id);
-        res.json(history.map(rental => rental.toObject()));
+        res.json(history.map(rental => {return { ...(rental.toObject()), name: rental.lender.firstName + " " + rental.lender.lastName };}));
     } catch (err) {
         res.status(400).send(err);
     }

@@ -55,9 +55,7 @@ rentalSchema.statics.construct = async function (listingId: mongoose.Types.Objec
 
 rentalSchema.statics.listRenterHistory = async function (renter: mongoose.Types.ObjectId | string): Promise<Array<RentalDocument>> {
     try {
-        const results = await this.find({ renter }).sort({ dropoff: -1 }).populate("host");
-        console.log(results);
-        return results;
+        return await this.find({ renter }).sort({ dropoff: -1 }).populate("host", "firstName lastName").exec();
     } catch (err) {
         return Promise.reject(err);
     }
@@ -65,7 +63,7 @@ rentalSchema.statics.listRenterHistory = async function (renter: mongoose.Types.
 
 rentalSchema.statics.listLenderHistory = async function (host: mongoose.Types.ObjectId | string): Promise<Array<RentalDocument>> {
     try {
-        return await this.find({ host }).sort({ dropoff: -1 }).populate("renter").execPopulate();
+        return await this.find({ host }).sort({ dropoff: -1 }).populate("renter", "firstName lastName").exec();
     } catch (err) {
         return Promise.reject(err);
     }

@@ -7,9 +7,11 @@ export let initialState = {
     token: '',
     email: '',
     agreed: false,
+    firstName: '',
+    lastName: '',
 }
 
-type State = Readonly<typeof initialState>
+type State = Readonly<typeof initialState> | any
 
 function getInitialState(initialState) {
     for (const key of Object.keys(initialState)) {
