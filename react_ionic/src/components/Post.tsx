@@ -94,7 +94,7 @@ export default class Post extends React.Component<any, any> {
 				</IonToolbar>
 			</IonHeader>
 
-			<IonContent class="ion-padding add-margins">
+			<IonContent class="ion-padding">
 				<IonGrid>
 					<IonRow justify-content-center>
 						<IonCol align-self-center size-xs="12" size-md="5" size-lg="5" >
