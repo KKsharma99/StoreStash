@@ -1,4 +1,4 @@
-import React, { useState, useContext, MouseEvent } from 'react';
+import React, { useState, useContext, MouseEvent, useEffect } from 'react';
 import { AppContext, ActionTypes } from '../context/appContext';
 import wretch from 'wretch';
 import moment from 'moment';
@@ -95,6 +95,9 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 	let listingsContent;
 	let lendingsContent;
 	let rentalsContent;
+
+	// TODO: re-fetch on page load
+
 	const { data: listings, error: errorListings } = useSWR(userId ? `http://localhost:3001/api/users/${userId}/listings` : null, url => wretch(url).get().json());
 	const { data: lendings, error: errorLendings } = useSWR(userId ? `http://localhost:3001/api/users/${userId}/lendings` : null, url => wretch(url).get().json());
 	const { data: rentals, error: errorRentals } = useSWR(userId ? `http://localhost:3001/api/users/${userId}/rentals` : null, url => wretch(url).get().json());

@@ -10,6 +10,7 @@ import DiscoverCard from '../components/DiscoverCard';
 import room_1 from '../assets/img/room_1.png';
 import room_2 from '../assets/img/room_2.png';
 import room_3 from '../assets/img/room_3.png';
+import buzz from '../assets/img/buzz.png';
 
 // TODO: get user's current location
 // TODO: use values from the search parameters
@@ -26,7 +27,7 @@ const Discover: React.FC<RouteComponentProps> = () => {
 		content = <div>loading...</div>
 	else {
 		const listings = data.map(o => 
-			<DiscoverCard {...o} fullName={o.fullName || "Anonymous"} image={o.image || room_1} key={o._id} />
+			<DiscoverCard {...o} fullName={o.fullName || "Anonymous"} image={o.image || buzz} key={o._id} />
 		)
 		content =
 		<div>

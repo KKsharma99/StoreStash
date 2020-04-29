@@ -27,13 +27,13 @@ type UserJson = {
     facebook: string;
     tokens: {accessToken: string; kind: string}[];
 
-    profile: {
-        name: string;
-        gender: string;
-        location: string;
-        website: string;
-        picture: string;
-    };
+    phone: string;
+    firstName: string;
+    lastName: string
+    gender: string;
+    location: string;
+    website: string;
+    picture: string;
 }
 
 type RentalJson = {
@@ -90,7 +90,7 @@ export const login = async (req: Request, res: Response) => {
  */
 export const newUser = async (req: Request, res: Response) => {
     try {
-        const user = await (User as unknown as UserDocument).construct(req.body.email, req.body.password, req.body.phone, req.body.firstName, req.body.lastName);
+        const user = await (User as unknown as UserDocument).construct(req.body.email, req.body.password, req.body.firstName, req.body.lastName, req.body.phone);
         console.log(user);
         res.json({ ...user.toObject(), gravatar: user.gravatar() });
     } catch (err) {
@@ -135,11 +135,12 @@ export const getLendingHistory = async (req: Request, res: Response) => {
  * @param {string} req.body.startDate
  * @param {string} req.body.endDate
  * @param {number} req.body.price
+ * @param {string} req.body.image
  * Response: the new Listing
  */
 export const newListing = async (req: Request, res: Response) => {
     try {
-        const listing = await (Listing as unknown as ListingDocument).construct(req.body.hostId, req.body.lat, req.body.lon, req.body.capacity, new Date(req.body.startDate), new Date(req.body.endDate), req.body.price);
+        const listing = await (Listing as unknown as ListingDocument).construct(req.body.hostId, req.body.lat, req.body.lon, req.body.capacity, new Date(req.body.startDate), new Date(req.body.endDate), req.body.price, req.body.image);
         await res.json(listing.toObject());
     } catch (err) {
         console.log(err);

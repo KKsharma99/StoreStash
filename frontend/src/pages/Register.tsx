@@ -46,7 +46,8 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 						email,
 						password: password1,
 						firstName,
-						lastName
+						lastName,
+						phone
 					})
 					.json(data => {
 						console.log(data);

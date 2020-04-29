@@ -36,7 +36,7 @@ export default class Post extends React.Component<any, any> {
         const today = new Date();
         Geocode.setApiKey("AIzaSyDfbGSyIXX1nhPFH-lBUFJhrstImpicaiQ");
         this.state = {street: '', city: '', state: '', zip: '',
-            capacity: 0, startDate: today, endDate: today, price: ''};
+            capacity: 0, startDate: today, endDate: today, price: '', imageUrl: ''};
         this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.context = AppContext;
@@ -73,7 +73,7 @@ export default class Post extends React.Component<any, any> {
             console.log(typeof capacity);
             console.log(typeof today);
             await wretch('http://localhost:3001/api/listings/new')
-                .post({ id, hostId, lat, lon, capacity, startDate: new Date(this.state.startDate), endDate: new Date(this.state.endDate), price })
+                .post({ id, hostId, lat, lon, capacity, startDate: new Date(this.state.startDate), endDate: new Date(this.state.endDate), price, image: this.state.imageUrl })
 				.json(data => console.log(data));
 			this.props.history.push('/listing_confirmation')	
           },
@@ -148,6 +148,9 @@ export default class Post extends React.Component<any, any> {
 								<IonLabel>Image of your Storage Space</IonLabel> <br></br>
 								<IonItem>
 									<input type="file" placeholder="Storage Space"></input>
+								</IonItem>
+								<IonItem>
+									<IonInput type="text" placeholder="Image URL" name="image-url" value={this.state.imageUrl} onIonChange={this.handleChange}></IonInput>
 								</IonItem>
 							<br></br>
 								<IonButton color="warning" size="default" expand="block" onClick={this.handleSubmit}>
