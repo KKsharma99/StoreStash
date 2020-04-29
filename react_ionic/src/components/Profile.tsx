@@ -36,7 +36,7 @@ import { pin, cube, calendar, person, cash } from 'ionicons/icons';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 
-const YourListingCard: React.FC<any> = ({ price, lat, lon, capacity, remSpace, host, fullName, startDate, endDate, _id, image }) => {
+const YourListingCard: React.FC<any> = ({ price, lat, lon, capacity, remSpace, startDate, endDate, _id, image }) => {
 	return (<>
 		<IonCard>
 			<IonItem>
@@ -62,7 +62,7 @@ const YourListingCard: React.FC<any> = ({ price, lat, lon, capacity, remSpace, h
 }
 
 const HistoryCard: React.FC<HistoryType> = ({ name, price, boxes, dropoff, pickup }) => {
-	const current = pickup > new Date();
+	const current = new Date(pickup) > new Date();
 
 	return (<>
 		<IonCard color={current ? "" : "light"}>
@@ -76,6 +76,7 @@ const HistoryCard: React.FC<HistoryType> = ({ name, price, boxes, dropoff, picku
 							Boxes: {boxes} <br />
 							{moment(dropoff).format('ll')} - {moment(pickup).format('ll')} <br />
 							Status: {current ? <IonText color="success"><b>Current</b></IonText> : "Past"}  <br />
+							{/* TODO: make cancellation functional */}
 							{current ? <a href="#"><IonText color="danger"><b>Cancel</b></IonText></a> : ""}
 
 						</p> 
@@ -120,7 +121,7 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 		<IonContent>
 			<IonCard text-center>
 				<IonItem>
-					<IonTitle><h1>{firstName + ' ' + lastName}</h1></IonTitle>
+					<IonTitle><h1>Hi, {firstName + ' ' + lastName}</h1></IonTitle>
 				</IonItem>
 
 				<IonCardContent class="ion-no-padding">
