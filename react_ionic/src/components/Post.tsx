@@ -26,6 +26,7 @@ import {
 	IonPage
 
 } from '@ionic/react'
+import { AppContext } from '../context/appContext';
 
 export default class Post extends React.Component<any, any> {
 
@@ -37,9 +38,10 @@ export default class Post extends React.Component<any, any> {
         this.state = {street: '', city: '', state: '', zip: '',
             capacity: 0, startDate: today, endDate: today, price: ''};
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-      }
-
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.context = AppContext;
+	  }
+	  
     handleChange(event: any) {
         console.log(event.target.value);
         const target = event.target;
@@ -55,11 +57,8 @@ export default class Post extends React.Component<any, any> {
         console.log('A name was submitted: ' + this.state.street);
         // Address Geocoding
         let address: string = this.state.street + "," + this.state.city + "," + this.state.state + "," + this.state.zip
-        // @ts-ignore
-        let hostId = "5ea8d36d80b3240023a15445"
+		const hostId = this.context.userId;
         let capacity = Number(this.state.capacity)
-        let startDate = this.state.startDate
-        let endDate = this.state.endDate
         let price = Number(this.state.price)
 
         //hostId: any, lat: number, lon: number, capacity: number, startDate: Date, endDate: Date, price: number)
@@ -74,7 +73,7 @@ export default class Post extends React.Component<any, any> {
             console.log(typeof capacity);
             console.log(typeof today);
             await wretch('http://localhost:3001/api/listings/new')
-                .post({ id, hostId, lat, lon, capacity, startDate: new Date(), endDate: new Date(), price })
+                .post({ id, hostId, lat, lon, capacity, startDate: new Date(this.state.startDate), endDate: new Date(this.state.endDate), price })
 				.json(data => console.log(data));
 			this.props.history.push('/listing_confirmation')	
           },

@@ -6,7 +6,7 @@ Then, to start the server locally, run
 
 ```
 npm install
-npm run watch
+npm run watch-debug
 ```
 
 In production, if you end up using cookies, you should change the `SESSION_SECRET` environment variable.

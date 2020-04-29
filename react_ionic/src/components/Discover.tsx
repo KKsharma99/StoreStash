@@ -28,8 +28,8 @@ export type DiscoverListing = {
 
 // TODO: get user's current location
 // TODO: use values from the search parameters
-function fetcher(url: string): Promise<[DiscoverListing]> {
-	return wretch(url).query({ lat: 11, lon: 11, minCapacity: 1, maxPrice: 100 }).get().json();
+function fetcher(url: string) {
+	return wretch(url).query({ lat: 33.7700594, lon: -84.3916245, minCapacity: 1, maxPrice: 100 }).get().json();
 }
 
 const DiscoverCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, host, fullName, startDate, endDate, _id, image }) => {
@@ -51,7 +51,7 @@ const DiscoverCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, ho
 					<IonCol col-12 >
 						<IonImg src={image} alt="Room"/>
 						<p>Space Available: {moment(startDate).format('ll')} - {moment(endDate).format('ll')}</p>
-						<p>Contact: Phone Number </p> {/* TODO: Add phone number to discover card */}
+						<p>Contact: {host.phoneNumber || host.email} </p> {/* TODO: Add phone number to discover card */}
 						
 						<Link to={`/listing/${_id}`}>
 							<IonButton expand="full" color="warning" size="default" href={`/listing/${_id}`}>
