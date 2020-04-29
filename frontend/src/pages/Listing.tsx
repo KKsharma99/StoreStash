@@ -28,44 +28,20 @@ import {
 	IonPage
 } from '@ionic/react'
 import { pin, cube, person, calendar, card } from 'ionicons/icons';
-import { AppContext, ActionTypes } from '../context/appContext';
+import { AppContext } from '../context/appContext';
 import wretch from 'wretch';
 import { RouteComponentProps } from 'react-router';
 import { Link, useParams } from 'react-router-dom';
-import moment from 'moment';
-import { DiscoverListing } from './Discover'
 import { range } from 'lodash';
+import useSWR from 'swr';
+
+import ListingCard from '../components/ListingCard'
+import { DiscoverListing } from '../types';
 
 import room_1 from '../assets/img/room_1.png';
 import room_2 from '../assets/img/room_2.png';
 import room_3 from '../assets/img/room_3.png';
-import useSWR from 'swr';
 
-const ListingCard: React.FC<DiscoverListing> = ({ price, distance, remSpace, host, fullName, startDate, endDate, _id: listingId, image }) => {
-	return (<>
-		<IonCard>
-			<IonItem>
-				<IonRow>
-					<IonCol col-12>
-						<IonCardTitle color="success">${price}/mo</IonCardTitle>
-						<IonCardSubtitle><IonIcon icon={pin}></IonIcon>{distance} Miles </IonCardSubtitle>
-						<IonCardSubtitle><IonIcon icon={cube}></IonIcon> {remSpace} Boxes</IonCardSubtitle>
-						<IonCardSubtitle><IonIcon icon={person}></IonIcon> {fullName}</IonCardSubtitle>
-					</IonCol>
-				</IonRow>
-			</IonItem>
-
-			<IonCardContent class="ion-no-padding">
-				<IonRow>
-					<IonCol col-12 >
-						<IonImg src={image} alt="Room"/>
-						<p>Space Available: {moment(startDate).format('ll')} - {moment(endDate).format('ll')}</p>
-					</IonCol>
-				</IonRow>
-			</IonCardContent>
-		</IonCard>
-	</>)
-}
 
 const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => {
 	const { listingId } = useParams();
