@@ -17,6 +17,7 @@ import {
 
 } from '@ionic/react'
 
+
 export default class BookingConfirmation extends React.Component {
 	render() {
 		return (<IonPage>
