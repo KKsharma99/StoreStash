@@ -88,9 +88,9 @@ app.use(
  * API routes.
  */
 app.post("/api/login", apiController.login);
-app.post("/api/listings/new", apiController.newListing);
-app.get("/api/listings/nearby", apiController.getNearby);
-app.post("/api/users/new", apiController.newUser);
+app.post("/api/new-listing", apiController.newListing);
+app.get("/api/discover", apiController.getNearby);
+app.post("/api/register", apiController.newUser);
 app.get("/api/users/:id/listings", apiController.getListingsByHostId);
 app.get("/api/users/:id/rentals", apiController.getRentalHistory);
 app.get("/api/users/:id/lendings", apiController.getLendingHistory);

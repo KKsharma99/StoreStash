@@ -41,7 +41,7 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 		// TODO: get authorization token
 		if (!validationErr) {
 			try {
-				await wretch('https://storestash.herokuapp.com/api/users/new')
+				await wretch('https://storestash.herokuapp.com/api/register')
 					.post({
 						email,
 						password: password1,
