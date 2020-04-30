@@ -29,7 +29,7 @@ type UserJson = {
 
     phone: string;
     firstName: string;
-    lastName: string
+    lastName: string;
     gender: string;
     location: string;
     website: string;
@@ -55,7 +55,7 @@ type MongoJson = {
 }
 
 /**
- * POST /api/users/login
+ * POST /api/login
  * @param req.body.email
  * @param req.body.password
  * Response: the token of the user

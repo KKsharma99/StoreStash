@@ -29,7 +29,6 @@ import {
 } from '@ionic/react'
 import { pin, cube, person, calendar, card } from 'ionicons/icons';
 import { AppContext } from '../context/appContext';
-import wretch from 'wretch';
 import { RouteComponentProps } from 'react-router';
 import { Link, useParams } from 'react-router-dom';
 import { range } from 'lodash';
@@ -41,6 +40,7 @@ import { DiscoverListing } from '../types';
 import room_1 from '../assets/img/room_1.png';
 import room_2 from '../assets/img/room_2.png';
 import room_3 from '../assets/img/room_3.png';
+import wretcher from '../wretcher';
 
 
 const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => {
@@ -60,7 +60,8 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 		e.preventDefault();
 		if (validate()) {
 			try {
-				await wretch(`https://storestash.herokuapp.com/api/listings/${listingId}/rent`)
+				await wretcher
+					.url(`/api/listings/${listingId}/rent`)
 					.post({
 						renter: userId,
 						boxes,
@@ -75,7 +76,7 @@ const Listing: React.FC<RouteComponentProps & {listingId: string}> = (props) => 
 		}
 	}
 
-	const { data, error } = useSWR(`https://storestash.herokuapp.com/api/listings/${listingId}`, url => wretch(url).get().json());
+	const { data, error } = useSWR(`/api/listings/${listingId}`, url => wretcher.url(url).get().json());
 	let listing;
 	if (!listingId || error)
 		listing = <div>Failed to load</div>

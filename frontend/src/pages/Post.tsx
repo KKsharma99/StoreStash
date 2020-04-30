@@ -1,7 +1,6 @@
 import React from 'react'
 // @ts-ignore
 import Geocode from 'react-geocode';
-import wretch from 'wretch';
 import { v1 as uuidv1 } from 'uuid';
 import { cube, calendar } from 'ionicons/icons';
 import {
@@ -27,6 +26,7 @@ import {
 
 } from '@ionic/react'
 import { AppContext } from '../context/appContext';
+import wretcher from '../wretcher';
 
 export default class Post extends React.Component<any, any> {
 
@@ -70,7 +70,7 @@ export default class Post extends React.Component<any, any> {
             let lon = lng
             let id = uuidv1();
             console.log(typeof hostId);
-            await wretch('https://storestash.herokuapp.com/api/new-listing')
+            await wretcher.url('/api/new-listing')
                 .post({ id, hostId, lat, lon, capacity, startDate: new Date(this.state.startDate), endDate: new Date(this.state.endDate), price, image: this.state.imageUrl })
 				.json(data => console.log(data));
 			this.props.history.push('/listing_confirmation')	

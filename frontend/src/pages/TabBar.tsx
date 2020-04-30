@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
-import { IonApp, IonTabs, IonTabBar, IonTabButton, IonLabel, IonRouterOutlet, IonIcon } from '@ionic/react'
+import React from 'react'
+import { IonTabs, IonTabBar, IonTabButton, IonLabel, IonRouterOutlet, IonIcon } from '@ionic/react'
 import { search, person, help } from 'ionicons/icons';
-import { Route, Link } from 'react-router-dom'
-import { IonPage } from '@ionic/react'
+import { Route } from 'react-router-dom'
 import Discover from './Discover'
 import Profile from './Profile'
 import Listing from './Listing'
@@ -10,7 +9,6 @@ import BookingConfirmation from './BookingConfirmation'
 import ListingConfirmation from './ListingConfirmation'
 import Faq from './Faq'
 import Post from './Post'
-import config from 'wretch/dist/config';
 
 interface TabBarProps {}
 

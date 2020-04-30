@@ -1,6 +1,5 @@
 import React, { useState, useContext, MouseEvent, useEffect } from 'react';
 import { AppContext, ActionTypes } from '../context/appContext';
-import wretch from 'wretch';
 import moment from 'moment';
 import useSWR from 'swr';
 
@@ -36,6 +35,7 @@ import {
 import { pin, cube, calendar, person, cash } from 'ionicons/icons';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
+import wretcher from '../wretcher';
 
 const YourListingCard: React.FC<any> = ({ price, lat, lon, capacity, remSpace, startDate, endDate, _id, image }) => {
 	return (<>
@@ -98,9 +98,9 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
 
 	// TODO: re-fetch on page load
 
-	const { data: listings, error: errorListings } = useSWR(userId ? `https://storestash.herokuapp.com/api/users/${userId}/listings` : null, url => wretch(url).get().json());
-	const { data: lendings, error: errorLendings } = useSWR(userId ? `https://storestash.herokuapp.com/api/users/${userId}/lendings` : null, url => wretch(url).get().json());
-	const { data: rentals, error: errorRentals } = useSWR(userId ? `https://storestash.herokuapp.com/api/users/${userId}/rentals` : null, url => wretch(url).get().json());
+	const { data: listings, error: errorListings } = useSWR(userId ? `/api/users/${userId}/listings` : null, url => wretcher.url(url).get().json());
+	const { data: lendings, error: errorLendings } = useSWR(userId ? `/api/users/${userId}/lendings` : null, url => wretcher.url(url).get().json());
+	const { data: rentals, error: errorRentals } = useSWR(userId ? `/api/users/${userId}/rentals` : null, url => wretcher.url(url).get().json());
 	if (!errorListings && listings) {
 		listingsContent = listings.length > 0 ? listings.map(listing => <YourListingCard {...listing} key={listing._id} />) : <IonItem><IonLabel>No listings (yet!)</IonLabel></IonItem>
 	}

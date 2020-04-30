@@ -3,23 +3,20 @@ import { Link, RouteComponentProps } from 'react-router-dom'
 import { IonContent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonIcon, IonList, IonGrid, IonSelectOption, IonSelect, IonItem, IonLabel, IonDatetime, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonRow, IonCol, IonImg, IonPage } from '@ionic/react';
 import { pin, cube, calendar, person, cash, checkmark } from 'ionicons/icons';
 import useSWR from 'swr';
-import wretch from 'wretch';
 import DiscoverCard from '../components/DiscoverCard';
 
 // Import Images
-import room_1 from '../assets/img/room_1.png';
-import room_2 from '../assets/img/room_2.png';
-import room_3 from '../assets/img/room_3.png';
 import buzz from '../assets/img/buzz.png';
+import wretcher from '../wretcher';
 
 // TODO: get user's current location
 // TODO: use values from the search parameters
 function fetcher(url: string) {
-	return wretch(url).query({ lat: 33.7700594, lon: -84.3916245, minCapacity: 1, maxPrice: 100 }).get().json();
+	return wretcher.url(url).query({ lat: 33.7700594, lon: -84.3916245, minCapacity: 1, maxPrice: 100 }).get().json();
 }
 
 const Discover: React.FC<RouteComponentProps> = () => {
-	const { data, error } = useSWR('https://storestash.herokuapp.com/api/discover', fetcher);
+	const { data, error } = useSWR('/api/discover', fetcher);
 	let content;
 	if (error)
 		content = <div>failed to load</div>

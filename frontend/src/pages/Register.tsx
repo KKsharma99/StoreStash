@@ -11,7 +11,7 @@ import {
 	IonCheckbox,
 	IonPage
 } from '@ionic/react'
-import wretch from "wretch"
+import wretcher from '../wretcher';
 import logo from '../assets/img/logo.png';
 import { AppContext, ActionTypes } from '../context/appContext';
 import { RouteComponentProps } from 'react-router';
@@ -41,7 +41,8 @@ const Register: React.FC<RouteComponentProps> = (props) => {
 		// TODO: get authorization token
 		if (!validationErr) {
 			try {
-				await wretch('https://storestash.herokuapp.com/api/register')
+				await wretcher
+					.url('/api/register')
 					.post({
 						email,
 						password: password1,
