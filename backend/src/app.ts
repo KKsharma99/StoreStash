@@ -25,6 +25,7 @@ const app = express();
 
 // Enable all CORS requests
 app.use(cors());
+app.options("*", cors());
 
 // Log requests
 app.use(morgan("combined"));
