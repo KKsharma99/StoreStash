@@ -31,6 +31,20 @@ Install dependencies: `npm install`
 
 Serve the app: `npm start`
 
+
+### Android
+To test with an Android device:
+Download the storestash.apk file from 'android/apk_file/storestash.apk' onto your device.
+When you open the file you're device will allow you to install and run the application.
+
+To test with your laptop:
+Download Android Studio
+In Android Studio, create an Android Virtual Device (AVD) that the emulator can use to run apps.
+Run an emulated device.
+Download the storestash.apk file from 'android/apk_file/storestash.apk' onto your device.
+Drag and drop the apk file onto the emulated device and it will install the app.
+Run the installed app.
+
 ## Deploying to Heroku
 
 Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli), and then set it up:
