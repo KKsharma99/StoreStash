@@ -70,9 +70,6 @@ export default class Post extends React.Component<any, any> {
             let lon = lng
             let id = uuidv1();
             console.log(typeof hostId);
-            console.log(typeof price);
-            console.log(typeof capacity);
-            console.log(typeof today);
             await wretch('https://storestash.herokuapp.com/api/new-listing')
                 .post({ id, hostId, lat, lon, capacity, startDate: new Date(this.state.startDate), endDate: new Date(this.state.endDate), price, image: this.state.imageUrl })
 				.json(data => console.log(data));
