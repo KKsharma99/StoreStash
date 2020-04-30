@@ -70,6 +70,8 @@ export const login = async (req: Request, res: Response) => {
             } else {
                 if (isMatch) {
                     res.json({ ...user.toObject(), gravatar: user.gravatar() });
+                } else {
+                    res.status(401).send("Password did not match");
                 }
             }
         });
