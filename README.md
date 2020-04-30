@@ -25,7 +25,7 @@ In production, if you end up using cookies, you should change the `SESSION_SECRE
 
 ### Frontend
 
-`cd react_ionic`
+`cd frontend`
 
 Install dependencies: `npm install`
 
