@@ -24,6 +24,7 @@ import * as apiController from "./controllers/api";
 const app = express();
 
 // Enable all CORS requests
+app.use(cors({credentials: true, origin: true}));
 app.options("*", cors({credentials: true, origin: true}));
 // app.use(function(req, res, next) {
 //     res.header("Access-Control-Allow-Origin", "https://storestash.now.sh"); // update to match the domain you will make the request from

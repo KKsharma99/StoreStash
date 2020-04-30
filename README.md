@@ -71,3 +71,9 @@ heroku logs -a storestash
 # Supposedly this helps with multiple users pushing
 git push heroku $(git subtree split --prefix=server $(git symbolic-ref --short -q HEAD)):master --force
 ```
+
+The frontend doesn't seem to be deploying to Heroku properly, so for that you can use Zeit.
+
+## Deploying to Android
+
+```
