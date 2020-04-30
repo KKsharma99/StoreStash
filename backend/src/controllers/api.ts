@@ -61,22 +61,23 @@ type MongoJson = {
  * Response: the token of the user
  */
 export const login = async (req: Request, res: Response) => {
-    try {
-        const user: any = await User.findOne({ email: req.body.email });
-        user.comparePassword(req.body.password, (err: any, isMatch: any) => {
-            if (err) {
-                console.log(err);
-                res.status(400).send(err);
-            } else {
-                if (isMatch) {
-                    res.json({ ...user.toObject(), gravatar: user.gravatar() });
-                }
-            }
-        });
-    } catch (err) {
-        console.log(err);
-        res.status(400).send(err);
-    }
+    res.status(200).send("hey");
+    // try {
+    //     const user: any = await User.findOne({ email: req.body.email });
+    //     user.comparePassword(req.body.password, (err: any, isMatch: any) => {
+    //         if (err) {
+    //             console.log(err);
+    //             res.status(400).send(err);
+    //         } else {
+    //             if (isMatch) {
+    //                 res.json({ ...user.toObject(), gravatar: user.gravatar() });
+    //             }
+    //         }
+    //     });
+    // } catch (err) {
+    //     console.log(err);
+    //     res.status(400).send(err);
+    // }
 };
 
 /**
