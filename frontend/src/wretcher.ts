@@ -1,7 +1,8 @@
 import wretch from "wretch";
 
 const wretcher = wretch()
-    .url("https://storestash.herokuapp.com")
+    .url('http://localhost:3001')
+    // .url("https://storestash.herokuapp.com")
     .options({ credentials: "include", mode: "cors" });
 
 export default wretcher;

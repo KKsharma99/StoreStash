@@ -35,8 +35,8 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 		}
 		try {
 			// TODO: get authorization token
-			await wretch('https://storestash.herokuapp.com/api/login')
-				.options({ credentials: "include", mode: "cors" })
+			await wretcher
+				.url('/api/login')
 				.post({ email, password })
 				.json(data => {
 					console.log(data);
