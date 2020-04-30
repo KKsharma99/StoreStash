@@ -24,7 +24,8 @@ import * as apiController from "./controllers/api";
 const app = express();
 
 // Enable all CORS requests
-app.use(cors({credentials: true, origin: true}));
+app.use(cors({credentials: true, origin: ["https://storestash.now.sh/", "http://localhost", "http://127.0.0.1"]}));
+app.options("*", cors());
 
 // Log requests
 app.use(morgan("combined"));
