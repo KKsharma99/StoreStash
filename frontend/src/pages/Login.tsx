@@ -15,6 +15,7 @@ import { Link, RouteComponentProps } from 'react-router-dom'
 import { AppContext, ActionTypes } from '../context/appContext'
 import { InputChangeEventDetail } from "@ionic/core";
 import wretcher from '../wretcher';
+import wretch from "wretch";
 
 // Images
 import logo from '../assets/img/logo.png';
@@ -34,8 +35,8 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 		}
 		try {
 			// TODO: get authorization token
-			await wretcher
-				.url('/api/login')
+			await wretch('https://storestash.herokuapp.com/api/login')
+				.options({ credentials: "include", mode: "cors" })
 				.post({ email, password })
 				.json(data => {
 					console.log(data);
