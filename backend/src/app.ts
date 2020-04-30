@@ -24,8 +24,7 @@ import * as apiController from "./controllers/api";
 const app = express();
 
 // Enable all CORS requests
-app.use(cors());
-app.options("*", cors());
+app.use(cors({credentials: true, origin: true}));
 
 // Log requests
 app.use(morgan("combined"));
