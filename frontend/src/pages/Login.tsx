@@ -71,7 +71,7 @@ const Login: React.SFC<RouteComponentProps> = (props) => {
 						<br />
 						<br />
 						<br />
-						<IonImg src={logo} alt="logo"/>
+						<IonImg src={logo} alt="StoreStash logo"/>
 					</IonCol>
 				</IonRow>
 				<IonRow justify-content-center>
