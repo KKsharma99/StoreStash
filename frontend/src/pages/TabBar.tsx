@@ -1,5 +1,6 @@
 import React from 'react'
 import { IonTabs, IonTabBar, IonTabButton, IonLabel, IonRouterOutlet, IonIcon } from '@ionic/react'
+import { Redirect } from 'react-router';
 import { search, person, help } from 'ionicons/icons';
 import { Route } from 'react-router-dom'
 import Discover from './Discover'
@@ -22,6 +23,7 @@ const TabBar: React.FC<TabBarProps> = () =>
 			<Route path="/:tab(listing_confirmation)" component={ListingConfirmation} exact />
 			<Route path="/:tab(faq)" component={Faq} exact />
 			<Route path="/:tab(post)" component={Post} exact />
+			<Route exact path="/" render={() => <Redirect to="/discover" />} />
 		</IonRouterOutlet>
 
 		<IonTabBar slot="bottom">

@@ -4,6 +4,10 @@ App for CS 4261: Mobile Apps & Services, Spring 2020.
 
 2nd place winner of the [Georgia Tech Convergence Innovation Competition: Global Response](http://www.cic.gatech.edu/).
 
+Live demo: https://storestash.now.sh/
+
+Video demo: https://vimeo.com/413484123. See https://vimeo.com/402859833 for an abridged version.
+
 ## Running locally
 
 ### Backend
@@ -23,7 +27,7 @@ npm start
 
 In production, if you end up using cookies, you should change the `SESSION_SECRET` environment variable.
 
-### Frontend
+### Web frontend
 
 `cd frontend`
 
@@ -31,21 +35,29 @@ Install dependencies: `npm install`
 
 Serve the app: `npm start`
 
+The frontend is currently set to interact with the server at https://storestash.herokuapp.com. You can change the URL that requests are made to by editing `frontend/wretcher.ts`.
 
-### Android
+### Android frontend
+
 To test with an Android device:
-Download the storestash.apk file from 'android/apk_file/storestash.apk' onto your device.
-When you open the file you're device will allow you to install and run the application.
+- Download the storestash.apk file from 'android/apk_file/storestash.apk' onto your device.
+- When you open the file you're device will allow you to install and run the application.
 
-To test with your laptop:
-Download Android Studio
-In Android Studio, create an Android Virtual Device (AVD) that the emulator can use to run apps.
-Run an emulated device.
-Download the storestash.apk file from 'android/apk_file/storestash.apk' onto your device.
-Drag and drop the apk file onto the emulated device and it will install the app.
+To test with your computer:
+- Download Android Studio
+- In Android Studio, create an Android Virtual Device (AVD) that the emulator can use to run apps.
+- Run an emulated device.
+- Download the storestash.apk file from `android/apk_file/storestash.apk` onto your device.
+- Drag and drop the apk file onto the emulated device and it will install the app.
 Run the installed app.
 
-## Deploying to Heroku
+## Deploying
+
+### Frontend: Vercel
+
+Note that currently, deploying the frontend to Heroku fails. Instead, you can deploy it with Vercel.
+
+### Backend: Heroku
 
 Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli), and then set it up:
 
@@ -85,3 +97,9 @@ heroku logs -a storestash
 # Supposedly this helps with multiple users pushing
 git push heroku $(git subtree split --prefix=server $(git symbolic-ref --short -q HEAD)):master --force
 ```
+
+### Android
+
+The APK was made using https://github.com/xtools-at/Android-PWA-Wrapper
+
+Ionic also has its own way of building Android bundles.
