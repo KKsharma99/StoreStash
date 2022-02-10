@@ -95,7 +95,7 @@
         "concurrently": "^5.2.0",
         "eslint": "^6.8.0",
         "jest": "^25.5.1",
-        "node-sass": "^4.14.0",
+        "node-sass": "^7.0.0",
         "nodemon": "^2.0.3",
         "shelljs": "^0.8.4",
         "supertest": "^4.0.2",
